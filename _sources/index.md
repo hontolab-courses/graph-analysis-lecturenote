@@ -29,7 +29,7 @@ Googleアカウントを持っていない学生は，授業までに取得し�
 ## 授業計画とコンテンツ
 | |  日時  | トピック | スライド資料 | Hands-on | クイズ | クイズ解答 |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| 1 (第09回) | 06/13 | グラフデータ & 経路 | Speaker Deck | - | - | - |
+| 1 (第09回) | 06/13 | グラフデータ & 経路 | Speaker Deck | [Here](content/graph-and-path.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/graph-and-path.ipynb) | - |
 | 2 (第10回) | 06/20 |  | Speaker Deck | - | - | - |
 | 3 (第11回) | 06/27 |  | Speaker Deck | - | - | - |
 | 4 (第12回) | 07/04 |  | Speaker Deck | - | - | - |

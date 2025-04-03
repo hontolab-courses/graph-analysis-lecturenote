@@ -346,7 +346,9 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.3. クイズ</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">1.3.1. Q1:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">1.3.1. Q1: グラフの定義</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2">1.3.2. Q2: 最短経路</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-1-2">1.3.3. Q3: ソーシャルグラフ（1/2）</a></li>
 </ul>
 </li>
 </ul>
@@ -397,7 +399,7 @@
 エッジは重みを持つことがある．</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/434d557a377c70b2af5f33e829a1672cdae28145cf485cc465274e1173c1b967.png" src="../_images/434d557a377c70b2af5f33e829a1672cdae28145cf485cc465274e1173c1b967.png" />
+<img alt="../_images/b542233237af81d0e92f7d64a5fdca288036a10eb4fa590485ea4fa58b365558.png" src="../_images/b542233237af81d0e92f7d64a5fdca288036a10eb4fa590485ea4fa58b365558.png" />
 </div>
 </div>
 <p>グラフには，</p>
@@ -409,7 +411,7 @@
 <p>以下は有向グラフの例．</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/c3fc39143804118cade81647182c9005b4dd14d0ef2731bf042c90789a1e0df5.png" src="../_images/c3fc39143804118cade81647182c9005b4dd14d0ef2731bf042c90789a1e0df5.png" />
+<img alt="../_images/bd0591b3acab4662f70b1bdf74c63ab909ef5b9db9ce65a71ba1d13c64d35986.png" src="../_images/bd0591b3acab4662f70b1bdf74c63ab909ef5b9db9ce65a71ba1d13c64d35986.png" />
 </div>
 </div>
 <p>以下は，上記有向グラフのエッジから方向性を除いた無向グラフ．</p>
@@ -421,7 +423,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/11c1947ef4ef6133d3447294aebce99fe9c4ab05d7fa766c33320fb82e8f77f7.png" src="../_images/11c1947ef4ef6133d3447294aebce99fe9c4ab05d7fa766c33320fb82e8f77f7.png" />
+<img alt="../_images/dc7b0596596f451a1d492d992536dd4cb0046c6967899822a50d21cce8f61593.png" src="../_images/dc7b0596596f451a1d492d992536dd4cb0046c6967899822a50d21cce8f61593.png" />
 </div>
 </div>
 <section id="networkx">
@@ -437,7 +439,7 @@ NetworkXを使うには，以下のようにライブラリをインポートす
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/496c5acab75856f623cfc10a6c5c27b4ffab969f8c874907447f4114e6a573b8.png" src="../_images/496c5acab75856f623cfc10a6c5c27b4ffab969f8c874907447f4114e6a573b8.png" />
+<img alt="../_images/9450498fbbe31104e565a0c0f9cc813a9a8c11985c1c1164d1a56ede1b2c429e.png" src="../_images/9450498fbbe31104e565a0c0f9cc813a9a8c11985c1c1164d1a56ede1b2c429e.png" />
 </div>
 </div>
 <p>上のグラフをNetworkXで定義してみよう．
@@ -462,7 +464,7 @@ NetworkXを使うには，以下のようにライブラリをインポートす
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/521469787199cc3dee9ad159c407165617ad175eb3f6a0247a94a18d4e5f911a.png" src="../_images/521469787199cc3dee9ad159c407165617ad175eb3f6a0247a94a18d4e5f911a.png" />
+<img alt="../_images/cf8a197359c3a8ea8023b1ef53e60df2de511a6481be410d977e84a5c8233ca7.png" src="../_images/cf8a197359c3a8ea8023b1ef53e60df2de511a6481be410d977e84a5c8233ca7.png" />
 </div>
 </div>
 <p>次は上記グラフを無向グラフ化したものを定義してみよう．
@@ -490,7 +492,7 @@ NetworkXを使うには，以下のようにライブラリをインポートす
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b1a7a0cb9a9b04673259782aff1f69b3401c42d34e0ced54cd50f62416c2a9b2.png" src="../_images/b1a7a0cb9a9b04673259782aff1f69b3401c42d34e0ced54cd50f62416c2a9b2.png" />
+<img alt="../_images/85cd89d7dcb58fcb9f5dd69c7d58e7bc6cdbbc68333af025862cdbb03b369e0c.png" src="../_images/85cd89d7dcb58fcb9f5dd69c7d58e7bc6cdbbc68333af025862cdbb03b369e0c.png" />
 </div>
 </div>
 <p>定義したグラフのノードとエッジを確認してみよう．
@@ -531,7 +533,7 @@ NetworkXを使うには，以下のようにライブラリをインポートす
 以下のグラフ<span class="math notranslate nohighlight">\(G\)</span>の隣接行列を考えてみよう．</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/37490a595fc53a1c3a82aa4b3d7e3b66b406f0a883b7b41ef66137738b8ed039.png" src="../_images/37490a595fc53a1c3a82aa4b3d7e3b66b406f0a883b7b41ef66137738b8ed039.png" />
+<img alt="../_images/bc92ffbb2ec862fa411dd9dfb6a31ffa9604378f806737fe9b9262347f4bff68.png" src="../_images/bc92ffbb2ec862fa411dd9dfb6a31ffa9604378f806737fe9b9262347f4bff68.png" />
 </div>
 </div>
 <p>上記グラフ<span class="math notranslate nohighlight">\(G\)</span>の隣接行列<span class="math notranslate nohighlight">\(A\)</span>は，</p>
@@ -788,8 +790,47 @@ $<span class="math notranslate nohighlight">\(
 <section id="id7">
 <h2><span class="section-number">1.3. </span>クイズ<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
 <section id="q1">
-<h3><span class="section-number">1.3.1. </span>Q1:<a class="headerlink" href="#q1" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">1.3.1. </span>Q1: グラフの定義<a class="headerlink" href="#q1" title="Link to this heading">#</a></h3>
+<p>NetworkXを使って以下のグラフを定義し，可視化しなさい．</p>
 <p><img alt="" src="../_images/graph-sample.jpg" /></p>
+</section>
+<section id="q2">
+<h3><span class="section-number">1.3.2. </span>Q2: 最短経路<a class="headerlink" href="#q2" title="Link to this heading">#</a></h3>
+<p>Q1で定義したグラフについて，ノード4からノード6に4ホップで到達できる経路はいくつあるかを求めなさい．</p>
+</section>
+<section id="q3-1-2">
+<h3><span class="section-number">1.3.3. </span>Q3: ソーシャルグラフ（1/2）<a class="headerlink" href="#q3-1-2" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://snap.stanford.edu/data/ego-Facebook.html">SNAP Facebook Dataset</a>は，スタンフォード大学のソーシャルネットワーク分析プロジェクトが公開しているデータセットの一つである．
+このデータセットにはFacebookから抽出したユーザ間のつながり（フレンド関係）が格納されている．</p>
+<p>以下のコードは，データセットを読み込み，NetworkXのグラフ形式に変換し，グラフを可視化するコードである．
+読み込んだグラフ（<code class="docutils literal notranslate"><span class="pre">G_facebook</span></code>）に対して最短経路アルゴリズムを適用し，グラフ上の全ノード間の距離を計算しなさい．
+その上で，計算したノード間の距離の平均値を求めなさい．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="c1"># データのダウンロード via pandas</span>
+<span class="n">facebook_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;https://snap.stanford.edu/data/facebook_combined.txt.gz&quot;</span><span class="p">,</span>
+    <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span>
+    <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;start_node&quot;</span><span class="p">,</span> <span class="s2">&quot;end_node&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># NetworkXのグラフに変換</span>
+<span class="n">G_facebook</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_pandas_edgelist</span><span class="p">(</span><span class="n">facebook_df</span><span class="p">,</span> <span class="s2">&quot;start_node&quot;</span><span class="p">,</span> <span class="s2">&quot;end_node&quot;</span><span class="p">)</span>
+
+<span class="c1"># 表示位置を調整して可視化</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G_facebook</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1721</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_facebook</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d99fe178faee286041e7659ebd47f3ad03e77c1db875bf27024229d2ccba775c.png" src="../_images/d99fe178faee286041e7659ebd47f3ad03e77c1db875bf27024229d2ccba775c.png" />
+</div>
+</div>
 </section>
 </section>
 </section>
@@ -861,7 +902,9 @@ $<span class="math notranslate nohighlight">\(
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.3. クイズ</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">1.3.1. Q1:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">1.3.1. Q1: グラフの定義</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2">1.3.2. Q2: 最短経路</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-1-2">1.3.3. Q3: ソーシャルグラフ（1/2）</a></li>
 </ul>
 </li>
 </ul>
