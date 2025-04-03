@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1. グラフデータ &#8212; グラフ分析入門の講義ノート</title>
+    <title>1. グラフデータと経路 &#8212; グラフ分析入門の講義ノート</title>
   
   
   
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -60,6 +60,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/graph-and-path';</script>
     <link rel="canonical" href="https://graphnote.hontolab.org/content/graph-and-path.html" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -156,7 +158,7 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. グラフデータ</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. グラフデータと経路</a></li>
 </ul>
 
     </div>
@@ -310,7 +312,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -321,11 +325,32 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>グラフデータ</h1>
+    <h1>グラフデータと経路</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.1. グラフとは</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#networkx">1.1.1. NetworkXでグラフを定義する</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.1.2. 隣接行列</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.2. 経路</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.2.1. 到達可能性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.2.2. 距離</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.3. クイズ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">1.3.1. Q1:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -336,7 +361,437 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1><span class="section-number">1. </span>グラフデータ<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">1. </span>グラフデータと経路<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<div class="cell tag_hidden-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hidden-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DRAW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;node_color&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;edgecolors&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="c1"># line color of nodes</span>
+    <span class="s1">&#39;with_labels&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;node_size&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+    <span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="s1">&#39;font_family&#39;</span><span class="p">:</span> <span class="s1">&#39;Arial&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h2><span class="section-number">1.1. </span>グラフとは<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p><strong>グラフ（graph）</strong> とは，以下の図のように「点」と「つながり」によって表されるデータである．
+事物間の<strong>関係性を抽象化</strong>することができる強力なデータ構造である．
+分野によっては，グラフのことをネットワークと呼ぶこともある．</p>
+<p>数学的には，グラフは<strong>ノード（node）</strong> の集合と<strong>エッジ（edge）</strong> の集合から構成されるデータを意味する．
+ノードはグラフを構成する要素であり，頂点と呼ばれることもある．
+エッジはノード間の連結関係を示すものであり，枝と呼ばれることもある．
+エッジは重みを持つことがある．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/434d557a377c70b2af5f33e829a1672cdae28145cf485cc465274e1173c1b967.png" src="../_images/434d557a377c70b2af5f33e829a1672cdae28145cf485cc465274e1173c1b967.png" />
+</div>
+</div>
+<p>グラフには，</p>
+<ul class="simple">
+<li><p>エッジに方向性を有する<strong>有向グラフ（directed graph）</strong></p></li>
+<li><p>エッジに方向性を有しない<strong>無向グラフ（undirected graph）</strong></p></li>
+</ul>
+<p>の2種類に大別される．</p>
+<p>以下は有向グラフの例．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/c3fc39143804118cade81647182c9005b4dd14d0ef2731bf042c90789a1e0df5.png" src="../_images/c3fc39143804118cade81647182c9005b4dd14d0ef2731bf042c90789a1e0df5.png" />
+</div>
+</div>
+<p>以下は，上記有向グラフのエッジから方向性を除いた無向グラフ．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G_sample2</span> <span class="o">=</span> <span class="n">G_sample1</span><span class="o">.</span><span class="n">to_undirected</span><span class="p">()</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_sample2</span><span class="p">,</span> <span class="o">**</span><span class="n">DRAW_CONFIG</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11c1947ef4ef6133d3447294aebce99fe9c4ab05d7fa766c33320fb82e8f77f7.png" src="../_images/11c1947ef4ef6133d3447294aebce99fe9c4ab05d7fa766c33320fb82e8f77f7.png" />
+</div>
+</div>
+<section id="networkx">
+<h3><span class="section-number">1.1.1. </span>NetworkXでグラフを定義する<a class="headerlink" href="#networkx" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://networkx.org/">NetworkX</a>は，グラフを効率的に扱うためのPythonライブラリである．
+NetworkXを使うには，以下のようにライブラリをインポートする．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/496c5acab75856f623cfc10a6c5c27b4ffab969f8c874907447f4114e6a573b8.png" src="../_images/496c5acab75856f623cfc10a6c5c27b4ffab969f8c874907447f4114e6a573b8.png" />
+</div>
+</div>
+<p>上のグラフをNetworkXで定義してみよう．
+以下のコードを実行すると，上の有向グラフを定義し可視化できる．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ノードの集合</span>
+<span class="n">V</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="c1"># エッジの集合</span>
+<span class="n">E</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span> <span class="c1"># 空の有効グラフを用意</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">V</span><span class="p">)</span> <span class="c1"># ノードの追加</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="c1"># エッジの追加</span>
+
+<span class="c1"># グラフGの可視化</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/521469787199cc3dee9ad159c407165617ad175eb3f6a0247a94a18d4e5f911a.png" src="../_images/521469787199cc3dee9ad159c407165617ad175eb3f6a0247a94a18d4e5f911a.png" />
+</div>
+</div>
+<p>次は上記グラフを無向グラフ化したものを定義してみよう．
+以下がそのコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ノードの集合</span>
+<span class="n">V</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="c1"># エッジの集合</span>
+<span class="n">E</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="c1"># これを書いても(0, 1)があるので無視される</span>
+     <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="c1"># これを書いても(0, 1)があるので無視される</span>
+     <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">G_undirected</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span> <span class="c1"># 空の無効グラフを用意（DiGraphではない事に注意）</span>
+<span class="n">G_undirected</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">V</span><span class="p">)</span> <span class="c1"># ノードの追加</span>
+<span class="n">G_undirected</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="c1"># エッジの追加</span>
+
+<span class="c1"># グラフGの可視化</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_undirected</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b1a7a0cb9a9b04673259782aff1f69b3401c42d34e0ced54cd50f62416c2a9b2.png" src="../_images/b1a7a0cb9a9b04673259782aff1f69b3401c42d34e0ced54cd50f62416c2a9b2.png" />
+</div>
+</div>
+<p>定義したグラフのノードとエッジを確認してみよう．
+以下のコードでグラフのノード集合とエッジ集合を取得することができる．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ノードの取得</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">G_undirected</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span>
+
+<span class="c1"># エッジの取得</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">G_undirected</span><span class="o">.</span><span class="n">edges</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># エッジを表示してみる</span>
+<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">E</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0, 1)
+(1, 2)
+(1, 3)
+(2, 4)
+(3, 4)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3><span class="section-number">1.1.2. </span>隣接行列<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>グラフにおけるノードの接続関係を示す行列は<strong>隣接行列（adjacency matrix）</strong> と呼ばれる．
+以下のグラフ<span class="math notranslate nohighlight">\(G\)</span>の隣接行列を考えてみよう．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/37490a595fc53a1c3a82aa4b3d7e3b66b406f0a883b7b41ef66137738b8ed039.png" src="../_images/37490a595fc53a1c3a82aa4b3d7e3b66b406f0a883b7b41ef66137738b8ed039.png" />
+</div>
+</div>
+<p>上記グラフ<span class="math notranslate nohighlight">\(G\)</span>の隣接行列<span class="math notranslate nohighlight">\(A\)</span>は，</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\boldsymbol{A} =
+        \left[\begin{array}{ccccc}
+            0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+            1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+            0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+            0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+            0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 \\
+        \end{array}\right]
+\end{split}\]</div>
+<p>となる．</p>
+<p>NetworkXでグラフ<span class="math notranslate nohighlight">\(G\)</span>の隣接行列<span class="math notranslate nohighlight">\(A\)</span>（numpy.ndarray形式）を取得するには，以下のようにする．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 1, 0, 0, 0],
+       [1, 0, 1, 0, 0],
+       [0, 0, 0, 0, 1],
+       [0, 1, 0, 0, 0],
+       [0, 0, 1, 1, 0]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>ちなみに，NetworkXでグラフに属する任意のノードの隣接ノードを取得するには<code class="docutils literal notranslate"><span class="pre">neighbors</span></code>メソッドを使う．
+以下は，グラフ<span class="math notranslate nohighlight">\(G\)</span>に属するノード1の隣接ノードを取得するコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">neighbors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">neighbors</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 2]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2><span class="section-number">1.2. </span>経路<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/82b206a90a3ba5dd1b061247d1b2b6b1b0aec327e9ee40f3f84c0558a417c364.png" src="../_images/82b206a90a3ba5dd1b061247d1b2b6b1b0aec327e9ee40f3f84c0558a417c364.png" />
+</div>
+</div>
+<p>グラフ上のエッジをたどって，あるノードから別ノードに移動する際に通るノードの系列を<strong>経路（path）</strong> と呼ぶ．
+例えば，上記グラフにおいてノード4からノード2に至る経路は<span class="math notranslate nohighlight">\((4, 2), (4, 3, 1, 2)\)</span>などがある．</p>
+<section id="id5">
+<h3><span class="section-number">1.2.1. </span>到達可能性<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>ノード<span class="math notranslate nohighlight">\(n_x\)</span>からノード<span class="math notranslate nohighlight">\(n_y\)</span>への経路が存在するとき，<span class="math notranslate nohighlight">\(n_x\)</span>から<span class="math notranslate nohighlight">\(n_y\)</span>へ<strong>到達可能</strong>という．
+例えば，上記グラフにおいて，ノード0からノード3へは到達可能である．
+一方，ノード3からノード0へは到達不可能である．</p>
+<p>重みなし行列の場合，隣接行列のべき乗を計算することで到達可能性を調べられる．
+グラフ<span class="math notranslate nohighlight">\(G\)</span>の隣接行列を<span class="math notranslate nohighlight">\(A\)</span>としたとき，<span class="math notranslate nohighlight">\(A^k\)</span>のm行n列目の値は，m番目のノードからn番目のノードへkホップで到達できる経路がいくつあるかを示す．</p>
+<p>例えば，上記グラフ<span class="math notranslate nohighlight">\(G\)</span>の隣接行列<span class="math notranslate nohighlight">\(A\)</span>は
+$<span class="math notranslate nohighlight">\(
+\boldsymbol{A} =
+        \left[\begin{array}{ccccc}
+            0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+            0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+            0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+            0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+            0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 \\
+        \end{array}\right]
+\)</span>$</p>
+<p>であるが，<span class="math notranslate nohighlight">\(A^2\)</span>は
+$<span class="math notranslate nohighlight">\(
+\boldsymbol{A^2} =
+        \left[\begin{array}{ccccc}
+            0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+            0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+            0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 \\
+            0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+            0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\
+        \end{array}\right]
+\)</span><span class="math notranslate nohighlight">\(
+となる．
+\)</span>A^2<span class="math notranslate nohighlight">\(において0行2列目の値は1であるが，これは「ノード0からノード2まで2ホップで到達できるノードは1つある」ことを意味している（その経路は\)</span>(0, 1, 2)$）．</p>
+<p>隣接行列のべき乗を計算すれば，任意のノードからノードへnホップで到達可能かどうかを調べることができる．
+これはNetworkXでも簡単にできる．
+以下は，上記グラフ<span class="math notranslate nohighlight">\(G\)</span>の到達可能性を調べるコード例である．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 隣接行列の取得</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+
+<span class="c1"># Aの2乗を計算</span>
+<span class="n">A</span> <span class="o">@</span> <span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 0, 1, 0, 0],
+       [0, 0, 0, 0, 1],
+       [0, 0, 1, 1, 0],
+       [0, 0, 1, 0, 0],
+       [0, 1, 0, 0, 1]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Aのn乗の第(i, j)成分の値は，グラフGのノードiからノードjまでnホップで到達できる経路がいくつあるかを示す</span>
+<span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 0, 0, 0, 1],
+       [0, 0, 1, 1, 0],
+       [0, 1, 0, 0, 1],
+       [0, 0, 0, 0, 1],
+       [0, 0, 2, 1, 0]])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3><span class="section-number">1.2.2. </span>距離<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>ノード<span class="math notranslate nohighlight">\(n_x\)</span>からノード<span class="math notranslate nohighlight">\(n_y\)</span>への最短経路の長さを<strong>距離（distance）</strong> と呼ぶ．
+グラフのエッジに重みがある場合，距離は最短経路上のエッジの重みの合計値となる．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/82b206a90a3ba5dd1b061247d1b2b6b1b0aec327e9ee40f3f84c0558a417c364.png" src="../_images/82b206a90a3ba5dd1b061247d1b2b6b1b0aec327e9ee40f3f84c0558a417c364.png" />
+</div>
+</div>
+<p>例えば，上記グラフ<span class="math notranslate nohighlight">\(G\)</span>において，ノード4からノード2への最短経路は<span class="math notranslate nohighlight">\((4, 2)\)</span>である．
+よって，ノード4からノード2への距離は1である．</p>
+<p>NetworkXを用いて，あるノードから他のノードへの最短経路を取得するには，<code class="docutils literal notranslate"><span class="pre">single_source_all_shortest_paths</span></code>メソッドを用いる．
+以下は，上記グラフ<span class="math notranslate nohighlight">\(G\)</span>に属するノード3から到達できるすべてのノードとそこまでの最短経路を取得するコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 返り値は dict[node, shortestpath] 形式の辞書（ジェネレータ）</span>
+<span class="n">shortest_paths</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">single_source_all_shortest_paths</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># 表示</span>
+<span class="k">for</span> <span class="n">node_to</span><span class="p">,</span> <span class="n">shortest_path</span> <span class="ow">in</span> <span class="n">shortest_paths</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ノード</span><span class="si">{</span><span class="n">node_to</span><span class="si">}</span><span class="s1">への最短経路: </span><span class="si">{</span><span class="n">shortest_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ノード1への最短経路: [[3, 1]]
+ノード2への最短経路: [[3, 1, 2]]
+ノード3への最短経路: [[3]]
+ノード4への最短経路: [[3, 1, 2, 4]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>NetworkXを用いて，グラフ上の全ノード間の最短経路を取得するには，<code class="docutils literal notranslate"><span class="pre">all_pairs_shortest_path</span></code>メソッドを用いる．
+以下は，上記グラフ<span class="math notranslate nohighlight">\(G\)</span>に属する全ノード間の最短経路を取得するコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 返り値は dict[node, shortestpath] 形式の辞書（ジェネレータ）</span>
+<span class="n">shortest_paths</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">all_pairs_shortest_path</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
+
+<span class="c1"># 表示</span>
+<span class="k">for</span> <span class="n">node_from</span><span class="p">,</span> <span class="n">shortest_paths</span> <span class="ow">in</span> <span class="n">shortest_paths</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">node_to</span><span class="p">,</span> <span class="n">shortest_path</span> <span class="ow">in</span> <span class="n">shortest_paths</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ノード</span><span class="si">{</span><span class="n">node_from</span><span class="si">}</span><span class="s1">からノード</span><span class="si">{</span><span class="n">node_to</span><span class="si">}</span><span class="s1">への最短経路: </span><span class="si">{</span><span class="n">shortest_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ノード0からノード0への最短経路: [0]
+ノード0からノード1への最短経路: [0, 1]
+ノード0からノード2への最短経路: [0, 1, 2]
+ノード0からノード4への最短経路: [0, 1, 2, 4]
+ノード0からノード3への最短経路: [0, 1, 2, 4, 3]
+ノード1からノード1への最短経路: [1]
+ノード1からノード2への最短経路: [1, 2]
+ノード1からノード4への最短経路: [1, 2, 4]
+ノード1からノード3への最短経路: [1, 2, 4, 3]
+ノード2からノード2への最短経路: [2]
+ノード2からノード4への最短経路: [2, 4]
+ノード2からノード3への最短経路: [2, 4, 3]
+ノード2からノード1への最短経路: [2, 4, 3, 1]
+ノード3からノード3への最短経路: [3]
+ノード3からノード1への最短経路: [3, 1]
+ノード3からノード2への最短経路: [3, 1, 2]
+ノード3からノード4への最短経路: [3, 1, 2, 4]
+ノード4からノード4への最短経路: [4]
+ノード4からノード2への最短経路: [4, 2]
+ノード4からノード3への最短経路: [4, 3]
+ノード4からノード1への最短経路: [4, 3, 1]
+</pre></div>
+</div>
+</div>
+</div>
+<p>グラフに属する全ノード間の距離を表記した行列を<strong>距離行列（distance matrix）</strong> と呼ぶ．
+上記グラフ<span class="math notranslate nohighlight">\(G\)</span>の距離行列<span class="math notranslate nohighlight">\(D\)</span>は</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\boldsymbol{D} =
+        \left[\begin{array}{ccccc}
+            0 &amp; 1 &amp; 2 &amp; 4 &amp; 4 \\
+            \infty &amp; 0 &amp; 1 &amp; 3 &amp; 2 \\
+            \infty &amp; 3 &amp; 0 &amp; 2 &amp; 1 \\
+            \infty &amp; 1 &amp; 2 &amp; 0 &amp; 3 \\
+            \infty &amp; 2 &amp; 1 &amp; 1 &amp; 0 \\
+        \end{array}\right]
+\end{split}\]</div>
+<p>となる．</p>
+<p>NetworkXを用いて，グラフの距離行列を取得するには<code class="docutils literal notranslate"><span class="pre">floyd_warshall_numpy</span></code>メソッドを用いる．
+このメソッドを用いると，距離行列が<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>形式で得られる．</p>
+<p>以下は上図のグラフ<span class="math notranslate nohighlight">\(G\)</span>の距離行列を取得するコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ワーシャルフロイド法による距離行列の算出</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">floyd_warshall_numpy</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.,  1.,  2.,  4.,  3.],
+       [inf,  0.,  1.,  3.,  2.],
+       [inf,  3.,  0.,  2.,  1.],
+       [inf,  1.,  2.,  0.,  3.],
+       [inf,  2.,  1.,  1.,  0.]])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id7">
+<h2><span class="section-number">1.3. </span>クイズ<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<section id="q1">
+<h3><span class="section-number">1.3.1. </span>Q1:<a class="headerlink" href="#q1" title="Link to this heading">#</a></h3>
+<p><img alt="" src="content/content/img/graph-sample.jpg" /></p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -384,6 +839,35 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.1. グラフとは</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#networkx">1.1.1. NetworkXでグラフを定義する</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.1.2. 隣接行列</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.2. 経路</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.2.1. 到達可能性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.2.2. 距離</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.3. クイズ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">1.3.1. Q1:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
