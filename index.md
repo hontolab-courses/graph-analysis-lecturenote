@@ -30,12 +30,12 @@ Googleアカウントを持っていない学生は，授業までに取得し�
 | |  日時  | トピック | スライド資料 | Hands-on | クイズ | クイズ解答 |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | 1 (第09回) | 06/13 | グラフデータ & 経路 | [Speaker Deck](https://speakerdeck.com/trycycle/graphlecture-01-graph-and-path) | [Here](content/graph-and-path.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/graph-and-path.ipynb) | - |
-| 2 (第10回) | 06/20 |  | Speaker Deck | - | - | - |
-| 3 (第11回) | 06/27 |  | Speaker Deck | - | - | - |
-| 4 (第12回) | 07/04 |  | Speaker Deck | - | - | - |
-| 5 (第13回) | 07/11 |  | Speaker Deck | - | - | - |
-| 6 (第14回) | 07/20 |  | Speaker Deck | - | - | - |
-| 7 (第15回) | 07/27 |  | Speaker Deck | - | - | - |
+| 2 (第10回) | 06/20 | グラフ構造の諸指標 | Speaker Deck | [Here](content/graph-structure-features.ipynb) | - | - |
+| 3 (第11回) | 06/27 | ノードの中心性 | Speaker Deck | - | - | - |
+| 4 (第12回) | 07/04 | コミュニティ発見 | Speaker Deck | - | - | - |
+| 5 (第13回) | 07/11 | ウェブグラフ | Speaker Deck | - | - | - |
+| 6 (第14回) | 07/20 | グラフ埋め込み | Speaker Deck | - | - | - |
+| 7 (第15回) | 07/27 | 総合演習 - 社会ネットワークなどの分析 | Speaker Deck | - | - | - |
 
 
 <!-- ## レポート課題

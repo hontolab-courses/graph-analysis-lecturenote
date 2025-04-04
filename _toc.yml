@@ -7,3 +7,4 @@ parts:
   numbered: True
   chapters:
     - file: content/graph-and-path.ipynb
+    - file: content/graph-structure-features.ipynb
