@@ -511,6 +511,9 @@ c_{degree}(v) = \frac{deg(v)}{|V|-1}
 </ul>
 <p>となる．</p>
 <div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/7955869750cd5c31a174e2060c58360605d090862533071bf7fc0ffd3559230a.png" src="../_images/7955869750cd5c31a174e2060c58360605d090862533071bf7fc0ffd3559230a.png" />
+</div>
 </div>
 <p>入次数中心性，出次数中心性をNetworkXで求めるには<code class="docutils literal notranslate"><span class="pre">in_degree_centrality</span></code>および<code class="docutils literal notranslate"><span class="pre">out_degree_centrality</span></code>関数を用いる．
 以下，上のグラフ<span class="math notranslate nohighlight">\(G_{directedbull}\)</span>の各ノードの次数中心性を求めるコードである．</p>
@@ -551,12 +554,12 @@ c_{degree}(v) = \frac{deg(v)}{|V|-1}
 以下の2つのグラフを見てみよう．</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/6fab6e1395fff8a468a6da8d20933e8563e0be4ccb87d0fd7292b20f63e85021.png" src="../_images/6fab6e1395fff8a468a6da8d20933e8563e0be4ccb87d0fd7292b20f63e85021.png" />
+<img alt="../_images/5994b2e5de73acb50bc66a11a5db2053078d16f1cadc87d80d0c3e2856f665df.png" src="../_images/5994b2e5de73acb50bc66a11a5db2053078d16f1cadc87d80d0c3e2856f665df.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/af78996d55a277b47e82fd1c7c0ea29f58feba8a79b811803e5ebb18c8091463.png" src="../_images/af78996d55a277b47e82fd1c7c0ea29f58feba8a79b811803e5ebb18c8091463.png" />
+<img alt="../_images/fbd5d043a35ae1a8774a08f39ca79eb2a2463d338b3081841bf7639bf742c433.png" src="../_images/fbd5d043a35ae1a8774a08f39ca79eb2a2463d338b3081841bf7639bf742c433.png" />
 </div>
 </div>
 <p>1つ目のグラフ<span class="math notranslate nohighlight">\(G\)</span>において，ノード0の次数中心性は3である．
@@ -572,7 +575,7 @@ c_{degree}(v) = \frac{deg(v)}{|V|-1}
 再度以下のグラフ<span class="math notranslate nohighlight">\(G\)</span>に戻って，固有ベクトル中心性を計算してみよう．</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/28c034753cf6d37878c0b6a108edc65946da6828ed3c634da94745c894acaa83.png" src="../_images/28c034753cf6d37878c0b6a108edc65946da6828ed3c634da94745c894acaa83.png" />
+<img alt="../_images/4721169d1b353d2d57383a4dac63afe473f2d295a3c498b18e02d57ae106a9ae.png" src="../_images/4721169d1b353d2d57383a4dac63afe473f2d295a3c498b18e02d57ae106a9ae.png" />
 </div>
 </div>
 <p>とりあえず，各ノードの中心性スコアを1としてスタートしよう．
@@ -827,7 +830,7 @@ c_e = Ac_e
 一方，ノード5はそれを経由しなくても他のノードに到達することは可能であるため，「経路上の要所」という観点からは重要度が低いと考えられる．</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/a77b448264cdb0a7e5777f382310b9a51e691badf3075332049e27defea525ea.png" src="../_images/a77b448264cdb0a7e5777f382310b9a51e691badf3075332049e27defea525ea.png" />
+<img alt="../_images/c6d303c2ad0f03f941342b37b622c12ef1bba4a8348259ef29d856cff102a20d.png" src="../_images/c6d303c2ad0f03f941342b37b622c12ef1bba4a8348259ef29d856cff102a20d.png" />
 </div>
 </div>
 <p>ノード3とノード5の媒介中心性を計算してみよう．
