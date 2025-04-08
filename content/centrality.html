@@ -546,7 +546,7 @@ c_{degree}(v) = \frac{deg(v)}{|V|-1}
 <img alt="../_images/af78996d55a277b47e82fd1c7c0ea29f58feba8a79b811803e5ebb18c8091463.png" src="../_images/af78996d55a277b47e82fd1c7c0ea29f58feba8a79b811803e5ebb18c8091463.png" />
 </div>
 </div>
-<p>先の<span class="math notranslate nohighlight">\(G\)</span>において，ノード0の次数中心性は3である．
+<p>1つ目のグラフ<span class="math notranslate nohighlight">\(G\)</span>において，ノード0の次数中心性は3である．
 一方，2つ目のグラフ<span class="math notranslate nohighlight">\(G_{ameba}\)</span>におけるノード0の次数中心性も3である．</p>
 <p>この2つのグラフが，人物の友好関係を示していた場合のことを考えてみよう．
 どちらのグラフにおいてもノード0の人物と繋がっているのは3人であるが，グラフ<span class="math notranslate nohighlight">\(G\)</span>においてノード0に繋がっているノードは他のノードとの繋がりが少ない．
@@ -897,8 +897,7 @@ c_e = Ac_e
 <h3><span class="section-number">3.5.3. </span>Q: 空港の次数中心性，媒介中心性，固有ベクトル中心性<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: When  cdn_resources is &#39;local&#39; jupyter notebook has issues displaying graphics on chrome/safari. Use cdn_resources=&#39;in_line&#39; or cdn_resources=&#39;remote&#39; if you have issues viewing graphics in a notebook.
-airport.html
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>airport.html
 </pre></div>
 </div>
 <div class="output text_html">
@@ -922,54 +921,6 @@ airport.html
 
 <span class="c1"># ダウンロードしたデータは`data/airport/ana.adjlist`にあると想定</span>
 <span class="n">G_ana</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_adjlist</span><span class="p">(</span><span class="s2">&quot;data/airport/ana.adjlist&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">degree_centrality</span><span class="p">(</span><span class="n">G_ana</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">5</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;東京（羽田）&#39;, 0.7),
- (&#39;札幌（新千歳）&#39;, 0.3833333333333333),
- (&#39;沖縄（那覇）&#39;, 0.3333333333333333),
- (&#39;大阪（伊丹）&#39;, 0.3),
- (&#39;名古屋（中部）&#39;, 0.25)]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G_ana</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">5</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;東京（羽田）&#39;, 0.6089280368093929),
- (&#39;鹿児島&#39;, 0.14800690521029508),
- (&#39;札幌（新千歳）&#39;, 0.132759359284783),
- (&#39;沖縄（那覇）&#39;, 0.11018556459234428),
- (&#39;大阪（伊丹）&#39;, 0.09039116878099929)]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">G_ana</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">5</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;東京（羽田）&#39;, 0.457999320160654),
- (&#39;沖縄（那覇）&#39;, 0.3074869102083056),
- (&#39;札幌（新千歳）&#39;, 0.3064340279779271),
- (&#39;大阪（伊丹）&#39;, 0.29359335171993056),
- (&#39;名古屋（中部）&#39;, 0.27764154174853667)]
 </pre></div>
 </div>
 </div>
