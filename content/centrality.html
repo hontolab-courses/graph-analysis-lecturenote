@@ -1,0 +1,1097 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3. ノードの中心性 &#8212; グラフ分析入門の講義ノート</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/centrality';</script>
+    <link rel="canonical" href="https://graphnote.hontolab.org/content/centrality.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="2. グラフ構造の諸指標" href="graph-structure-features.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">グラフ分析入門の講義ノート</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="graph-and-path.html">1. グラフデータと経路</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph-structure-features.html">2. グラフ構造の諸指標</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. ノードの中心性</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/centrality.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/centrality.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ノードの中心性</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3.1. 近接中心性</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.2. 次数中心性</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">3.3. 固有ベクトル中心性</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3.4. 媒介中心性</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3.5. クイズ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q">3.5.1. Q: 近接中心性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3.5.2. Q: 都道府県の近接中心性，次数中心性，媒介中心性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">3.5.3. Q: 空港の次数中心性，媒介中心性，固有ベクトル中心性</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">3. </span>ノードの中心性<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DRAW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;node_color&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;edgecolors&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="c1"># line color of nodes</span>
+    <span class="s1">&#39;with_labels&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;node_size&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+    <span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="s1">&#39;font_family&#39;</span><span class="p">:</span> <span class="s1">&#39;Arial&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>ノードの<strong>中心性（centrality）</strong> とは，グラフにおける各ノードの重要性を示す指標であり，中心性の大きさはグラフ構造に基づき計算される．
+ノードの中心性は，重要ノードの発見やノードのランキングなどに利用される．
+ノード中心性評価はグラフ分析における典型的タスクである．</p>
+<p>中心性指標は様々なものが提案されている．
+以下は代表的な中心性であるが，分析に適した中心性はグラフの何に注目したいかによって変わる．</p>
+<p>以下，代表的な中心性について述べる．</p>
+<section id="id2">
+<h2><span class="section-number">3.1. </span>近接中心性<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p><strong>近接中心性（closeness centrality）</strong> は，注目ノードとグラフ中の他のノードとの距離が平均的にどの程度近いかを示す指標である．
+「中心性」という言葉の直感に最も合う中心性指標かもしれない．
+グラフ<span class="math notranslate nohighlight">\(G=(V, E)\)</span>に属するノード<span class="math notranslate nohighlight">\(v_i\)</span>からノード<span class="math notranslate nohighlight">\(v_j\)</span>への最短経路を<span class="math notranslate nohighlight">\(dist(v_i, v_j)\)</span>，ノード<span class="math notranslate nohighlight">\(v_i\)</span>に接するノード集合を<span class="math notranslate nohighlight">\(V_{adjacent}\)</span>としたとき，ノード<span class="math notranslate nohighlight">\(v_i\)</span>の近接中心性<span class="math notranslate nohighlight">\(c_{closeness}(v_i)\)</span>は</p>
+<div class="math notranslate nohighlight">
+\[
+c_{closeness}(v_i) = \frac{1}{v_iからの平均距離}
+=\frac{|V|-1}{\sum_{v_j \in V_{adjacent}}dist(v_i, v_j)}
+\]</div>
+<p>と定義される．
+平均値の計算の際，<span class="math notranslate nohighlight">\(|V|\)</span>ではなく<span class="math notranslate nohighlight">\(|V|-1\)</span>で割るのは，計算対象となる自分自身を除いたノードの平均を取りたいからである．
+また，平均距離の逆数をとっているのは，距離が近いと中心性スコアの値が大きくなるようにするためである．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/544c922dc21fe86afc9e1b61cd2d97f79d03a4778a789fe7ffa955edb477715d.png" src="../_images/544c922dc21fe86afc9e1b61cd2d97f79d03a4778a789fe7ffa955edb477715d.png" />
+</div>
+</div>
+<p>上のグラフ<span class="math notranslate nohighlight">\(G_{bull}\)</span>に属するノード2とノード5の近接中心性を考えてみよう．
+ノード2とノード5から他のノードへの（最短）距離は以下の図のようになる．</p>
+<p><img alt="" src="../_images/closeness-example.jpg" /></p>
+<p>これら距離の値を先の近接中心性の定義式に当てはめると，</p>
+<ul class="simple">
+<li><p>ノード2の近接中心性は<span class="math notranslate nohighlight">\(\frac{5}{7}\)</span></p></li>
+<li><p>ノード5の近接中心性は<span class="math notranslate nohighlight">\(\frac{5}{13}\)</span></p></li>
+</ul>
+<p>となる．</p>
+<p>近接中心性をNetworkXで求めるには<code class="docutils literal notranslate"><span class="pre">closeness_centrality</span></code>関数を用いる．
+以下，上のグラフ<span class="math notranslate nohighlight">\(G_{bull}\)</span>の各ノードの近接中心性を求めるコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフを定義しておく</span>
+<span class="n">G_bull</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
+
+<span class="c1"># 近接中心性</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">closeness_centrality</span><span class="p">(</span><span class="n">G_bull</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: 0.5555555555555556,
+ 1: 0.625,
+ 2: 0.7142857142857143,
+ 3: 0.4166666666666667,
+ 4: 0.5555555555555556,
+ 5: 0.38461538461538464}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2><span class="section-number">3.2. </span>次数中心性<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p><strong>次数中心性（degree centrality）</strong> は，注目ノードがいくつのノードと接しているか（どの程度エッジを持つか）を示す指標である．
+なんのこっちゃない，<a class="reference internal" href="graph-structure-features.html"><span class="std std-doc">前回</span></a>で説明した次数を使った指標である．</p>
+<p>グラフ<span class="math notranslate nohighlight">\(G=(V, E)\)</span>に属するノード<span class="math notranslate nohighlight">\(v\)</span>が持つエッジ数を<span class="math notranslate nohighlight">\(deg(v)\)</span>としたとき，ノード<span class="math notranslate nohighlight">\(v_i\)</span>の次数中心性<span class="math notranslate nohighlight">\(c_{degree}(v)\)</span>は</p>
+<div class="math notranslate nohighlight">
+\[
+c_{degree}(v) = deg(v)
+\]</div>
+<p>である．
+式から明らかなとおり，次数中心性は次数である．
+上の定義の場合，グラフのサイズが大きくなると次数中心性も大きくなり，中心性の相対的な差が分かりづらくなる．
+そのため，以下のように，次数をノード数で正規化したものを次数中心性とする場合もある．</p>
+<div class="math notranslate nohighlight">
+\[
+c_{degree}(v) = \frac{deg(v)}{|V|-1}
+\]</div>
+<p>近接中心性の説明で用いたグラフ<span class="math notranslate nohighlight">\(G_{bull}\)</span>において，ノード2の正規化していない次数中心性は3である．
+また，正規化されたノード2の次数中心性は<span class="math notranslate nohighlight">\(3/5=0.6\)</span>となる．</p>
+<p>正規化された次数中心性をNetworkXで求めるには<code class="docutils literal notranslate"><span class="pre">degree_centrality</span></code>関数を用いる．
+以下，上のグラフ<span class="math notranslate nohighlight">\(G_{bull}\)</span>の各ノードの次数中心性を求めるコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正規化された次数中心性</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">degree_centrality</span><span class="p">(</span><span class="n">G_bull</span><span class="p">)</span>
+
+<span class="c1"># 正規化されていない次数中心性は以下で求められる（既出）</span>
+<span class="c1"># G_bull.degree</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: 0.4, 1: 0.6000000000000001, 2: 0.6000000000000001, 3: 0.2, 4: 0.4, 5: 0.2}
+</pre></div>
+</div>
+</div>
+</div>
+<p>有向グラフにおいては，次数中心性を<strong>入次数</strong>（ノードに入ってくるエッジの数）と<strong>出次数</strong>（ノードから出て行くエッジの数）に分けて考えることができる．
+例えば以下のグラフ<span class="math notranslate nohighlight">\(G_{directedbull}\)</span>において，</p>
+<ul class="simple">
+<li><p>ノード2の入次数は3，出次数は0</p></li>
+<li><p>ノード1の入次数は2，出次数は2</p></li>
+</ul>
+<p>となる．</p>
+<div class="cell tag_remove-input docutils container">
+</div>
+<p>入次数中心性，出次数中心性をNetworkXで求めるには<code class="docutils literal notranslate"><span class="pre">in_degree_centrality</span></code>および<code class="docutils literal notranslate"><span class="pre">out_degree_centrality</span></code>関数を用いる．
+以下，上のグラフ<span class="math notranslate nohighlight">\(G_{directedbull}\)</span>の各ノードの次数中心性を求めるコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフを定義しておく</span>
+<span class="n">G_directed_bull</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
+
+<span class="c1"># 正規化された入次数中心性</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">in_degree_centrality</span><span class="p">(</span><span class="n">G_directed_bull</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: 0.0, 1: 0.4, 2: 0.6000000000000001, 3: 0.2, 4: 0.0, 5: 0.2}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正規化された出次数中心性</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">out_degree_centrality</span><span class="p">(</span><span class="n">G_directed_bull</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: 0.4, 1: 0.4, 2: 0.0, 3: 0.2, 4: 0.4, 5: 0.0}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2><span class="section-number">3.3. </span>固有ベクトル中心性<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>次数中心性は極めてシンプルであるため，グラフ分析ではまず最初に用いられる中心性指標である．
+しかし，次数中心性がノードの重要度指標としてふさわしくない（or 迷う）時もある．
+以下の2つのグラフを見てみよう．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/6fab6e1395fff8a468a6da8d20933e8563e0be4ccb87d0fd7292b20f63e85021.png" src="../_images/6fab6e1395fff8a468a6da8d20933e8563e0be4ccb87d0fd7292b20f63e85021.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/af78996d55a277b47e82fd1c7c0ea29f58feba8a79b811803e5ebb18c8091463.png" src="../_images/af78996d55a277b47e82fd1c7c0ea29f58feba8a79b811803e5ebb18c8091463.png" />
+</div>
+</div>
+<p>先の<span class="math notranslate nohighlight">\(G\)</span>において，ノード0の次数中心性は3である．
+一方，2つ目のグラフ<span class="math notranslate nohighlight">\(G_{ameba}\)</span>におけるノード0の次数中心性も3である．</p>
+<p>この2つのグラフが，人物の友好関係を示していた場合のことを考えてみよう．
+どちらのグラフにおいてもノード0の人物と繋がっているのは3人であるが，グラフ<span class="math notranslate nohighlight">\(G\)</span>においてノード0に繋がっているノードは他のノードとの繋がりが少ない．
+一方，グラフ<span class="math notranslate nohighlight">\(G_{ameba}\)</span>においてノード0に繋がっているノードは，他のノードと密に繋がっている．
+言うなれば，グラフ<span class="math notranslate nohighlight">\(G_{ameba}\)</span>においてノード0は友好関係が多いノード3つと繋がっており，友好関係が乏しいノード3つと繋がっている場合よりも影響力が大きそうである．
+この観察から，ノードの重要性を評価するにはノードの数も重要だが，どんなノードと繋がっているかも重要と考えられる．</p>
+<p>この考えに基づく中心性指標が<strong>固有ベクトル中心性（eigenvector centrality）</strong> である．
+固有ベクトル中心性は「重要なノードと多く接続しているノードを重要」とする指標である．</p>
+<p>さて．この固有ベクトル中心性の定義は再帰的（堂々巡り）な定義になっているが，どのように計算するのであろうか．
+再度以下のグラフ<span class="math notranslate nohighlight">\(G\)</span>に戻って，固有ベクトル中心性を計算してみよう．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/28c034753cf6d37878c0b6a108edc65946da6828ed3c634da94745c894acaa83.png" src="../_images/28c034753cf6d37878c0b6a108edc65946da6828ed3c634da94745c894acaa83.png" />
+</div>
+</div>
+<p>とりあえず，各ノードの中心性スコアを1としてスタートしよう．
+固有ベクトル中心性の定義は「重要なノードと多く接続しているノードを重要」となっているので，あるノードの中心性を計算は，そのノードに繋がっているノードの中心性スコアの和をとることにしよう．
+例えば，ノード0の固有ベクトル中心性<span class="math notranslate nohighlight">\(c_e(v_0)\)</span>の計算は</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+c_e(v_0) &amp;= c_e(v_1) + c_e(v_2) + c_e(v_3) \\
+&amp;= 1 + 1 + 1 \\
+&amp;= 3
+\end{align}
+\end{split}\]</div>
+<p>といった具合である．
+同じ操作を他のノードにも適用すると，</p>
+<ul class="simple">
+<li><p>ノード1の中心性スコアは1</p></li>
+<li><p>ノード2の中心性スコアは2</p></li>
+<li><p>ノード3の中心性スコアは2</p></li>
+</ul>
+<p>となる．
+スタート時点の各ノードの中心性スコアを</p>
+<div class="math notranslate nohighlight">
+\[c^1_e = (1, 1, 1, 1)\]</div>
+<p>というベクトル表記で書くことにすると，定義に基づく操作後の中心性スコアは</p>
+<div class="math notranslate nohighlight">
+\[c^2_e=(3,1,2,2)\]</div>
+<p>と書くことができる．
+中心性スコアが更新されたので，同じ操作を繰り返してみよう．
+ただし，このまま操作をすると，中心性のスコアがどんどん大きくなっていってしまう．
+そこで，各ノードの中心性の二乗和が1になるよう制約（スコアの変換）を加えながら，同じ操作を繰り返すことにする．
+先の<span class="math notranslate nohighlight">\(c^2_e\)</span>を変換すると，変換後のベクトルは</p>
+<div class="math notranslate nohighlight">
+\[c^2_e=(\frac{3}{\sqrt{18}},\frac{1}{\sqrt{18}},\frac{2}{\sqrt{18}},\frac{2}{\sqrt{18}})\]</div>
+<p>となる．</p>
+<p>では，定義に従う操作をどんどん繰り返そう．
+同じ操作を<span class="math notranslate nohighlight">\(n\)</span>回繰り返した結果，中心性スコアのベクトルとして</p>
+<div class="math notranslate nohighlight">
+\[c^n_e=(c^n_e(v_0), c^n_e(v_1), c^n_e(v_2), c^n_e(v_3))\]</div>
+<p>が得られたとしよう．
+これを用いてn+1回目の操作を行うと，ノード0の中心性スコア<span class="math notranslate nohighlight">\(c^{n+1}_e(v_0)\)</span>は</p>
+<div class="math notranslate nohighlight">
+\[
+c^{n+1}_e(v_0) = c^{n+1}_e(v_1) + c^{n+1}_e(v_2) + c^{n+1}_e(v_3)
+\]</div>
+<p>となる．
+ところで，今までこの操作を何度も繰り返してきたが，グラフ<span class="math notranslate nohighlight">\(G\)</span>の隣接行列</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A =
+    \left(
+    \begin{array}{cccc}
+    0 &amp; 1 &amp; 1 &amp; 1 \\
+    1 &amp; 0 &amp; 0 &amp; 0 \\
+    1 &amp; 0 &amp; 0 &amp; 1 \\
+    1 &amp; 0 &amp; 1 &amp; 0 
+    \end{array}
+    \right)
+\end{split}\]</div>
+<p>を用いると，先のノード0の中心性スコア<span class="math notranslate nohighlight">\(c^{n+1}_e(v_0)\)</span>を求める計算は，</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+c^{n+1}_e(v_0) &amp;= 0 \cdot c^{n+1}_e(v_0) + 1 \cdot c^{n+1}_e(v_1) + 1 \cdot c^{n+1}_e(v_2) + 1 \cdot c^{n+1}_e(v_3) \\
+&amp;= A_{0,0} \cdot c^{n+1}_e(v_0) + A_{0,1} \cdot c^{n+1}_e(v_1) + A_{0,2} \cdot c^{n+1}_e(v_2) + A_{0,3} \cdot c^{n+1}_e(v_3) \\
+\end{align}
+\end{split}\]</div>
+<p>と書ける．
+つまり，隣接行列<span class="math notranslate nohighlight">\(A\)</span>とベクトル<span class="math notranslate nohighlight">\(c^n_e\)</span>の積を計算し，得られたベクトルのの0番目の要素を取得することに相当する．
+ということは，<span class="math notranslate nohighlight">\(n+1\)</span>回定義に基づく中心性計算をした後のスコアベクトルは，</p>
+<div class="math notranslate nohighlight">
+\[
+c^{n+1}_e = Ac^{n}_e
+\]</div>
+<p>という行列で計算できる．</p>
+<p>さて，<span class="math notranslate nohighlight">\(n+1\)</span>回目まで繰り返した計算をその後も続けると，あるところでスコアが変化しなくなる．
+このときのスコアを固有ベクトル中心性の値として採用する．</p>
+<p>ところで，スコアが変化しなくなった状態は以下のように表現できる．</p>
+<div class="math notranslate nohighlight">
+\[
+c_e = Ac_e
+\]</div>
+<p><span class="math notranslate nohighlight">\(\lambda=1\)</span>とすると，上記式は</p>
+<div class="math notranslate nohighlight">
+\[
+\lambda c_e = Ac_e
+\]</div>
+<p>と書き換えることができる．
+この式をどこかで見た記憶はないだろうか．
+そう，この式は行列の固有値を求めるときのものである．
+先ほどまで行ってきた計算は，実は隣接行列<span class="math notranslate nohighlight">\(A\)</span>の（第1固有値に対応する）固有ベクトルを求める操作と同じ事をしていたのである．
+これが，固有ベクトル中心性の「固有ベクトル」という修飾句の由来である．</p>
+<p>固有ベクトル中心性をNetworkXで求めるには<code class="docutils literal notranslate"><span class="pre">eigenvector_centrality</span></code>関数を用いる．
+以下，上のグラフ<span class="math notranslate nohighlight">\(G\)</span>の各ノードの固有ベクトル中心性を求めるコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: 0.6116286437343043,
+ 1: 0.2818457979386572,
+ 2: 0.5227204550943348,
+ 3: 0.5227204550943348}
+</pre></div>
+</div>
+</div>
+</div>
+<p>上記コードで求めた値が，上でツラツラと説明してきた繰り返し操作で得られる値と一致するか，確かめてみよう．
+隣接行列と固有ベクトル中心性の初期値をベクトルとして用意すれば，あとは</p>
+<ol class="arabic simple">
+<li><p>行列の積を採る</p></li>
+<li><p>得られたベクトルを要素の二乗和が1になるよう変換</p></li>
+</ol>
+<p>という処理を繰り返せばよい．
+このコードは以下のように書ける．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># グラフGを定義</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+
+<span class="c1"># Gの隣接行列</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+
+<span class="c1"># 固有ベクトル中心性のベクトルを初期化（要素がすべて1のベクトル）</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())</span>
+
+<span class="c1"># 行列の積をとる操作を100回繰り返す</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span>
+
+    <span class="c1"># 行列の積計算で得られたベクトルを要素の二乗和が1になるよう変換</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 100回操作後の固有ベクトル中心性の値</span>
+<span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.61162846, 0.2818452 , 0.52272073, 0.52272073])
+</pre></div>
+</div>
+</div>
+</div>
+<p>値が<code class="docutils literal notranslate"><span class="pre">eigenvector_centrality</span></code>関数の返り値とほぼ一致することが確認できる．</p>
+<p>良さそうに見える固有ベクトル中心性も適用できないグラフが存在する．
+それは，強連結でない有向グラフである（強連結であればOK）．
+例えば，以下のグラフ<span class="math notranslate nohighlight">\(G_{weaklyconnected}\)</span>は強連結でない．
+<code class="docutils literal notranslate"><span class="pre">eigenvector_centrality</span></code>関数を用いて，グラフ<span class="math notranslate nohighlight">\(G_{weaklyconnected}\)</span>の固有ベクトル中心性を計算してみよう．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/ec3a19d2411b6835cfbfd73e3241119535d7c5b07cf361711fcaa5bb3dd9c176.png" src="../_images/ec3a19d2411b6835cfbfd73e3241119535d7c5b07cf361711fcaa5bb3dd9c176.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフの定義</span>
+<span class="n">G_weakly_connected</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">([</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># 強連結でないことを確認</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">is_strongly_connected</span><span class="p">(</span><span class="n">G_weakly_connected</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 固有ベクトル中心性の計算</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">G_weakly_connected</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1: 5.751458071240267e-08,
+ 0: 1.150291614248053e-06,
+ 2: 0.5098250599444331,
+ 3: 0.404647801108178,
+ 4: 0.4046488938852115,
+ 5: 0.642337791187098}
+</pre></div>
+</div>
+</div>
+</div>
+<p>得られた数値を見てみると，ノード0とノード1の値がほぼゼロになっている．
+ノード1はどのノードからもエッジを張られていない（入次数がゼロ）なので，固有ベクトル中心性の値がゼロになるのは納得ができる．
+一方，ノード0はノード1からエッジが張られているため，直感的にはスコアを多少持ってもよいはずで，ゼロなのは納得できない．</p>
+<p>このように，強連結でない有向グラフの場合，入次数がゼロのノードからしかエッジが張られているノードは重要度がゼロになってしまい，固有ベクトル中心性を意図通りに計算できない．
+そのため．「重要なノードからエッジを多く張られているノードは重要」というコンセプトで中心性を計算するには，別の工夫が必要となる．</p>
+<p>なお，以下のグラフ<span class="math notranslate nohighlight">\(G_{stronglyconnected}\)</span>のように，強廉潔な有向グラフは問題なく固有ベクトル中心性を計算できる．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/95b5904407ecd4b166e447a4e5d09be227397a86145db4eb0897c4d2a836879c.png" src="../_images/95b5904407ecd4b166e447a4e5d09be227397a86145db4eb0897c4d2a836879c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフの定義</span>
+<span class="n">G_strongly_connected</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">([</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># 強連結であることを確認</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">is_strongly_connected</span><span class="p">(</span><span class="n">G_strongly_connected</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 固有ベクトル中心性の計算</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">G_strongly_connected</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1: 0.3287379381257333,
+ 0: 0.2108662630530237,
+ 2: 0.47023438323101086,
+ 3: 0.301630380053154,
+ 4: 0.512496640300148,
+ 5: 0.5222190340080454}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h2><span class="section-number">3.4. </span>媒介中心性<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>次数中心性，固有ベクトル中心性はエッジの数に着目した中心性であったが，媒介中心性はグラフの経路に着目した指標である．
+<strong>媒介中心性（betweenness centrality）</strong> は，注目ノードがそれ以外のノード間の経路に含まれる割合を示す中心性指標である．
+直感的には，ノードがどの程度「経路上の要所」になっているかを測るものである．
+例えば，グラフの中でコミュニティをつなぐ橋渡し役になっているノード，交通の要所となるノードなどを求める際に有効な指標である．</p>
+<p>例えば，以下のグラフ<span class="math notranslate nohighlight">\(G_{barbell}\)</span>において，ノード3はグラフの左（ノード4, 5, 6）から右（ノード0, 1, 2）に移動するあたり，絶対に通る必要があるため「経路上の要所」としての重要度が高いと考えられる．
+一方，ノード5はそれを経由しなくても他のノードに到達することは可能であるため，「経路上の要所」という観点からは重要度が低いと考えられる．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/a77b448264cdb0a7e5777f382310b9a51e691badf3075332049e27defea525ea.png" src="../_images/a77b448264cdb0a7e5777f382310b9a51e691badf3075332049e27defea525ea.png" />
+</div>
+</div>
+<p>ノード3とノード5の媒介中心性を計算してみよう．
+まず，グラフ<span class="math notranslate nohighlight">\(G_{barbell}\)</span>にはノードが7つあるため，計算対象を除くノード間の経路の候補は<span class="math notranslate nohighlight">\({}_6 C_2=15\)</span>通りある．
+そのうちノード3を経由する経路は9，ノード5を経由する経路は0なので，</p>
+<ul class="simple">
+<li><p>ノード3の媒介中心性 <span class="math notranslate nohighlight">\(=\frac{9}{15}\)</span></p></li>
+<li><p>ノード5の媒介中心性 <span class="math notranslate nohighlight">\(=\frac{0}{15}\)</span></p></li>
+</ul>
+<p>となる．</p>
+<p>媒介中心性をNetworkXで求めるには<code class="docutils literal notranslate"><span class="pre">betweenness_centrality</span></code>関数を用いる．
+以下，上のグラフ<span class="math notranslate nohighlight">\(G_{barbell}\)</span>の各ノードの媒介ベクトル中心性を求めるコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 媒介中心性</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G_barbell</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: 0.0,
+ 1: 0.0,
+ 2: 0.5333333333333333,
+ 4: 0.5333333333333333,
+ 5: 0.0,
+ 6: 0.0,
+ 3: 0.6}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2><span class="section-number">3.5. </span>クイズ<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="q">
+<h3><span class="section-number">3.5.1. </span>Q: 近接中心性<a class="headerlink" href="#q" title="Link to this heading">#</a></h3>
+<p>以下のグラフ<span class="math notranslate nohighlight">\(G_{bull}\)</span>に属する各ノードの近接中心性について，<code class="docutils literal notranslate"><span class="pre">closeness_centrality</span></code>関数を用いずに計算するコードを書きなさい．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/544c922dc21fe86afc9e1b61cd2d97f79d03a4778a789fe7ffa955edb477715d.png" src="../_images/544c922dc21fe86afc9e1b61cd2d97f79d03a4778a789fe7ffa955edb477715d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="c1"># グラフの定義</span>
+<span class="n">G_bull</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
+
+<span class="c1"># Write your code</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3><span class="section-number">3.5.2. </span>Q: 都道府県の近接中心性，次数中心性，媒介中心性<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/9f70a2773d54939188b000a417a1a7fc49b05e7779798f225f55f915da6a23dc.png" src="../_images/9f70a2773d54939188b000a417a1a7fc49b05e7779798f225f55f915da6a23dc.png" />
+</div>
+</div>
+<p>上のグラフ<span class="math notranslate nohighlight">\(G_{prefecture}\)</span>は，沖縄県を除く日本の都道府県をノード，都道府県間の陸路の存在をエッジとして可視化したものである．
+グラフ<span class="math notranslate nohighlight">\(G_{prefecture}\)</span>に含まれる各ノード（都道府県）について，その近接中心性，次数中心性，媒介中心性を計算し，各指標の上位3件を求めなさい．</p>
+<p>なお，グラフ<span class="math notranslate nohighlight">\(G_{prefecture}\)</span>に関するデータは<a class="reference download internal" download="" href="../_downloads/e36c0bfd1805666c56701753250e30af/prefecture.adjlist"><span class="xref download myst">コチラ</span></a>からダウンロード可能である．
+また，以下のコードを書くとダウンロードしたファイルをNetworkX形式のグラフとして読み込める．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="c1"># ダウンロードしたデータは`data/prefecture/prefecture.adjlist`にあると想定</span>
+<span class="n">G_prefecture</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_adjlist</span><span class="p">(</span><span class="s2">&quot;data/prefecture/prefecture.adjlist&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3><span class="section-number">3.5.3. </span>Q: 空港の次数中心性，媒介中心性，固有ベクトル中心性<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: When  cdn_resources is &#39;local&#39; jupyter notebook has issues displaying graphics on chrome/safari. Use cdn_resources=&#39;in_line&#39; or cdn_resources=&#39;remote&#39; if you have issues viewing graphics in a notebook.
+airport.html
+</pre></div>
+</div>
+<div class="output text_html">
+        <iframe
+            width="800"
+            height="600"
+            src="airport.html"
+            frameborder="0"
+            allowfullscreen
+            
+        ></iframe>
+        </div></div>
+</div>
+<p>上のグラフ<span class="math notranslate nohighlight">\(G_{airport}\)</span>は，日本の主要な空港をノード，空港間でANA（全日空）の航路が存在することをエッジとして可視化したものである．
+グラフ<span class="math notranslate nohighlight">\(G_{airport}\)</span>に含まれる各ノード（空港）について，その次数中心性，媒介中心性，固有ベクトル中心性を計算し，各指標の上位5件を求めなさい．</p>
+<p>なお，グラフ<span class="math notranslate nohighlight">\(G_{airport}\)</span>に関するデータは<a class="reference download internal" download="" href="../_downloads/7794c8bbc5e60691cfd6e45dc78422e6/ana.adjlist"><span class="xref download myst">コチラ</span></a>からダウンロード可能である．
+また，以下のコードを書くとダウンロードしたファイルをNetworkX形式のグラフとして読み込める．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="c1"># ダウンロードしたデータは`data/airport/ana.adjlist`にあると想定</span>
+<span class="n">G_ana</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_adjlist</span><span class="p">(</span><span class="s2">&quot;data/airport/ana.adjlist&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">degree_centrality</span><span class="p">(</span><span class="n">G_ana</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;東京（羽田）&#39;, 0.7),
+ (&#39;札幌（新千歳）&#39;, 0.3833333333333333),
+ (&#39;沖縄（那覇）&#39;, 0.3333333333333333),
+ (&#39;大阪（伊丹）&#39;, 0.3),
+ (&#39;名古屋（中部）&#39;, 0.25)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G_ana</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;東京（羽田）&#39;, 0.6089280368093929),
+ (&#39;鹿児島&#39;, 0.14800690521029508),
+ (&#39;札幌（新千歳）&#39;, 0.132759359284783),
+ (&#39;沖縄（那覇）&#39;, 0.11018556459234428),
+ (&#39;大阪（伊丹）&#39;, 0.09039116878099929)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">G_ana</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;東京（羽田）&#39;, 0.457999320160654),
+ (&#39;沖縄（那覇）&#39;, 0.3074869102083056),
+ (&#39;札幌（新千歳）&#39;, 0.3064340279779271),
+ (&#39;大阪（伊丹）&#39;, 0.29359335171993056),
+ (&#39;名古屋（中部）&#39;, 0.27764154174853667)]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="graph-structure-features.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>グラフ構造の諸指標</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3.1. 近接中心性</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.2. 次数中心性</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">3.3. 固有ベクトル中心性</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3.4. 媒介中心性</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3.5. クイズ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q">3.5.1. Q: 近接中心性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3.5.2. Q: 都道府県の近接中心性，次数中心性，媒介中心性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">3.5.3. Q: 空港の次数中心性，媒介中心性，固有ベクトル中心性</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025- by Yusuke Yamamoto.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
