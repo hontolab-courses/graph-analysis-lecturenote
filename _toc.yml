@@ -8,3 +8,4 @@ parts:
   chapters:
     - file: content/graph-and-path.ipynb
     - file: content/graph-structure-features.ipynb
+    - file: content/centrality.ipynb
