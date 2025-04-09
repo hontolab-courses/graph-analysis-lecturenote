@@ -34,7 +34,7 @@ Googleアカウントを持っていない学生は，授業までに取得し�
 | 3 (第11回) | 06/27 | ノードの中心性 | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-03-centrality) | [Here](content/centrality.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/centrality.ipynb) | - |
 | 4 (第12回) | 07/04 | コミュニティ発見 | Speaker Deck | - | - | - |
 | 5 (第13回) | 07/11 | ウェブグラフ | Speaker Deck | - | - | - |
-| 6 (第14回) | 07/20 | グラフ埋め込み | Speaker Deck | - | - | - |
+| 6 (第14回) | 07/20 | 機械学習とグラフ - グラフ埋め込み | Speaker Deck | - | - | - |
 | 7 (第15回) | 07/27 | 総合演習 - 社会ネットワークなどの分析 | Speaker Deck | - | - | - |
 
 
