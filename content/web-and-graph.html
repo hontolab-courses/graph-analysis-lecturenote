@@ -378,6 +378,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.4. クイズ</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">4.4.1. Q1: デッドリンク，スパイダートラップのあるグラフ</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-pagerank">4.4.2. Q2: PageRank実装</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3">4.4.3. Q3: 江戸時代の人物</a></li>
 </ul>
 </li>
 </ul>
@@ -704,7 +705,7 @@ hub_{n+1}(w) &amp;= \sum_{x \in W_{from}(w)}auth_n(x)
 <img alt="../_images/323a163dc205e8542b44dbba07cfec6df1eccd6b73d73a0993ebcc148279cef6.png" src="../_images/323a163dc205e8542b44dbba07cfec6df1eccd6b73d73a0993ebcc148279cef6.png" />
 </div>
 </div>
-<p>上記グラフ<span class="math notranslate nohighlight">\(G_{bipartite}\)</span>を用いて，HITSアルゴリズムを具体的に実行してみよう．
+<p>上記グラフ<span class="math notranslate nohighlight">\(G_{bipartite}\)</span>に対して，HITSアルゴリズムを具体的に実行してみよう．
 グラフ<span class="math notranslate nohighlight">\(G_{bipartite}\)</span>の各ノードのハブ値，オーソリティ値を求めるPythonコードは，以下のように書ける．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -862,7 +863,7 @@ Pythonコードを書いて確かめなさい．</p>
     <span class="c1"># 遷移確率行列</span>
     <span class="n">M</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     
-    <span class="c1"># PageRank値の更新．50回繰り返せば値は収束する</span>
+    <span class="c1"># PageRank値の更新．100回も繰り返せば値は収束する</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iter_count</span><span class="p">):</span>
         <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
 
@@ -933,7 +934,7 @@ Pythonコードを書いて確かめなさい．</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">normalize</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">calc_pagerank</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">iter_num</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_pagerank</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">iteration_num</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
 
     <span class="c1"># 隣接行列</span>
@@ -949,12 +950,51 @@ Pythonコードを書いて確かめなさい．</p>
     <span class="c1"># Random jumpベクトル</span>
     <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iteration_num</span><span class="p">):</span>
         <span class="n">p</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">e</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">p</span>
+    <span class="c1"># スコアとノードを紐付ける</span>
+    <span class="c1"># pはPageRankの縦ベクトルで，スコアはG.nodes()のリスト順に並んでいる</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="n">scores</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">scores</span>
 </pre></div>
 </div>
+</div>
+</div>
+</section>
+<section id="q3">
+<h3><span class="section-number">4.4.3. </span>Q3: 江戸時代の人物<a class="headerlink" href="#q3" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">EDO_DRAW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;node_size&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="s1">&#39;arrowsize&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>    
+    <span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s1">&#39;with_labels&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;node_color&#39;</span><span class="p">:</span> <span class="s1">&#39;cornflowerblue&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="s1">&#39;cornflowerblue&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="mf">0.10</span><span class="p">,</span>
+    <span class="s1">&#39;font_family&#39;</span><span class="p">:</span> <span class="s1">&#39;IPAPGothic&#39;</span>
+<span class="p">}</span>
+
+
+<span class="n">G_edo</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_gml</span><span class="p">(</span><span class="s2">&quot;data/edo.gml&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G_edo</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_edo</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="o">**</span><span class="n">EDO_DRAW_CONFIG</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e733843ac128c4bd0016b32603768aa81dcdf124435d0a0cc330727d7f76a98c.png" src="../_images/e733843ac128c4bd0016b32603768aa81dcdf124435d0a0cc330727d7f76a98c.png" />
 </div>
 </div>
 </section>
@@ -1029,6 +1069,7 @@ Pythonコードを書いて確かめなさい．</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.4. クイズ</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">4.4.1. Q1: デッドリンク，スパイダートラップのあるグラフ</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-pagerank">4.4.2. Q2: PageRank実装</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3">4.4.3. Q3: 江戸時代の人物</a></li>
 </ul>
 </li>
 </ul>
