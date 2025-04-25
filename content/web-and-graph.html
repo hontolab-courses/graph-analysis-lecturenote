@@ -1,0 +1,1084 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4. ウェブとグラフ &#8212; グラフ分析入門の講義ノート</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-XWKTGSZ4LK"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-XWKTGSZ4LK');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-XWKTGSZ4LK');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/web-and-graph';</script>
+    <link rel="canonical" href="https://graphnote.hontolab.org/content/web-and-graph.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="3. ノードの中心性" href="centrality.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">グラフ分析入門の講義ノート</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="graph-and-path.html">1. グラフデータと経路</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph-structure-features.html">2. グラフ構造の諸指標</a></li>
+<li class="toctree-l1"><a class="reference internal" href="centrality.html">3. ノードの中心性</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. ウェブとグラフ</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/web-and-graph.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/web-and-graph.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ウェブとグラフ</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.1. ウェブ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank">4.2. PageRank</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2.1. 単純なPageRank</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.2.2. 完全なPageRank</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hits">4.3. HITS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.3.1. HITSアルゴリズムの行列表現</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.4. クイズ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">4.4.1. Q1: デッドリンク，スパイダートラップのあるグラフ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-pagerank">4.4.2. Q2: PageRank実装</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">4. </span>ウェブとグラフ<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<div class="cell tag_remove-output tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DRAW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;node_color&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;edgecolors&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="c1"># line color of nodes</span>
+    <span class="s1">&#39;with_labels&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;node_size&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+    <span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="s1">&#39;font_family&#39;</span><span class="p">:</span> <span class="s1">&#39;Arial&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section id="id2">
+<h2><span class="section-number">4.1. </span>ウェブ<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p><strong>ウェブ（World wide web; Web）</strong> は，インターネット上に構築された<strong>ハイパーテキスト（hypertext）</strong> システムである．
+ハイパーテキストとは文書同士をハイパーリンク（単にリンクと呼ぶことも）をつなぐ仕組みである．
+勘違いされやすいが，インターネットは通信網であって「インターネット = ウェブ」ではない．</p>
+<p>ウェブはウェブページをノード，リンクをエッジと見れば，グラフと見なすことができる（より厳密には有向グラフである）．
+ウェブページは数100億，ウェブページ間のリンクは数兆あると言われており，ウェブは社会に存在する最も巨大なグラフと言える．</p>
+<a class="reference internal image-reference" href="https://pi.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture5/imag.jpg"><img alt="https://pi.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture5/imag.jpg" src="https://pi.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture5/imag.jpg" style="width: 50%;" />
+</a>
+<p>ウェブには，玉石混淆ではあるが，様々なトピックに関するウェブページが日々アップロードされている．
+今日，ウェブは貴重な知識源の1つであることに異論はないであろう．
+そのようなウェブからウェブページを見つけるためのツールが検索エンジンである．</p>
+<p>検索エンジンは，日々リンクを辿ってウェブページを巡回し，データベースに格納し，検索のための索引づけを行っている．
+伝統的な検索エンジンは，検索ワードと文書との関連性をランキング指標として，データベースに格納された文書をランキングしていた．
+検索ワードと文書の関連性は，直感的には「検索ワードに関連した語がどの程度出現するか」で評価される．</p>
+<p>検索対象となるウェブページ数が少ない場合，検索ワードとの関連性でウェブページを評価する方法でも良い．
+しかし，ウェブページは膨大にあるため，検索ワードの関連性だけでは有用なウェブページを絞りきれない．
+また，検索ワードとして入力そうな語をウェブページにたくさん入れておけば，ランキングを上げることもできてしまう．
+そのため，検索ワードに対する関連性以外の観点からも，ウェブページの重要度を評価する方法が必要となる．</p>
+<p>以降で説明する<strong>PageRank</strong>と<strong>HITS</strong>は，ウェブのグラフとして特徴を活かし，ウェブページの重要性を評価するウェブ黎明期に発表された重要なアルゴリズムである．
+これらアルゴリズムが発表されて以降，これらアルゴリズムを改善，発展させたアルゴリズムが多数登場している．</p>
+</section>
+<section id="pagerank">
+<h2><span class="section-number">4.2. </span>PageRank<a class="headerlink" href="#pagerank" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://research.google/pubs/the-anatomy-of-a-large-scale-hypertextual-web-search-engine/">PageRank</a>はGoogleの創業者であるSergey BrinとLarry Pageが提案したアルゴリズムである．
+Googleの検索エンジンはPageRankの実装により，ウェブ検索エンジンのトップランナーに躍り出た．</p>
+<p>PageRankはウェブページに張られたリンクを一種の「投票」と見なし，ウェブページの重要度（PageRank値）を計算する．
+PageRankは，重要度の計算のために，以下のような仮定を置く．</p>
+<blockquote>
+<div><p>多くの重要なウェブページからリンクされたウェブページほど重要である</p>
+</div></blockquote>
+<p>ご覧の通り，この仮定は再帰的（堂々巡り）であるが，実際の計算ではどう対応するのであろうか．</p>
+<section id="id3">
+<h3><span class="section-number">4.2.1. </span>単純なPageRank<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>シンプルなPageRankアルゴリズムは，以下の手順でウェブページの重要度を計算する：</p>
+<ol class="arabic simple">
+<li><p>計算対象とするウェブページ群<span class="math notranslate nohighlight">\(W\)</span>を用意する（ウェブページはN個あるとする）</p></li>
+<li><p>各ウェブページ<span class="math notranslate nohighlight">\(w \in W\)</span>のPageRank値<span class="math notranslate nohighlight">\(p(w)\)</span>を<span class="math notranslate nohighlight">\(\frac{1}{N}\)</span>で初期化する</p></li>
+<li><p>ウェブページ<span class="math notranslate nohighlight">\(w\)</span>にリンクするウェブページ集合を<span class="math notranslate nohighlight">\(W_{to}(w)\)</span>とする．このとき，すべてのウェブページのPageRank値を以下の式で更新する．なお，ウェブページ<span class="math notranslate nohighlight">\(w\)</span>のPageRank値の初期値は<span class="math notranslate nohighlight">\(p_0(w)\)</span>に対応する．また，<span class="math notranslate nohighlight">\(deg_{out}(w)\)</span>はウェブページ<span class="math notranslate nohighlight">\(w\)</span>の出次数を表す．</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+p_{n+1}(w) = \sum_{w_{to} \in W_{to}(w)}\frac{1}{deg_{out}(w_{to})}p_n(w_{to})
+\]</div>
+<ol class="arabic simple" start="4">
+<li><p>PageRank値が収束するまで，ステップ3の処理を繰り返す．</p></li>
+</ol>
+<p>上記手順について，下記グラフ<span class="math notranslate nohighlight">\(G\)</span>を用いて具体的に考えてみよう．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/cf72326c0926fc714914522440ce50f1149a1e605381efd1c508631b695ca9a8.png" src="../_images/cf72326c0926fc714914522440ce50f1149a1e605381efd1c508631b695ca9a8.png" />
+</div>
+</div>
+<p>まず，PageRank値を初期化する．
+上記グラフ<span class="math notranslate nohighlight">\(G\)</span>はノード数が5であるため，どのノードもPageRankの初期値は<span class="math notranslate nohighlight">\(\frac{1}{5}\)</span>となる．</p>
+<p>次のステップでは，PageRank値を更新する．
+ここでは，ノードDのPageRank値を更新することを考えてみよう．
+ノードDはノードAとノードBからリンクされている．
+よって，更新式に従うと，ノードDのPageRank値はノードAとノードBのPageRank値によって更新される．</p>
+<p><img alt="" src="../_images/simple-pagerank-calculation.jpg" /></p>
+<p>現時点でのノードAのPageRank値は<span class="math notranslate nohighlight">\(\frac{1}{5}\)</span>である．
+また，上図のように，ノードAはB，C，D，Eの4つのノードにリンクを張っている．
+それゆえ，更新式に従うと，ノードDにはノードAのもつPageRank値（<span class="math notranslate nohighlight">\(=\frac{1}{5}\)</span>）の<span class="math notranslate nohighlight">\(\frac{1}{4}\)</span>が配分される．
+同様に，ノードBからもノードDに<span class="math notranslate nohighlight">\(\frac{1}{2} \times \frac{1}{5}\)</span>のPageRank値が配分される．
+この配分によって，ノードDのPageRank値は</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+p_1(D) &amp;= \frac{1}{4} \times p_0(C) + \frac{1}{2} \times p_0(B) \\
+&amp;= \frac{1}{4} \times \frac{1}{5} + \frac{1}{2} \times \frac{1}{5} = \frac{3}{20}
+\end{eqnarray}
+\end{split}\]</div>
+<p>と更新される．
+他のノードも同様の処理を行うと，1回目の更新で以下のようになる．</p>
+<p><img alt="" src="../_images/simple-pagerank-calculation-2.jpg" /></p>
+<p>この処理について，すべてのノードのPageRank値が収束するまで繰り返す．
+値は徐々に変化しなくなり，最終的には以下のように落ち着く．
+収束したときの値が，最終的なPageRank値となる．</p>
+<p><img alt="" src="../_images/simple-pagerank-calculation-3.jpg" /></p>
+<p>以上が単純なPageRankの計算手順であるが，行列を用いると計算を効率よく行える．
+以下は，上で説明したPageRankの計算手順を行列を用いて書き直したものである．</p>
+<ol class="arabic simple">
+<li><p>計算対象とするウェブページ群<span class="math notranslate nohighlight">\(W\)</span>を，その隣接行列を<span class="math notranslate nohighlight">\(\boldsymbol{A}\)</span>とする．また，隣接行列<span class="math notranslate nohighlight">\(\boldsymbol{A}\)</span>の各行の値を行の値の合計値で正規化した行列を<span class="math notranslate nohighlight">\(\boldsymbol{M}\)</span>とする（遷移確率行列）．</p></li>
+<li><p>各ウェブページのPageRank値を格納したベクトルを<span class="math notranslate nohighlight">\(\boldsymbol{p}\)</span>とし，その要素値を<span class="math notranslate nohighlight">\(\frac{1}{N}\)</span>で初期化する（<span class="math notranslate nohighlight">\(N\)</span>はウェブページの数）．</p></li>
+<li><p>以下の式でPageRankベクトルを更新する（<span class="math notranslate nohighlight">\(\boldsymbol{p}_{0}\)</span>が初期値となる）</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol{p}_{n+1} = \boldsymbol{M}^T \boldsymbol{p}_{n}
+\]</div>
+<ol class="arabic simple" start="4">
+<li><p>PageRank値が収束するまで，ステップ3の処理を繰り返す．</p></li>
+</ol>
+<p>NumPyを用いれば，上記PageRankの計算手順は簡単に書ける．
+以下は，例で用いたグラフ<span class="math notranslate nohighlight">\(G\)</span>の各ノードのPageRank値を求めるPythonコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 行列の正規化のために使う</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">normalize</span>
+
+
+<span class="c1"># グラフの定義</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="p">])</span>
+
+
+<span class="c1"># PageRankベクトルを初期化する</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># 要素値1，要素数がNの縦ベクトル</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">/</span> <span class="n">N</span> 
+
+
+<span class="c1"># 隣接行列</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="c1"># 遷移確率行列</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># PageRank値の更新．100回繰り返せば値は収束する</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+
+<span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.2 ],
+       [0.4 ],
+       [0.1 ],
+       [0.25],
+       [0.05]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>上記のPageRankはシンプルであり役に立ちそうだが，この方法を用いてもウェブページの重要度を計算できない．
+ウェブグラフ中に，以下のようなデッドエンドやスパイダーとラップと呼ばれる構造を含んでいると，PageRankが意図しない値に収束してしまうのである．
+この問題を解決するために，オリジナルのPageRankアルゴリズムは一工夫をしている．</p>
+<p><img alt="" src="../_images/deadend-and-spidertrap.jpg" /></p>
+</section>
+<section id="id4">
+<h3><span class="section-number">4.2.2. </span>完全なPageRank<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>デッドエンド問題やスパイダートラップ問題を解決するために，オリジナルのPageRankアルゴリズムでは<strong>ランダムサーファーモデル（random surfer model）</strong> という仮定を導入している．
+あなたがウェブブラウジングをしている時を想像してほしい．
+ブラウジングをする際，ウェブページ内のリンクをクリックして別のページに移動することもあれば，ブックマークやQRコードなどURLを直接指定して（リンクを辿らず）ウェブページに飛ぶこともあるだろう．
+ランダムサーファーモデルとは，ユーザは「リンクによるページ移動」と「直接ページ移動（ジャンプ）」を切り替えながらページを移動する，という仮定である．
+この仮定を反映するようにシンプルなPageRankを修正することで，ウェブグラフ中にどんな構造があっても</p>
+<blockquote>
+<div><p>多くの重要なウェブページからリンクされたウェブページほど重要である</p>
+</div></blockquote>
+<p>という仮定を踏まえたPageRank値を計算することが可能となる．</p>
+<p>以下，修正を施した完全なPageRank値を計算手順である．</p>
+<ol class="arabic simple">
+<li><p>計算対象とするウェブページ群<span class="math notranslate nohighlight">\(W\)</span>を，その隣接行列を<span class="math notranslate nohighlight">\(\boldsymbol{A}\)</span>とする．また，隣接行列<span class="math notranslate nohighlight">\(\boldsymbol{A}\)</span>の各行の値を行の値の合計値で正規化した行列を<span class="math notranslate nohighlight">\(\boldsymbol{M}\)</span>とする（遷移確率行列）．</p></li>
+<li><p>各ウェブページのPageRank値を格納した縦ベクトルを<span class="math notranslate nohighlight">\(\boldsymbol{p}\)</span>とし，その要素値を<span class="math notranslate nohighlight">\(\frac{1}{N}\)</span>で初期化する（<span class="math notranslate nohighlight">\(N\)</span>はウェブページの数）．</p></li>
+<li><p>以下の式でPageRankベクトルを更新する．なお，<span class="math notranslate nohighlight">\(\alpha\)</span>は事前に指定した定数である．また，<span class="math notranslate nohighlight">\(\boldsymbol{e}\)</span>は要素数が<span class="math notranslate nohighlight">\(N\)</span>，要素が1の縦ベクトルである．</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol{p}_{n+1} = \alpha \boldsymbol{M}^T \boldsymbol{p}_{n} + (1 - \alpha) \frac{\boldsymbol{e}}{N}
+\]</div>
+<ol class="arabic simple" start="4">
+<li><p>PageRank値が収束するまで，ステップ3の処理を繰り返す．</p></li>
+</ol>
+<p>シンプルなPageRankとの違いはステップ3の更新式である．
+式中の<span class="math notranslate nohighlight">\(\boldsymbol{M}^T \boldsymbol{p}_{n}\)</span>は「リンクを辿る行動」によるPageRank値の更新に対応する．
+一方，<span class="math notranslate nohighlight">\(\frac{\boldsymbol{e}}{N}\)</span>は「リンクを辿らず，直接ページを訪問する行動」によるPageRank値の更新に対応し，どのページにも同じ確率で（ランダムに）ジャンプすることを想定している．
+第1項の前にかかっている<span class="math notranslate nohighlight">\(\alpha\)</span>は，リンクを辿る行動を<span class="math notranslate nohighlight">\(\alpha\)</span>の確率で選択することを意味している．</p>
+<p>Networkxライブラリには，PageRank値を計算する関数<code class="docutils literal notranslate"><span class="pre">pagerank</span></code>が実装されている．
+以下は，上で挙げたスパイダートラップ構造を持つグラフのPageRank値を<span class="math notranslate nohighlight">\(\alpha=0.85\)</span>の設定で計算するコード例である．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフの定義</span>
+<span class="n">G_spidertrap</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">pagerank</span><span class="p">(</span><span class="n">G_spidertrap</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;A&#39;: 0.02170200545830377,
+ &#39;B&#39;: 0.019372367238476566,
+ &#39;C&#39;: 0.9303512546064392,
+ &#39;D&#39;: 0.028574372696780325}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="hits">
+<h2><span class="section-number">4.3. </span>HITS<a class="headerlink" href="#hits" title="Link to this heading">#</a></h2>
+<p><strong>HITS（hypertext induced topic search）</strong> アルゴリズムは，PageRankとほぼ同じ時期に提案されたウェブページの重要度を測るアルゴリズムである．
+PageRankと同じく，ウェブページ間のリンク構造に着目したアルゴリズムであるが，趣が異なる．</p>
+<p>HITSは，ウェブページの役割には2種類あると仮定している．
+1つは<strong>オーソリティ（authority）</strong> としての役割である．
+特定のトピックに対して重要な情報を載せているウェブページは，同様のトピックを扱うページからも多く参照されるはずである．
+このようなページはオーソリティ的な役割を果たしている．
+例えば，著名な専門家が書いたウェブページが該当する．</p>
+<p>2つ目は<strong>ハブ（hub）</strong> としての役割である．
+ウェブページの中には，自身のページには重要な情報を掲載していないが，重要な情報を掲載したウェブページ，すなわちオーソリティ的なページへのリンクをまとめているものがある．
+このようなページはハブ的な役割を果たしている．
+リンク集サイトなどがハブ的なページに該当する．</p>
+<p><img alt="" src="../_images/hub-and-authority.jpg" /></p>
+<p>HITSはウェブページのオーソリティとしての良さ，ハブとしての良さを計算するアルゴリズムである．
+HITSは計算のために，以下の仮定を置いている：</p>
+<ul class="simple">
+<li><p>ハブ値が高いページから多く参照されているページはオーソリティ値が高い</p></li>
+<li><p>オーソリティ値が高いページを多く参照しているページはハブ値が高い</p></li>
+</ul>
+<p>PageRankと同様，HITSアルゴリズムも再帰的な仮定を置いている．
+この仮定をもとに，HITSは以下の手順でウェブページの重要度（すなわち，オーソリティ値とハブ値）を計算する：</p>
+<ol class="arabic simple">
+<li><p>計算対象とするウェブページ群<span class="math notranslate nohighlight">\(W\)</span>を用意する（ウェブページはN個あるとする）</p></li>
+<li><p>各ウェブページ<span class="math notranslate nohighlight">\(w \in W\)</span>のハブ値<span class="math notranslate nohighlight">\(hub(w)\)</span>およびオーソリティ値<span class="math notranslate nohighlight">\(auth(w)\)</span>を1で初期化する</p></li>
+<li><p>ウェブページ<span class="math notranslate nohighlight">\(w\)</span>にリンクするウェブページ集合を<span class="math notranslate nohighlight">\(W_{to}(w)\)</span>，ウェブページ<span class="math notranslate nohighlight">\(w\)</span>からリンクされたウェブページ集合を<span class="math notranslate nohighlight">\(W_{from}(w)\)</span>とする．このとき，すべてのウェブページのオーソリティ値，ハブ値を以下の式で更新する：</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+auth_{n+1}(w) &amp;= \sum_{x \in W_{to}(w)}hub_n(x) \\
+hub_{n+1}(w) &amp;= \sum_{x \in W_{from}(w)}auth_n(x)
+\end{eqnarray}
+\end{split}\]</div>
+<ol class="arabic simple" start="4">
+<li><p>更新したハブ値，オーソリティ値を合計値で正規化する．</p></li>
+<li><p>ハブ値，オーソリティ値が収束するまで，ステップ4の処理を繰り返す．</p></li>
+</ol>
+<section id="id5">
+<h3><span class="section-number">4.3.1. </span>HITSアルゴリズムの行列表現<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>上記の計算手順は，行列を使うとスマートかつ効率的に計算することができる．
+以下，行列を使った計算手順である：</p>
+<ol class="arabic simple">
+<li><p>計算対象とするウェブページ群<span class="math notranslate nohighlight">\(W\)</span>を用意する（ウェブページはN個あるとする）．</p></li>
+<li><p>各ウェブページのハブ値およびオーソリティを格納したベクトルをそれぞれ<span class="math notranslate nohighlight">\(\boldsymbol{h}\)</span>，<span class="math notranslate nohighlight">\(\boldsymbol{a}\)</span>とし，各ベクトルの要素値を1で初期化する．</p></li>
+<li><p>ウェブグラフの隣接行列を<span class="math notranslate nohighlight">\(\boldsymbol{A}\)</span>する．このとき，すべてのウェブページのオーソリティ値，ハブ値を格納したベクトルを以下の式で更新する．なお，<span class="math notranslate nohighlight">\(\boldsymbol{h}_0\)</span>，<span class="math notranslate nohighlight">\(\boldsymbol{a}_0\)</span>はハブベクトル，オーソリティベクトルの初期値である：</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+\boldsymbol{a}_{n+1} &amp;= \boldsymbol{A}^T \boldsymbol{h}_n \\
+\boldsymbol{h}_{n+1} &amp;= \boldsymbol{A} \boldsymbol{a}_n
+\end{eqnarray}
+\end{split}\]</div>
+<ol class="arabic simple" start="4">
+<li><p>更新したハブベクトル，オーソリティベクトルをL1ノルムで正規化する．</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+\boldsymbol{a}_{n+1} &amp;= \frac{\boldsymbol{a}_{n+1}}{||\boldsymbol{a}_{n+1}||_{1}} \\
+\boldsymbol{h}_{n+1} &amp;= \frac{\boldsymbol{h}_{n+1}}{||\boldsymbol{h}_{n+1}||_{1}} 
+\end{eqnarray}
+\end{split}\]</div>
+<ol class="arabic simple" start="5">
+<li><p>ハブ値，オーソリティ値が収束するまで，ステップ4の処理を繰り返す．</p></li>
+</ol>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/323a163dc205e8542b44dbba07cfec6df1eccd6b73d73a0993ebcc148279cef6.png" src="../_images/323a163dc205e8542b44dbba07cfec6df1eccd6b73d73a0993ebcc148279cef6.png" />
+</div>
+</div>
+<p>上記グラフ<span class="math notranslate nohighlight">\(G_{bipartite}\)</span>を用いて，HITSアルゴリズムを具体的に実行してみよう．
+グラフ<span class="math notranslate nohighlight">\(G_{bipartite}\)</span>の各ノードのハブ値，オーソリティ値を求めるPythonコードは，以下のように書ける．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">normalize</span>
+
+
+<span class="c1"># グラフを定義</span>
+<span class="n">G_bipartite</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+<span class="n">G_bipartite</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">bipartite</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">G_bipartite</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">bipartite</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">G_bipartite</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># グラフ中のノード数</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">G_bipartite</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+
+<span class="c1"># 隣接行列を取得</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">G_bipartite</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+
+<span class="c1"># ハブ値ベクトルを初期化</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># オーソリティ値ベクトルを初期化</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># ハブ値，オーソリティ値の更新（100回繰り返せば十分に収束する）</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">a_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+    <span class="n">h_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+
+    <span class="c1"># L1正規化</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">a_new</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">h_new</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">h</span><span class="p">,</span> <span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([[2.32408121e-01],
+        [2.32408121e-01],
+        [3.02775638e-01],
+        [2.32408121e-01],
+        [2.22745517e-45],
+        [0.00000000e+00],
+        [0.00000000e+00],
+        [0.00000000e+00],
+        [0.00000000e+00],
+        [0.00000000e+00]]),
+ array([[0.00000000e+00],
+        [0.00000000e+00],
+        [0.00000000e+00],
+        [0.00000000e+00],
+        [0.00000000e+00],
+        [3.94448725e-01],
+        [3.02775638e-01],
+        [2.11102551e-01],
+        [9.16730868e-02],
+        [2.63585055e-45]]))
+</pre></div>
+</div>
+</div>
+</div>
+<p>PageRankと同様，HITSアルゴリズムもNetworkxライブラリに<code class="docutils literal notranslate"><span class="pre">hits</span></code>関数と名前で実装されている．
+HITSを用いてハブ値，オーソリティ値を計算したい場合，以下のコードを実行すればよい．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">hits</span><span class="p">(</span><span class="n">G_bipartite</span><span class="p">)</span>
+<span class="n">h</span><span class="p">,</span> <span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>({0: 0.2324081207560018,
+  1: 0.2324081207560018,
+  2: 0.3027756377319947,
+  3: 0.2324081207560018,
+  4: -2.979849679955899e-17,
+  5: -0.0,
+  6: -0.0,
+  7: -0.0,
+  8: -0.0,
+  9: -0.0},
+ {0: -0.0,
+  1: -2.0472611287723856e-17,
+  2: 6.789858261866111e-18,
+  3: -1.8239155210820883e-17,
+  4: 2.2533463348980456e-17,
+  5: 0.39444872453601076,
+  6: 0.3027756377319947,
+  7: 0.21110255092797867,
+  8: 0.09167308680401606,
+  9: -8.9395490398677e-17})
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">4.4. </span>クイズ<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="q1">
+<h3><span class="section-number">4.4.1. </span>Q1: デッドリンク，スパイダートラップのあるグラフ<a class="headerlink" href="#q1" title="Link to this heading">#</a></h3>
+<p><img alt="" src="../_images/deadend-and-spidertrap.jpg" /></p>
+<p>上記の各グラフに対してシンプルなPageRankアルゴリズムを適用すると，どのような値に収束するか．
+Pythonコードを書いて確かめなさい．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="c1"># グラフの定義</span>
+<span class="n">G_deadend</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">G_spidertrap</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span>
+<span class="p">])</span>
+
+
+<span class="c1"># Write your codes below</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 行列の正規化のために使う</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">normalize</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_simple_pagerank</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">iter_count</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="c1"># PageRankベクトルを初期化する</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># 要素値1，要素数がNの縦ベクトル</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">/</span> <span class="n">N</span> 
+    
+    
+    <span class="c1"># 隣接行列</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+    <span class="c1"># 遷移確率行列</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># PageRank値の更新．50回繰り返せば値は収束する</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iter_count</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">p</span>
+
+
+<span class="c1"># グラフの定義</span>
+<span class="n">G_deadend</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span>
+<span class="p">])</span>
+
+
+<span class="n">G_spidertrap</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calc_simple_pagerank</span><span class="p">(</span><span class="n">G_deadend</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4.49828082e-05],
+       [8.28313370e-05],
+       [1.62857288e-05],
+       [6.12685370e-05]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calc_simple_pagerank</span><span class="p">(</span><span class="n">G_spidertrap</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4.49828082e-05],
+       [8.28313370e-05],
+       [9.99810917e-01],
+       [6.12685370e-05]])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="q2-pagerank">
+<h3><span class="section-number">4.4.2. </span>Q2: PageRank実装<a class="headerlink" href="#q2-pagerank" title="Link to this heading">#</a></h3>
+<p>NetworkXの<code class="docutils literal notranslate"><span class="pre">pagerank</span></code>関数を用いずに，（完全な）PageRank値を計算する関数<code class="docutils literal notranslate"><span class="pre">calc_pagerank</span></code>を実装しなさい．
+なお，<code class="docutils literal notranslate"><span class="pre">calc_pagerank</span></code>関数の引数は以下としなさい：</p>
+<ul class="simple">
+<li><p>第1引数: NetworkX形式のグラフ<span class="math notranslate nohighlight">\(G\)</span></p></li>
+<li><p>第2引数: <span class="math notranslate nohighlight">\(\alpha\)</span>パラメータ．デフォルト値は0.85</p></li>
+<li><p>第3引数: 更新回数．デフォルト値は50</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">normalize</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_pagerank</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">iter_num</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+
+    <span class="c1"># 隣接行列</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+
+    <span class="c1"># 遷移確率行列</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># PageRankベクトル</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Random jumpベクトル</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">e</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">p</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="centrality.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>ノードの中心性</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.1. ウェブ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank">4.2. PageRank</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2.1. 単純なPageRank</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.2.2. 完全なPageRank</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hits">4.3. HITS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.3.1. HITSアルゴリズムの行列表現</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.4. クイズ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">4.4.1. Q1: デッドリンク，スパイダートラップのあるグラフ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-pagerank">4.4.2. Q2: PageRank実装</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025- by Yusuke Yamamoto.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
