@@ -379,6 +379,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">4.4.1. Q1: デッドリンク，スパイダートラップのあるグラフ</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-pagerank">4.4.2. Q2: PageRank実装</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3">4.4.3. Q3: 江戸時代の人物</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-biased-pagerank">4.4.4. Q4: Biased PageRank</a></li>
 </ul>
 </li>
 </ul>
@@ -790,28 +791,29 @@ HITSを用いてハブ値，オーソリティ値を計算したい場合，以�
   1: 0.2324081207560018,
   2: 0.3027756377319947,
   3: 0.2324081207560018,
-  4: -2.979849679955899e-17,
-  5: -0.0,
-  6: -0.0,
-  7: -0.0,
-  8: -0.0,
-  9: -0.0},
- {0: -0.0,
-  1: -2.0472611287723856e-17,
-  2: 6.789858261866111e-18,
-  3: -1.8239155210820883e-17,
-  4: 2.2533463348980456e-17,
+  4: -1.1862043533259317e-17,
+  5: 0.0,
+  6: 0.0,
+  7: 0.0,
+  8: 0.0,
+  9: 0.0},
+ {0: 0.0,
+  1: 8.943153356229061e-20,
+  2: -1.2253171294241184e-18,
+  3: -7.238274218103167e-19,
+  4: -4.44135876033947e-17,
   5: 0.39444872453601076,
   6: 0.3027756377319947,
-  7: 0.21110255092797867,
-  8: 0.09167308680401606,
-  9: -8.9395490398677e-17})
+  7: 0.2111025509279786,
+  8: 0.09167308680401605,
+  9: -3.558613059977795e-17})
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 </section>
+<hr class="docutils" />
 <section id="id6">
 <h2><span class="section-number">4.4. </span>クイズ<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
 <section id="q1">
@@ -842,81 +844,6 @@ Pythonコードを書いて確かめなさい．</p>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="c1"># 行列の正規化のために使う</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">normalize</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">calc_simple_pagerank</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">iter_count</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
-    <span class="c1"># PageRankベクトルを初期化する</span>
-    <span class="n">N</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># 要素値1，要素数がNの縦ベクトル</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">/</span> <span class="n">N</span> 
-    
-    
-    <span class="c1"># 隣接行列</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
-    <span class="c1"># 遷移確率行列</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    
-    <span class="c1"># PageRank値の更新．100回も繰り返せば値は収束する</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iter_count</span><span class="p">):</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">p</span>
-
-
-<span class="c1"># グラフの定義</span>
-<span class="n">G_deadend</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">([</span>
-    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span>
-<span class="p">])</span>
-
-
-<span class="n">G_spidertrap</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">([</span>
-    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span>
-<span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calc_simple_pagerank</span><span class="p">(</span><span class="n">G_deadend</span><span class="p">)</span> 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4.49828082e-05],
-       [8.28313370e-05],
-       [1.62857288e-05],
-       [6.12685370e-05]])
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calc_simple_pagerank</span><span class="p">(</span><span class="n">G_spidertrap</span><span class="p">)</span> 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4.49828082e-05],
-       [8.28313370e-05],
-       [9.99810917e-01],
-       [6.12685370e-05]])
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section id="q2-pagerank">
 <h3><span class="section-number">4.4.2. </span>Q2: PageRank実装<a class="headerlink" href="#q2-pagerank" title="Link to this heading">#</a></h3>
@@ -927,76 +854,44 @@ Pythonコードを書いて確かめなさい．</p>
 <li><p>第2引数: <span class="math notranslate nohighlight">\(\alpha\)</span>パラメータ．デフォルト値は0.85</p></li>
 <li><p>第3引数: 更新回数．デフォルト値は50</p></li>
 </ul>
+</section>
+<section id="q3">
+<h3><span class="section-number">4.4.3. </span>Q3: 江戸時代の人物<a class="headerlink" href="#q3" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://raw.githubusercontent.com/hontolab-courses/graph-analysis-lecturenote/refs/heads/main/content/data/edo.gml">コチラ</a>からダウンロードできるファイル（<code class="docutils literal notranslate"><span class="pre">edo.gml</span></code>）は，Wikipediaの<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%88%B8%E6%99%82%E4%BB%A3%E3%81%AE%E4%BA%BA%E7%89%A9%E4%B8%80%E8%A6%A7">江戸時代の人物一覧</a>に掲載された歴史上の人物をノード，人物記事から人物記事へのリンクをエッジとするグラフデータを格納したものである．
+例えば，<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%88%B8%E6%99%82%E4%BB%A3%E3%81%AE%E4%BA%BA%E7%89%A9%E4%B8%80%E8%A6%A7">江戸時代の人物一覧</a>に掲載されている<a class="reference external" href="https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B7%9D%E5%AE%B6%E5%BA%B7">徳川家康</a>の記事には，同じく江戸時代の人物一覧に掲載された<a class="reference external" href="https://ja.wikipedia.org/wiki/%E4%BC%8A%E9%81%94%E6%94%BF%E5%AE%97">伊達政宗</a>への記事へのリンクが存在するため，グラフ中では徳川家康ノードから伊達政宗ノードへエッジが存在する．</p>
+<p>※ 江戸時代に活躍した人物でも<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%88%B8%E6%99%82%E4%BB%A3%E3%81%AE%E4%BA%BA%E7%89%A9%E4%B8%80%E8%A6%A7">江戸時代の人物一覧</a>に掲載されていない人物も存在する．例えば，坂本龍馬は<a class="reference external" href="https://ja.wikipedia.org/wiki/%E5%B9%95%E6%9C%AB%E3%81%AE%E4%BA%BA%E7%89%A9%E4%B8%80%E8%A6%A7">幕末の人物一覧</a>には掲載されているが，江戸時代の人物一覧には掲載されていない．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/e733843ac128c4bd0016b32603768aa81dcdf124435d0a0cc330727d7f76a98c.png" src="../_images/e733843ac128c4bd0016b32603768aa81dcdf124435d0a0cc330727d7f76a98c.png" />
+</div>
+</div>
+<p>上のグラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>は，ダウンロードしたファイル<code class="docutils literal notranslate"><span class="pre">edo.gml</span></code>をNetworkXで読み込み，可視化したものである．
+グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>にPageRankアルゴリズムを適用し，江戸時代の人物のPageRankスコア上位30名を求めなさい．</p>
+<p>なお，<a class="reference external" href="https://raw.githubusercontent.com/hontolab-courses/graph-analysis-lecturenote/refs/heads/main/content/data/edo.gml">コチラ</a>からダウンロードしたファイル<code class="docutils literal notranslate"><span class="pre">edo.gml</span></code>をNetworkXで読み込むには，以下のコードを実行するとよい．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">normalize</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">calc_pagerank</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">iteration_num</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
-
-    <span class="c1"># 隣接行列</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
-
-    <span class="c1"># 遷移確率行列</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="c1"># PageRankベクトル</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="c1"># Random jumpベクトル</span>
-    <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iteration_num</span><span class="p">):</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">e</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
-
-    <span class="c1"># スコアとノードを紐付ける</span>
-    <span class="c1"># pはPageRankの縦ベクトルで，スコアはG.nodes()のリスト順に並んでいる</span>
-    <span class="n">nodes</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span>
-    <span class="n">scores</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-        <span class="n">scores</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="k">return</span> <span class="n">scores</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ダウンロードしたファイルは`data/edo.gml`にあるとする（ファイルの保存先はどこでもよい）</span>
+<span class="n">G_edo</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_gml</span><span class="p">(</span><span class="s2">&quot;data/edo.gml&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="q3">
-<h3><span class="section-number">4.4.3. </span>Q3: 江戸時代の人物<a class="headerlink" href="#q3" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-
-<span class="n">EDO_DRAW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;node_size&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="s1">&#39;arrowsize&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>    
-    <span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="s1">&#39;with_labels&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s1">&#39;node_color&#39;</span><span class="p">:</span> <span class="s1">&#39;cornflowerblue&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="s1">&#39;cornflowerblue&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="mf">0.10</span><span class="p">,</span>
-    <span class="s1">&#39;font_family&#39;</span><span class="p">:</span> <span class="s1">&#39;IPAPGothic&#39;</span>
-<span class="p">}</span>
-
-
-<span class="n">G_edo</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_gml</span><span class="p">(</span><span class="s2">&quot;data/edo.gml&quot;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G_edo</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_edo</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="o">**</span><span class="n">EDO_DRAW_CONFIG</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/e733843ac128c4bd0016b32603768aa81dcdf124435d0a0cc330727d7f76a98c.png" src="../_images/e733843ac128c4bd0016b32603768aa81dcdf124435d0a0cc330727d7f76a98c.png" />
-</div>
-</div>
+<section id="q4-biased-pagerank">
+<h3><span class="section-number">4.4.4. </span>Q4: Biased PageRank<a class="headerlink" href="#q4-biased-pagerank" title="Link to this heading">#</a></h3>
+<p>オリジナルのPageRankアルゴリズムでは，ページに直接ジャンプする行動に対応する項のベクトルの要素値（以下の式の第2項）は，すべて<span class="math notranslate nohighlight">\(\frac{1}{N}\)</span>としていた．
+このベクトルを調整することで，特定ノードの影響を強めてPageRankの値を補正することができる．</p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol{p}_{n+1} = \alpha \boldsymbol{M}^T \boldsymbol{p}_{n} + (1 - \alpha) \frac{\boldsymbol{e}}{N}
+\]</div>
+<p>Q3のPageRankの計算にて，直接ジャンプ項のベクトルの要素値について，</p>
+<ul class="simple">
+<li><p>賴山陽，本居宣長，杉田玄白，関孝和に対応する値は<span class="math notranslate nohighlight">\(\frac{1}{4}\)</span>に</p></li>
+<li><p>上記人物以外についてはゼロ</p></li>
+</ul>
+<p>になるように設定し，再度PageRankを計算し，その値の上位30位の人物を求めなさい．</p>
+<p>ヒント: NetworkXの<code class="docutils literal notranslate"><span class="pre">pagerank</span></code>関数を用いず自力で行列計算で行う場合は，賴山陽，本居宣長，杉田玄白，関孝和の値がベクトルの何番目に対応するかを調べる必要がある．</p>
 </section>
 </section>
 </section>
@@ -1070,6 +965,7 @@ Pythonコードを書いて確かめなさい．</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">4.4.1. Q1: デッドリンク，スパイダートラップのあるグラフ</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-pagerank">4.4.2. Q2: PageRank実装</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3">4.4.3. Q3: 江戸時代の人物</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-biased-pagerank">4.4.4. Q4: Biased PageRank</a></li>
 </ul>
 </li>
 </ul>
