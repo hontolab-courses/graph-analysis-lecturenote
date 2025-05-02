@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4. ウェブとグラフ &#8212; グラフ分析入門の講義ノート</title>
+    <title>5. ウェブとグラフ &#8212; グラフ分析入門の講義ノート</title>
   
   
   
@@ -76,7 +76,7 @@
     <link rel="canonical" href="https://graphnote.hontolab.org/content/web-and-graph.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="3. ノードの中心性" href="centrality.html" />
+    <link rel="prev" title="4. コミュニティ発見" href="finding-community.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -185,7 +185,8 @@
 <li class="toctree-l1"><a class="reference internal" href="graph-and-path.html">1. グラフデータと経路</a></li>
 <li class="toctree-l1"><a class="reference internal" href="graph-structure-features.html">2. グラフ構造の諸指標</a></li>
 <li class="toctree-l1"><a class="reference internal" href="centrality.html">3. ノードの中心性</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. ウェブとグラフ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="finding-community.html">4. コミュニティ発見</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. ウェブとグラフ</a></li>
 </ul>
 
     </div>
@@ -365,21 +366,21 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.1. ウェブ</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank">4.2. PageRank</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2.1. 単純なPageRank</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.2.2. 完全なPageRank</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.1. ウェブ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank">5.2. PageRank</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.2.1. 単純なPageRank</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">5.2.2. 完全なPageRank</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hits">4.3. HITS</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.3.1. HITSアルゴリズムの行列表現</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hits">5.3. HITS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5.3.1. HITSアルゴリズムの行列表現</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.4. クイズ</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">4.4.1. Q1: デッドリンク，スパイダートラップのあるグラフ</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-pagerank">4.4.2. Q2: PageRank実装</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3">4.4.3. Q3: 江戸時代の人物</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-biased-pagerank">4.4.4. Q4: Biased PageRank</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5.4. クイズ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">5.4.1. Q1: デッドリンク，スパイダートラップのあるグラフ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-pagerank">5.4.2. Q2: PageRank実装</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3">5.4.3. Q3: 江戸時代の人物</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-biased-pagerank">5.4.4. Q4: Biased PageRank</a></li>
 </ul>
 </li>
 </ul>
@@ -394,7 +395,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1><span class="section-number">4. </span>ウェブとグラフ<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">5. </span>ウェブとグラフ<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
 <div class="cell tag_remove-output tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -432,7 +433,7 @@ document.write(`
 </details>
 </div>
 <section id="id2">
-<h2><span class="section-number">4.1. </span>ウェブ<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.1. </span>ウェブ<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <p><strong>ウェブ（World wide web; Web）</strong> は，インターネット上に構築された<strong>ハイパーテキスト（hypertext）</strong> システムである．
 ハイパーテキストとは文書同士をハイパーリンク（単にリンクと呼ぶことも）をつなぐ仕組みである．
 勘違いされやすいが，インターネットは通信網であって「インターネット = ウェブ」ではない．</p>
@@ -454,7 +455,7 @@ document.write(`
 これらアルゴリズムが発表されて以降，これらアルゴリズムを改善，発展させたアルゴリズムが多数登場している．</p>
 </section>
 <section id="pagerank">
-<h2><span class="section-number">4.2. </span>PageRank<a class="headerlink" href="#pagerank" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.2. </span>PageRank<a class="headerlink" href="#pagerank" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://research.google/pubs/the-anatomy-of-a-large-scale-hypertextual-web-search-engine/">PageRank</a>はGoogleの創業者であるSergey BrinとLarry Pageが提案したアルゴリズムである．
 Googleの検索エンジンはPageRankの実装により，ウェブ検索エンジンのトップランナーに躍り出た．</p>
 <p>PageRankはウェブページに張られたリンクを一種の「投票」と見なし，ウェブページの重要度（PageRank値）を計算する．
@@ -464,7 +465,7 @@ PageRankは，重要度の計算のために，以下のような仮定を置く
 </div></blockquote>
 <p>ご覧の通り，この仮定は再帰的（堂々巡り）であるが，実際の計算ではどう対応するのであろうか．</p>
 <section id="id3">
-<h3><span class="section-number">4.2.1. </span>単純なPageRank<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.2.1. </span>単純なPageRank<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>シンプルなPageRankアルゴリズムは，以下の手順でウェブページの重要度を計算する：</p>
 <ol class="arabic simple">
 <li><p>計算対象とするウェブページ群<span class="math notranslate nohighlight">\(W\)</span>を用意する（ウェブページはN個あるとする）</p></li>
@@ -580,7 +581,7 @@ p_1(D) &amp;= \frac{1}{4} \times p_0(C) + \frac{1}{2} \times p_0(B) \\
 <p><img alt="" src="../_images/deadend-and-spidertrap.jpg" /></p>
 </section>
 <section id="id4">
-<h3><span class="section-number">4.2.2. </span>完全なPageRank<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.2.2. </span>完全なPageRank<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>デッドエンド問題やスパイダートラップ問題を解決するために，オリジナルのPageRankアルゴリズムでは<strong>ランダムサーファーモデル（random surfer model）</strong> という仮定を導入している．
 あなたがウェブブラウジングをしている時を想像してほしい．
 ブラウジングをする際，ウェブページ内のリンクをクリックして別のページに移動することもあれば，ブックマークやQRコードなどURLを直接指定して（リンクを辿らず）ウェブページに飛ぶこともあるだろう．
@@ -635,7 +636,7 @@ p_1(D) &amp;= \frac{1}{4} \times p_0(C) + \frac{1}{2} \times p_0(B) \\
 </section>
 </section>
 <section id="hits">
-<h2><span class="section-number">4.3. </span>HITS<a class="headerlink" href="#hits" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.3. </span>HITS<a class="headerlink" href="#hits" title="Link to this heading">#</a></h2>
 <p><strong>HITS（hypertext induced topic search）</strong> アルゴリズムは，PageRankとほぼ同じ時期に提案されたウェブページの重要度を測るアルゴリズムである．
 PageRankと同じく，ウェブページ間のリンク構造に着目したアルゴリズムであるが，趣が異なる．</p>
 <p>HITSは，ウェブページの役割には2種類あると仮定している．
@@ -673,7 +674,7 @@ hub_{n+1}(w) &amp;= \sum_{x \in W_{from}(w)}auth_n(x)
 <li><p>ハブ値，オーソリティ値が収束するまで，ステップ4の処理を繰り返す．</p></li>
 </ol>
 <section id="id5">
-<h3><span class="section-number">4.3.1. </span>HITSアルゴリズムの行列表現<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.3.1. </span>HITSアルゴリズムの行列表現<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>上記の計算手順は，行列を使うとスマートかつ効率的に計算することができる．
 以下，行列を使った計算手順である：</p>
 <ol class="arabic simple">
@@ -815,9 +816,9 @@ HITSを用いてハブ値，オーソリティ値を計算したい場合，以�
 </section>
 <hr class="docutils" />
 <section id="id6">
-<h2><span class="section-number">4.4. </span>クイズ<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.4. </span>クイズ<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
 <section id="q1">
-<h3><span class="section-number">4.4.1. </span>Q1: デッドリンク，スパイダートラップのあるグラフ<a class="headerlink" href="#q1" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.4.1. </span>Q1: デッドリンク，スパイダートラップのあるグラフ<a class="headerlink" href="#q1" title="Link to this heading">#</a></h3>
 <p><img alt="" src="../_images/deadend-and-spidertrap.jpg" /></p>
 <p>上記の各グラフに対してシンプルなPageRankアルゴリズムを適用すると，どのような値に収束するか．
 Pythonコードを書いて確かめなさい．</p>
@@ -846,7 +847,7 @@ Pythonコードを書いて確かめなさい．</p>
 </div>
 </section>
 <section id="q2-pagerank">
-<h3><span class="section-number">4.4.2. </span>Q2: PageRank実装<a class="headerlink" href="#q2-pagerank" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.4.2. </span>Q2: PageRank実装<a class="headerlink" href="#q2-pagerank" title="Link to this heading">#</a></h3>
 <p>NetworkXの<code class="docutils literal notranslate"><span class="pre">pagerank</span></code>関数を用いずに，（完全な）PageRank値を計算する関数<code class="docutils literal notranslate"><span class="pre">calc_pagerank</span></code>を実装しなさい．
 なお，<code class="docutils literal notranslate"><span class="pre">calc_pagerank</span></code>関数の引数は以下としなさい：</p>
 <ul class="simple">
@@ -856,7 +857,7 @@ Pythonコードを書いて確かめなさい．</p>
 </ul>
 </section>
 <section id="q3">
-<h3><span class="section-number">4.4.3. </span>Q3: 江戸時代の人物<a class="headerlink" href="#q3" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.4.3. </span>Q3: 江戸時代の人物<a class="headerlink" href="#q3" title="Link to this heading">#</a></h3>
 <p><a class="reference external" href="https://raw.githubusercontent.com/hontolab-courses/graph-analysis-lecturenote/refs/heads/main/content/data/edo.gml">コチラ</a>からダウンロードできるファイル（<code class="docutils literal notranslate"><span class="pre">edo.gml</span></code>）は，Wikipediaの<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%88%B8%E6%99%82%E4%BB%A3%E3%81%AE%E4%BA%BA%E7%89%A9%E4%B8%80%E8%A6%A7">江戸時代の人物一覧</a>に掲載された歴史上の人物をノード，人物記事から人物記事へのリンクをエッジとするグラフデータを格納したものである．
 例えば，<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%88%B8%E6%99%82%E4%BB%A3%E3%81%AE%E4%BA%BA%E7%89%A9%E4%B8%80%E8%A6%A7">江戸時代の人物一覧</a>に掲載されている<a class="reference external" href="https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B7%9D%E5%AE%B6%E5%BA%B7">徳川家康</a>の記事には，同じく江戸時代の人物一覧に掲載された<a class="reference external" href="https://ja.wikipedia.org/wiki/%E4%BC%8A%E9%81%94%E6%94%BF%E5%AE%97">伊達政宗</a>への記事へのリンクが存在するため，グラフ中では徳川家康ノードから伊達政宗ノードへエッジが存在する．</p>
 <p>※ 江戸時代に活躍した人物でも<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%88%B8%E6%99%82%E4%BB%A3%E3%81%AE%E4%BA%BA%E7%89%A9%E4%B8%80%E8%A6%A7">江戸時代の人物一覧</a>に掲載されていない人物も存在する．例えば，坂本龍馬は<a class="reference external" href="https://ja.wikipedia.org/wiki/%E5%B9%95%E6%9C%AB%E3%81%AE%E4%BA%BA%E7%89%A9%E4%B8%80%E8%A6%A7">幕末の人物一覧</a>には掲載されているが，江戸時代の人物一覧には掲載されていない．</p>
@@ -878,7 +879,7 @@ Pythonコードを書いて確かめなさい．</p>
 </div>
 </section>
 <section id="q4-biased-pagerank">
-<h3><span class="section-number">4.4.4. </span>Q4: Biased PageRank<a class="headerlink" href="#q4-biased-pagerank" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.4.4. </span>Q4: Biased PageRank<a class="headerlink" href="#q4-biased-pagerank" title="Link to this heading">#</a></h3>
 <p>オリジナルのPageRankアルゴリズムでは，ページに直接ジャンプする行動に対応する項のベクトルの要素値（以下の式の第2項）は，すべて<span class="math notranslate nohighlight">\(\frac{1}{N}\)</span>としていた．
 このベクトルを調整することで，特定ノードの影響を強めてPageRankの値を補正することができる．</p>
 <div class="math notranslate nohighlight">
@@ -927,12 +928,12 @@ Pythonコードを書いて確かめなさい．</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="centrality.html"
+       href="finding-community.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>ノードの中心性</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>コミュニティ発見</p>
       </div>
     </a>
 </div>
@@ -951,21 +952,21 @@ Pythonコードを書いて確かめなさい．</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.1. ウェブ</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank">4.2. PageRank</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2.1. 単純なPageRank</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.2.2. 完全なPageRank</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.1. ウェブ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank">5.2. PageRank</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.2.1. 単純なPageRank</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">5.2.2. 完全なPageRank</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hits">4.3. HITS</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.3.1. HITSアルゴリズムの行列表現</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hits">5.3. HITS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5.3.1. HITSアルゴリズムの行列表現</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.4. クイズ</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">4.4.1. Q1: デッドリンク，スパイダートラップのあるグラフ</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-pagerank">4.4.2. Q2: PageRank実装</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3">4.4.3. Q3: 江戸時代の人物</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-biased-pagerank">4.4.4. Q4: Biased PageRank</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5.4. クイズ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1">5.4.1. Q1: デッドリンク，スパイダートラップのあるグラフ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-pagerank">5.4.2. Q2: PageRank実装</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3">5.4.3. Q3: 江戸時代の人物</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-biased-pagerank">5.4.4. Q4: Biased PageRank</a></li>
 </ul>
 </li>
 </ul>

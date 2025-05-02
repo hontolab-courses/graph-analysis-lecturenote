@@ -1,0 +1,1231 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4. コミュニティ発見 &#8212; グラフ分析入門の講義ノート</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-XWKTGSZ4LK"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-XWKTGSZ4LK');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-XWKTGSZ4LK');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/finding-community';</script>
+    <link rel="canonical" href="https://graphnote.hontolab.org/content/finding-community.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. ウェブとグラフ" href="web-and-graph.html" />
+    <link rel="prev" title="3. ノードの中心性" href="centrality.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">グラフ分析入門の講義ノート</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="graph-and-path.html">1. グラフデータと経路</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph-structure-features.html">2. グラフ構造の諸指標</a></li>
+<li class="toctree-l1"><a class="reference internal" href="centrality.html">3. ノードの中心性</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. コミュニティ発見</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-and-graph.html">5. ウェブとグラフ</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/finding-community.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/finding-community.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>コミュニティ発見</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.1. 連結成分</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2. クリーク</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.3. グラフ分割</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.3.1. コミュニティ発見のためのグラフ分割の基本アイデア（の1つ）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.3.2. エッジの媒介中心性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4.3.3. モジュラリティ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#girvan-newman">4.3.4. Girvan-Newmanアルゴリズム</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.4. リンクコミュニティ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4.5. クイズ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-2">4.5.1. Q1. 空手クラブを2派閥に分ける</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-girvan-newman">4.5.2. Q2. Girvan-Newmanアルゴリズムとモジュラリティ</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">4. </span>コミュニティ発見<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DRAW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;node_color&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;edgecolors&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="c1"># line color of nodes</span>
+    <span class="s1">&#39;with_labels&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;node_size&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+    <span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="s1">&#39;font_family&#39;</span><span class="p">:</span> <span class="s1">&#39;Arial&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>グラフ上では，関係の深いノードの間にエッジが張られる．
+グラフがある程度の大きさになると，その内部に意味のある<strong>部分グラフ（subgraph）</strong> ，すなわち<strong>コミュニティ（community）</strong> が形成される．
+例えば，以下に示す図は<a class="reference external" href="https://www.carbonbrief.org/mapped-the-climate-change-conversation-on-twitter/">Twitterユーザ同士のつながりを可視化したグラフ</a>である．
+Twitterのようなソーシャルネットワークでは，共通の関心を持つユーザ同士がつながりを持つことで，自然とコミュニティが形成される．</p>
+<p><img alt="画像出典: https://www.carbonbrief.org/wp-content/uploads/2016/04/TwitterViz-02-Central-Map.jpg" src="https://www.carbonbrief.org/wp-content/uploads/2016/04/TwitterViz-02-Central-Map.jpg" /></p>
+<p>グラフの各ノードにそれが属するコミュニティに関するラベルが付いていれば，苦労はない．
+しかし大抵の場合，グラフ分析者に与えられるのは，ノードとノード間の繋がり（エッジ）の情報だけである．
+ノードに所属コミュニティに関するメタデータが付いていたとしても，ノードが隠れたコミュニティに属していることもあり得る．
+それゆえ，グラフ構造のみに基づきコミュニティを発見する必要が求められる．</p>
+<p>以下では，グラフ分析の典型的なタスクの一つである<strong>コミュニティ発見（community detection）</strong> について，基礎となる手法を解説する．</p>
+<section id="id2">
+<h2><span class="section-number">4.1. </span>連結成分<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>無向グラフの部分グラフのうち，極大で連結しているものを<strong>連結成分（connected components）</strong> と呼ぶ．
+連結成分とは，要するにグラフ中で孤立している部分グラフである．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/4353c9eead13ea8fbbb9a4bb537414fbbf55f64a6b59d8138f7818645938094a.png" src="../_images/4353c9eead13ea8fbbb9a4bb537414fbbf55f64a6b59d8138f7818645938094a.png" />
+</div>
+</div>
+<p>例えば，上のグラフ<span class="math notranslate nohighlight">\(G_{unconnected}\)</span>を見てみよう．
+グラフは</p>
+<ul class="simple">
+<li><p>ノード0, 1, 2, 3, 4, 5, 6からなる部分グラフ</p></li>
+<li><p>ノード7, 8からなる部分グラフ</p></li>
+<li><p>ノード9, 10からなる部分グラフ</p></li>
+<li><p>ノード11からなる部分グラフ</p></li>
+</ul>
+<p>から構成されており，それぞれの部分グラフは相互に行き来できず，孤立してしまっている．
+そのため，各部分グラフはグラフ<span class="math notranslate nohighlight">\(G_{unconnected}\)</span>の連結成分と見なす．</p>
+<p>NetworkXでグラフの連結成分を抽出するには，<code class="docutils literal notranslate"><span class="pre">connected_components</span></code>関数を用いる．
+以下は，上記グラフ<span class="math notranslate nohighlight">\(G_{unconnected}\)</span>の連結成分を抽出するコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフの定義</span>
+<span class="n">G_unconnected</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> 
+<span class="p">])</span>
+<span class="n">G_unconnected</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+
+<span class="c1"># connected_components関数の返り値はイテレータなので，結果をリストに変換しておく</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">G_unconnected</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{0, 1, 2, 3, 4, 5, 6}, {7, 8}, {9, 10}, {11}]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2><span class="section-number">4.2. </span>クリーク<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>連結成分は，グラフ中で孤立している部分グラフしか見つけられない．
+実世界では，孤立している部分グラフだけをコミュニティと見なすことは稀である．
+様々なノードと繋がるなかで，繋がりが密になっている部分グラフをコミュニティと見なすのが一般的であろう．</p>
+<p><strong>クリーク（clique）</strong> は，グラフの内部で密度が1の極大な部分グラフである．
+密度が1のグラフは，グラフ中のすべてのノード間にエッジが張られている．
+クリークは，孤立している部分グラフを持たないグラフからコミュニティを発見するための，最も直感的な例である．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/b80e1c6248abfade4a6d2c389970f6f2fcf1598501057249fbb524d965a00d7d.png" src="../_images/b80e1c6248abfade4a6d2c389970f6f2fcf1598501057249fbb524d965a00d7d.png" />
+</div>
+</div>
+<p>クリークは，グラフ中に複数存在することがある．
+例を見てみよう．
+上のグラフ<span class="math notranslate nohighlight">\(G_{clique}\)</span>において，クリークとなる部分グラフは</p>
+<ul class="simple">
+<li><p>ノード2, 3, 5, 6からなる部分グラフ</p></li>
+<li><p>ノード0, 1, 2からなる部分グラフ</p></li>
+<li><p>ノード0, 2, 3からなる部分グラフ</p></li>
+<li><p>ノード1, 4からなる部分グラフ</p></li>
+<li><p>ノード4, 5からなる部分グラフ</p></li>
+</ul>
+<p>の5つである．
+なお，上記グラフにおいてノード2, 3, 5からなる部分グラフも密度が1となるが，これはクリークとは見なされない．
+定義上，クリークは密度が1の極大な部分グラフである．
+ノード2, 3, 5からなる部分グラフはノード2, 3, 5, 6からなるクリークに含まれるため，クリークとは見なされない．</p>
+<p>NetworkXでグラフからクリークを抽出するには，<code class="docutils literal notranslate"><span class="pre">find_cliques</span></code>関数を用いる．
+以下は，上記グラフ<span class="math notranslate nohighlight">\(G_{clique}\)</span>からクリークを抽出するコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフの定義</span>
+<span class="n">G_clique</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> 
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> 
+    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="c1"># find_cliques関数の返り値はイテレータなので，結果をリストに変換しておく</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">find_cliques</span><span class="p">(</span><span class="n">G_clique</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[2, 1, 0], [2, 3, 0], [2, 3, 5, 6], [4, 1], [4, 5]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>クリーク集合のうち，ノード数が最大となるクリークは<strong>最大クリーク（maximal clique）</strong> と呼ばれる．
+上のグラフ<span class="math notranslate nohighlight">\(G_{clique}\)</span>においては，ノード2, 3, 5, 6からなるクリークが最大クリークとなる．</p>
+<p>NetworkXでグラフから最大クリークを抽出するには，<code class="docutils literal notranslate"><span class="pre">make_max_clique_graph</span></code>関数を用いる．
+以下は，上記グラフ<span class="math notranslate nohighlight">\(G_{clique}\)</span>から最大クリークを抽出するコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 結果をリストに変換しておく</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">make_max_clique_graph</span><span class="p">(</span><span class="n">G_clique</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2, 3, 4]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2><span class="section-number">4.3. </span>グラフ分割<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>クリークは密度が1となる部分グラフであり，コミュニティの定義としてはかなり厳しい条件を持つ．
+実用的には，もう少し緩い密度条件でコミュニティを発見したい．</p>
+<p><strong>グラフ分割（graph partioning）</strong> は，グラフ構造に基づきグラフを意味のある部分グラフに分割し，コミュニティを発見しようとする方法である．
+様々なグラフ分割アルゴリズムが提案されているが，ここでは媒介中心性に注目した手法を取り上げる．</p>
+<section id="id5">
+<h3><span class="section-number">4.3.1. </span>コミュニティ発見のためのグラフ分割の基本アイデア（の1つ）<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>コミュニティ発見のために，コミュニティとなりえる部分グラフとそうでないものの違いについて，考察しておこう．
+下図を見て分かるように，コミュニティとなる部分グラフでは，その内部でノード同士が密に繋がっていることに異論はないであろう．</p>
+<p>もう1つ重要な点として，コミュニティ内のノードはコミュニティ外のノードとは比較的つながりが乏しいことが挙げられる．
+孤立する部分グラフを持たないグラフにおいて複数のコミュニティが存在するならば，コミュニティ外にあるノードを通じてコミュニティ同士を繋ぐようなエッジが存在しそうである．
+そのようなエッジを順次切断することで，グラフをコミュニティに分割できると考えられる．</p>
+<p><img alt="" src="../_images/how-to-detect-community.jpg" /></p>
+<p>コミュニティ外にあってコミュニティ同士をつなぐエッジとは，どのようなものだろうか．
+上の図を見ると分かるように，そのようなエッジはあるコミュニティから別のコミュニティに移動する際，必ず通ることになりそうである．
+言い方を変えると，コミュニティ同士をつなぐエッジは，（異なるコミュニティに属する）多くのノード間の最短経路上に存在しそうである．</p>
+<p>ところで，これと似たような話があったことを思い出してほしい．
+そう，<a class="reference internal" href="#%5D(centrality.ipynb)"><span class="xref myst">ノード中心性の章</span></a>で取り上げた「ノードの媒介中心性」である．</p>
+<p>ノードの媒介中心性とは，あるノードがそれ以外のノード間の経路に含まれる割合を示す指標であり，ノードがグラフ上でどの程度「経路上の要所」となっているかを表すものであった．
+以下のグラフでは，ノード3の媒介中心性が最大となっており，どこからどこのノードへ最短経路で移動するにせよ，通ることが最も多いノードは3になる．</p>
+<p><img alt="" src="../_images/betweenness-centrality.jpg" /></p>
+<p>ノードの媒介中心性が「ノード間の最短経路上に最も頻繁に出現するノード」である．
+一方，今私たちが知りたいのは「ノード間の最短経路上に最も頻繁に出現するエッジ」である．
+これを見つけるために，ノードの媒介中心性を拝借して，エッジの媒介中心性の概念を導入する．</p>
+</section>
+<section id="id6">
+<h3><span class="section-number">4.3.2. </span>エッジの媒介中心性<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p><strong>エッジの媒介中心性（edge betweenness）</strong> とは，注目エッジがそれ以外のエッジ間の最短経路に含まれる割合である．
+あるエッジがグラフ上でどの程度「経路上の要所」となっているかを表す指標である．
+計算方法は，ノード媒介中心性の計算において，ノードとエッジの立場をひっくり返して計算するイメージである．</p>
+<p><img alt="" src="../_images/edge-betweenness.jpg" /></p>
+<p>NetworkXでエッジの媒介中心性を計算するには，<code class="docutils literal notranslate"><span class="pre">edge_betweenness_centrality</span></code>関数を用いる．
+例として以下のグラフ<span class="math notranslate nohighlight">\(G_{barbell}\)</span>の各エッジの媒介中心性を計算してみよう．</p>
+<p><img alt="" src="../_images/edge-betweenness-sample.jpg" /></p>
+<p>計算のためのコードは以下の通りである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフの定義</span>
+<span class="n">G_barbell</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">barbell_graph</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># エッジの媒介中心性の計算</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">edge_betweenness_centrality</span><span class="p">(</span><span class="n">G_barbell</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{(0, 1): 0.047619047619047616,
+ (0, 2): 0.23809523809523808,
+ (1, 2): 0.23809523809523808,
+ (2, 3): 0.5714285714285714,
+ (4, 5): 0.23809523809523808,
+ (4, 6): 0.23809523809523808,
+ (4, 3): 0.5714285714285714,
+ (5, 6): 0.047619047619047616}
+</pre></div>
+</div>
+</div>
+</div>
+<p>エッジの媒介中心性が計算できれば，グラフ中で媒介中心性が最大となるエッジを切断すれば，グラフをリンクが密なコミュニティに分割していくことができる．
+例えば，上のグラフ<span class="math notranslate nohighlight">\(G_{barbell}\)</span>において媒介中心性が最大となるエッジは，ノード2と3をつなぐエッジであった．
+このエッジを切断すれば，以下の図のように，グラフは2つの部分グラフに分割される．
+この結果は，コミュニティの抽出結果としても悪くはなさそうだが，分割されたグラフに対して再度エッジ媒介中心性の計算を行い，中心性が最大となるエッジを削除する操作を繰り返すことで，コミュニティ発見のためのグラフ分割を継続することができる．</p>
+<p><img alt="" src="../_images/graph-partioning-example.jpg" /></p>
+</section>
+<section id="id7">
+<h3><span class="section-number">4.3.3. </span>モジュラリティ<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>エッジの媒介中心性に基づくエッジの切断を行うことでグラフ分割が可能となるが，グラフ分割をどこまで繰り返せば適切な粒度のコミュニティを抽出できるのだろうか．
+すなわち，グラフ分割の適切性はどのように評価すれば良いのだろうか．</p>
+<p>グラフ分割の適切性評価によく用いられる指標の一つが<strong>モジュラリティ（modularity）</strong> である．
+モジュラリティは，何らかのアルゴリズムによってグラフがいくつかのコミュニティ（サブグラフ）に分けられた際，コミュニティ内のノードから出るエッジがコミュニティ内部に集中している割合を評価する．</p>
+<p><img alt="" src="../_images/modularity-example.jpg" /></p>
+<p>例えば，上の図のグラフについて考えてみよう．
+グラフ分割の結果，</p>
+<ul class="simple">
+<li><p>ノード0，1，2はコミュニティA</p></li>
+<li><p>ノード3，4，5はコミュニティB</p></li>
+</ul>
+<p>に分かれると判断したとしよう．
+グラフの隣接行列は上図の右のように書けるが，</p>
+<ul class="simple">
+<li><p>コミュニティA内のノード同士で張り合っているエッジについては青色の箇所</p></li>
+<li><p>コミュニティB内のノード同士で張り合っているエッジについては赤色の箇所</p></li>
+</ul>
+<p>に対応する．
+この隣接行列を使って，コミュニティ内外に出入りするエッジの本数を示す行列<span class="math notranslate nohighlight">\(\boldsymbol{A}\)</span>を作ると，以下のようになる．</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\boldsymbol{A} = 
+\begin{pmatrix}
+6 &amp; 1 \\
+1 &amp; 6 \\
+\end{pmatrix}
+\end{split}\]</div>
+<p>ここで，行列<span class="math notranslate nohighlight">\(A\)</span>のi行目j列目の値はコミュニティ<span class="math notranslate nohighlight">\(i\)</span>内のノードからコミュニティ<span class="math notranslate nohighlight">\(j\)</span>のノードに張られたエッジの総数を意味する．
+行列の<span class="math notranslate nohighlight">\(i\)</span>行の各値の合計は，（どこに出ていくかは無視しして）コミュニティ<span class="math notranslate nohighlight">\(i\)</span>から出るエッジの総数を表す．
+また，行列の<span class="math notranslate nohighlight">\(j\)</span>列の各値は合計，（どこからやってきたか無視して）コミュニティ<span class="math notranslate nohighlight">\(j\)</span>に張られたエッジの総数を意味する．</p>
+<p>ところで，分割コミュニティ数およびコミュニティ内外に出入りするエッジの総数を固定して，グラフをランダムにグラフ分割した場合，コミュニティ内外に出ていくエッジの総数はいくつになるだろうか．
+言い換えると，ランダムに分割したグラフにおける行列<span class="math notranslate nohighlight">\(A\)</span>はどのようなものになるだろうか．
+この値は平均的な（平凡な）グラフ分割の状態を示すので，この値からのズレが大きいグラフ分割ほど，密なコミュニティの抽出に成功していると考えられる．</p>
+<p>例に戻ろう．
+上の図のグラフ分割では，ノードをAとBの2つのコミュニティに分けた結果，コミュニティ内外に出ていくエッジの総数は行列<span class="math notranslate nohighlight">\(A\)</span>が示す値となった．
+ここで，</p>
+<ul class="simple">
+<li><p>コミュニティAから出ていくエッジの総数（1行目の合計値）は7</p></li>
+<li><p>コミュニティBから出ていくエッジの総数（2行目の合計値）は7</p></li>
+<li><p>コミュニティAに入ってくるエッジの総数（1列目の合計値）は7</p></li>
+<li><p>コミュニティBに入ってくるエッジの総数（2列目の合計値）は7</p></li>
+</ul>
+<p>を固定とし，再度ノード0から5をAとBの2コミュニティに分割したとしよう．
+その際の行列<span class="math notranslate nohighlight">\(A\)</span>の各要素値の期待値はいくつになるだろうか．
+行と列の合計値は分かっているので，割合が均等になるようにすればよい．
+例えば，コミュニティAの内部ノードからコミュニティAの内部ノードに張られたエッジ数の期待値は<span class="math notranslate nohighlight">\(7 \times \frac{7}{7+7}=3.5\)</span>となる．
+同様に計算すると，コミュニティ内外に出入りするエッジ数の期待値行列<span class="math notranslate nohighlight">\(\boldsymbol{A}_{expected}\)</span>は</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A_{expected} =
+\begin{pmatrix}
+3.5 &amp; 3.5 \\
+3.5 &amp; 3.5 \\
+\end{pmatrix}
+\end{split}\]</div>
+<p>となる．
+私たちが知りたいモジュラリティは，まさにこの行列<span class="math notranslate nohighlight">\(\boldsymbol{A}_{expected}\)</span>と行列<span class="math notranslate nohighlight">\(A\)</span>の各要素のズレである．</p>
+<p>モジュラリティを定式化しよう．
+エッジ総数が<span class="math notranslate nohighlight">\(m\)</span>のグラフ<span class="math notranslate nohighlight">\(G\)</span>にグラフ分割を行った結果，C個のコミュニティに分割されたとする．
+コミュニティ内外に出入りするエッジ数を示す行列を<span class="math notranslate nohighlight">\(\boldsymbol{A}\)</span>としたとき，分割状態のグラフのモジュラリティ<span class="math notranslate nohighlight">\(Q\)</span>は以下の式で定義される．</p>
+<div class="math notranslate nohighlight">
+\[
+Q = \frac{1}{2m} \sum_{i=1}^C (\boldsymbol{A}_{i,i}-\frac{\sum_j \boldsymbol{A}_{i,j}}{2m}\sum_j \boldsymbol{A}_{j, i})
+\]</div>
+<p>非常にややこしい式に見えるが，</p>
+<ul class="simple">
+<li><p>式の第1項<span class="math notranslate nohighlight">\(\boldsymbol{A}_{i,i}\)</span>は<span class="math notranslate nohighlight">\(i\)</span>番目のコミュニティの内部で張られているリンクの数</p></li>
+<li><p>その後にある第2項は，ランダムにコミュニティ分割された際，<span class="math notranslate nohighlight">\(i\)</span>番目のコミュニティの内部で張られているリンクの数の「期待値」である．</p></li>
+</ul>
+<p>式の先頭にある<span class="math notranslate nohighlight">\(\frac{1}{2m}\)</span>は，エッジの数を割合に変換するための正規化係数である．
+モジュラリティ<span class="math notranslate nohighlight">\(Q\)</span>の値が1に近づくほど，コミュニティ内部にエッジが相対的に集中していることを意味する．</p>
+<p><img alt="" src="../_images/modularity-example-2.jpg" /></p>
+<p>例に用いてきた上図の左のグラフについて，モジュラリティを計算してみよう．
+定義式に従ってモジュラリティを求めると，</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+Q &amp;= \frac{1}{2m} \sum_{i=1}^C (\boldsymbol{A}_{i,i}-\frac{\sum_j \boldsymbol{A}_{i,j}}{2m}\sum_j \boldsymbol{A}_{j, i}) \\
+&amp;= \frac{1}{2 \times 7}\{(6-3.5)+(6-3.5)\} \\
+&amp;= 0.357
+\end{eqnarray}
+\end{split}\]</div>
+<p>となる．
+一方，上図の右のグラフ分割結果のモジュラリティは0.122となる．
+直感的には右のグラフ分割結果よりも左のそれのほうが良さそうであるが，モジュラリティの値もそれを支持している．</p>
+<p>NetworkXでモジュラリティ値を計算するには，<code class="docutils literal notranslate"><span class="pre">community.modularity</span></code>関数を用いる．
+以下は，グラフ<span class="math notranslate nohighlight">\(G_{barbell}\)</span>について</p>
+<ul class="simple">
+<li><p>ノード0, 1, 2をコミュニティA</p></li>
+<li><p>ノード3, 4, 5をコミュニティB</p></li>
+</ul>
+<p>に分けたとした場合に，その状態のグラフのモジュラリティを計算するコードである．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフの定義</span>
+<span class="n">G_barbell</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># 一応可視化</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_barbell</span><span class="p">,</span> <span class="o">**</span><span class="n">DRAW_CONFIG</span><span class="p">)</span>
+
+<span class="c1"># コミュニティを定義</span>
+<span class="n">communities</span> <span class="o">=</span> <span class="p">[{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}]</span>
+
+<span class="c1"># モジュラリティの計算</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">community</span><span class="o">.</span><span class="n">modularity</span><span class="p">(</span><span class="n">G_barbell</span><span class="p">,</span> <span class="n">communities</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.35714285714285715
+</pre></div>
+</div>
+<img alt="../_images/e3b97ce524bffbc0c8c15e9837ef31a03ca1d75fa0110af236aec24ba649a7e3.png" src="../_images/e3b97ce524bffbc0c8c15e9837ef31a03ca1d75fa0110af236aec24ba649a7e3.png" />
+</div>
+</div>
+</section>
+<section id="girvan-newman">
+<h3><span class="section-number">4.3.4. </span>Girvan-Newmanアルゴリズム<a class="headerlink" href="#girvan-newman" title="Link to this heading">#</a></h3>
+<p>エッジの媒介中心性を基にグラフ分割を行う手続きは，<a class="reference external" href="https://en.wikipedia.org/wiki/Girvan%E2%80%93Newman_algorithm">Girvan-Newmanアルゴリズム</a>として知られている．
+Girvan-Newmanアルゴリズムの手順をまとめると，以下となる：</p>
+<ol class="arabic simple">
+<li><p>グラフ中の全エッジのエッジ媒介中心性を計算</p></li>
+<li><p>最大のエッジ媒介中心性をもつエッジを削除</p></li>
+<li><p>連結成分数やモジュラリティ値などが一定値を超えるまで，ステップ1-2を繰り返す</p></li>
+<li><p>得られた各連結成分をコミュニティとする</p></li>
+</ol>
+<p>NetworkXでGirvan-Newmanアルゴリズムを実行するには，<code class="docutils literal notranslate"><span class="pre">community.girvan_newman</span></code>関数を用いる．
+<code class="docutils literal notranslate"><span class="pre">community.girvan_newman</span></code>関数は，上記手順のステップ1-2をグラフ中のエッジがなくなるまで順次実行する．
+以下は，グラフ<span class="math notranslate nohighlight">\(G_{nunchaku}\)</span>に対して<code class="docutils literal notranslate"><span class="pre">community.girvan_newman</span></code>関数を適用したコード例である．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフの定義</span>
+<span class="n">G_nunchaku</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">barbell_graph</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 一応可視化</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_nunchaku</span><span class="p">,</span> <span class="o">**</span><span class="n">DRAW_CONFIG</span><span class="p">)</span>
+
+<span class="c1"># ループを回すごとにグラフ分割を行い，その結果を得ることができる</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">communities</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">community</span><span class="o">.</span><span class="n">girvan_newman</span><span class="p">(</span><span class="n">G_nunchaku</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">回目の分割結果&quot;</span><span class="p">,</span>  <span class="n">communities</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1回目の分割結果 ({0, 1, 2}, {3, 4, 5, 6})
+2回目の分割結果 ({0, 1, 2}, {4, 5, 6}, {3})
+3回目の分割結果 ({0}, {1, 2}, {4, 5, 6}, {3})
+4回目の分割結果 ({0}, {1}, {2}, {4, 5, 6}, {3})
+5回目の分割結果 ({0}, {1}, {2}, {4}, {5, 6}, {3})
+6回目の分割結果 ({0}, {1}, {2}, {4}, {5}, {6}, {3})
+</pre></div>
+</div>
+<img alt="../_images/1bc27ab59fdeebb2e94ff9c7a34c5a7954a03898521da9c36b6ad33a7fc5aa47.png" src="../_images/1bc27ab59fdeebb2e94ff9c7a34c5a7954a03898521da9c36b6ad33a7fc5aa47.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id8">
+<h2><span class="section-number">4.4. </span>リンクコミュニティ<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>これまで説明したグラフ分割によるコミュニティ発見手法では，グラフ中のノードは最終的にはいくつかあるコミュニティ（部分グラフ）のいずれか1つに所属することになる．
+すなわち，各ノードは1つのコミュニティにしか所属できないことを意味する．
+ノードが所属するコミュニティは1つに限定すると，アルゴリズム的にはすっきりする．
+しかしながら，現実世界では所属するコミュニティが1つしかないことは稀であり，エンティティが複数のコミュニティに属していることは一般的である．
+ゆえに，グラフ分析においても，ノードが複数のコミュニティに属することを認めるコミュニティ発見手法が必要である．</p>
+<p>グラフ分割のアプローチ（Girvan-Newman法など）はノードに焦点を当ててコミュニティ分類を行うため，ノードを複数コミュニティに同時に割り当てることが難しかった．
+これに対する解決策の1つが，<strong>リンクコミュニティ（link community）</strong> 発見である．</p>
+<p>リンクコミュニティ発見とは，グラフをノード単位でコミュニティ発見するのではなく，エッジ（リンク）単位でコミュニティ発見し，その後，各コミュニティにノードを割り当てるアプローチを採る手法である．</p>
+<p>例えば，以下の図のグラフを考えてみよう．
+何らかの方法でノード間の各エッジがどのコミュニティに属するかの割り当てが完了しているとする．
+また，あるエッジの所属コミュニティがXのとき，そのエッジの両端にあるノードはコミュニティXに属すると考える．
+さて，グラフの真ん中に位置するノードはコミュニティAに属するエッジ，コミュニティBに属するエッジ，コミュニティCに属するエッジを持っている．
+そのため，真ん中のノードはコミュニティA，B，Cの3つに属することになる．
+エッジはどれか1つのコミュニティにしか属せないが，ノードは複数のコミュニティに属することができる．
+このような考え方が，リンクコミュニティに着目したコミュニティ発見である．</p>
+<p><img alt="" src="../_images/link-community.jpg" /></p>
+<p>以下，リンクコミュニティの発見の手順である：</p>
+<ol class="arabic simple">
+<li><p>グラフ中の全エッジ間の類似度を計算する</p></li>
+<li><p>エッジ類似度を基にエッジ集合に階層的クラスタリングを適用する</p></li>
+<li><p>エッジの両端のノードにエッジのクラスタ番号を割り当てる</p></li>
+</ol>
+<p>この方法では，汎用機械学習手法のひとつである階層的クラスタリングを用いている．
+ポイントはエッジ類似度の定義である．</p>
+<p>エッジ類似度の定義は様々なものが考えられるが，シンプルな定義はジャカード係数を用いるものである．
+片端のノードが共通するエッジ<span class="math notranslate nohighlight">\(e_{i,k}\)</span>と<span class="math notranslate nohighlight">\(e_{j,k}\)</span>が与えられたとき，エッジ類似度<span class="math notranslate nohighlight">\(sim_{link}(e_{i, k}, e_{j, k})\)</span>を以下のように定義する：</p>
+<div class="math notranslate nohighlight">
+\[
+sim_{link}(e_{i, k}, e_{j, k}) = \frac{|n_+(i) \cap n_+(j)|}{|n_+(i) \cup n_+(j)|}
+\]</div>
+<p>ここで，<span class="math notranslate nohighlight">\(n_+(x)\)</span>はノード<span class="math notranslate nohighlight">\(x\)</span>とそれに隣接するノードの集合，<span class="math notranslate nohighlight">\(|X|\)</span>は集合<span class="math notranslate nohighlight">\(X\)</span>の要素数を表す．
+なお，2つのエッジが与えられたとき，エッジの端にあるノードが1つも共通（共有）していないとき，エッジ間の類似度はゼロとする．</p>
+<p><img alt="" src="../_images/edge-similarity.jpg" /></p>
+<p>上の図のグラフを例にエッジ類似度を計算してみよう．
+今，ノード5と8をつなぐエッジ<span class="math notranslate nohighlight">\(e_{8,5}\)</span>とノード5と1をつなぐエッジ<span class="math notranslate nohighlight">\(e_{1,5}\)</span>の類似度を計算することを考える．
+2つのエッジはノード5を共有しているので，もう片側のノードに着目する．
+ノード8に隣接するノードは1，2，5の3つであり，<span class="math notranslate nohighlight">\(n_+(8)=\{1, 2, 5, 8\}\)</span>
+一方，ノード1に隣接するノードは2，3，4，5，8の5つであり，<span class="math notranslate nohighlight">\(n_+(1)=\{1, 2, 3, 4, 5, 8\}\)</span>．
+よって，エッジ<span class="math notranslate nohighlight">\(e_{8,5}\)</span>とエッジ<span class="math notranslate nohighlight">\(e_{1,5}\)</span>の類似度は</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+sim_{link}(e_{8, 5}, e_{1, 5}) &amp;= \frac{|n_+(8) \cap n_+(1)|}{|n_+(8) \cup n_+(1)|} \\
+&amp;=\frac{4}{6}
+\end{eqnarray}
+\end{split}\]</div>
+<p>となる．
+同様にすべてのエッジ間の類似度を計算した後は，階層的クラスタリングによってエッジをクラスタリングする．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/1516680a07c720fd0877b288140fa5de5a6b2202682a7b6577b2b86bc64a73d5.png" src="../_images/1516680a07c720fd0877b288140fa5de5a6b2202682a7b6577b2b86bc64a73d5.png" />
+</div>
+</div>
+<p>例として，上のグラフ<span class="math notranslate nohighlight">\(G\)</span>にリンクコミュニティ発見の手法を適用し，コミュニティ抽出を行ってみよう．
+ちなみに，クラスタ間距離の定義に何を用いても構わないが，ここでは最長距離法（complete linkage）を用いることにする．</p>
+<p>以下は，すべてのエッジ間の類似度を計算した後，<code class="docutils literal notranslate"><span class="pre">scipy</span></code>ライブラリの<code class="docutils literal notranslate"><span class="pre">linkage</span></code>関数を使って階層的クラスタリングを行い，クラスタリング結果のデンドログラムを表示するコードである（類似度の計算のコードが汚い）．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 階層的クラスタリング用の関数</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.cluster.hierarchy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linkage</span><span class="p">,</span> <span class="n">dendrogram</span>
+
+<span class="c1"># linkage関数に入力する距離行列を整形する関数 </span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.distance</span><span class="w"> </span><span class="kn">import</span> <span class="n">squareform</span>
+
+<span class="c1"># 可視化調整用ライブラリ</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+
+<span class="c1"># グラフの定義</span>
+<span class="n">G_community</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># 計算対象となるエッジ</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">G_community</span><span class="o">.</span><span class="n">edges</span><span class="p">())</span>
+
+<span class="c1"># 距離（1 - 類似度）を格納する行列をゼロで初期化しておく</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)))</span>
+
+<span class="c1"># すべてのエッジ間の類似度を総当たりで計算</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e_i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">edges</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">e_j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">edges</span><span class="p">):</span>
+        <span class="c1"># 同一エッジの類似度は1，距離はゼロと見なす</span>
+        <span class="k">if</span> <span class="n">e_i</span> <span class="o">==</span> <span class="n">e_j</span><span class="p">:</span>
+            <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># エッジiの左端ノードとエッジjの左端ノードが共通しているとき</span>
+            <span class="k">if</span> <span class="n">e_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">e_j</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">nodes_plus_i</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">G_community</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">e_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">|</span> <span class="p">{</span><span class="n">e_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
+                <span class="n">nodes_plus_j</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">G_community</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">e_j</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">|</span> <span class="p">{</span><span class="n">e_j</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
+                <span class="n">sim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes_plus_i</span> <span class="o">&amp;</span> <span class="n">nodes_plus_j</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes_plus_i</span> <span class="o">|</span> <span class="n">nodes_plus_j</span><span class="p">)</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sim</span>
+            <span class="c1"># エッジiの左端ノードとエッジjの右端ノードが共通しているとき</span>
+            <span class="k">elif</span> <span class="n">e_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">e_j</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">nodes_plus_i</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">G_community</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">e_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">|</span> <span class="p">{</span><span class="n">e_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
+                <span class="n">nodes_plus_j</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">G_community</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">e_j</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">|</span> <span class="p">{</span><span class="n">e_j</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span>
+                <span class="n">sim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes_plus_i</span> <span class="o">&amp;</span> <span class="n">nodes_plus_j</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes_plus_i</span> <span class="o">|</span> <span class="n">nodes_plus_j</span><span class="p">)</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sim</span>
+            <span class="c1"># エッジiの右端ノードとエッジjの左端ノードが共通しているとき</span>
+            <span class="k">if</span> <span class="n">e_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">e_j</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">nodes_plus_i</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">G_community</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">e_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">|</span> <span class="p">{</span><span class="n">e_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span>
+                <span class="n">nodes_plus_j</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">G_community</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">e_j</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">|</span> <span class="p">{</span><span class="n">e_j</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
+                <span class="n">sim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes_plus_i</span> <span class="o">&amp;</span> <span class="n">nodes_plus_j</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes_plus_i</span> <span class="o">|</span> <span class="n">nodes_plus_j</span><span class="p">)</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sim</span>
+            <span class="c1"># エッジiの右端ノードとエッジjの右端ノードが共通しているとき</span>
+            <span class="k">if</span> <span class="n">e_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">e_j</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">nodes_plus_i</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">G_community</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">e_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">|</span> <span class="p">{</span><span class="n">e_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span>
+                <span class="n">nodes_plus_j</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">G_community</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">e_j</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">|</span> <span class="p">{</span><span class="n">e_j</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span>
+                <span class="n">sim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes_plus_i</span> <span class="o">&amp;</span> <span class="n">nodes_plus_j</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes_plus_i</span> <span class="o">|</span> <span class="n">nodes_plus_j</span><span class="p">)</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sim</span>                   
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="n">dist</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+
+
+<span class="c1"># 距離行列を整形</span>
+<span class="n">pdist</span> <span class="o">=</span> <span class="n">squareform</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+
+<span class="c1"># 最長距離法（complete linkage）を用いた階層的クラスタリング</span>
+<span class="n">clustering_result</span> <span class="o">=</span> <span class="n">linkage</span><span class="p">(</span><span class="n">pdist</span><span class="p">,</span> <span class="s1">&#39;complete&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># デンドログラムの可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;font.family&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Arial&quot;</span> <span class="c1"># フォントの設定</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="c1"># 図の大きさの設定</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">dendrogram</span><span class="p">(</span><span class="n">clustering_result</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">edges</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b54b8d28904b593dbe398c3bd48da9e9694f3adf0c2472c3d983063d82f4baac.png" src="../_images/b54b8d28904b593dbe398c3bd48da9e9694f3adf0c2472c3d983063d82f4baac.png" />
+</div>
+</div>
+<p>上記のようなデンドログラムが得られた．
+適当な高さでデンドログラムを切り，エッジをクラスタに分け，エッジのクラスタに応じてノードにもクラスタを割り当てたのが以下の図である．
+ノード1，2，5が複数のクラスタに割り当てられており，ノードが複数のコミュニティに属することを認めるコミュニティを発見することができた．</p>
+<p><img alt="" src="../_images/link-community-detection.jpg" /></p>
+</section>
+<hr class="docutils" />
+<section id="id9">
+<h2><span class="section-number">4.5. </span>クイズ<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<section id="q1-2">
+<h3><span class="section-number">4.5.1. </span>Q1. 空手クラブを2派閥に分ける<a class="headerlink" href="#q1-2" title="Link to this heading">#</a></h3>
+<p>以下のグラフ<span class="math notranslate nohighlight">\(G_{karate}\)</span>は，ある大学の空手クラブに所属する人物をノード，人物間の交友関係をエッジとして表現したものである（<a class="reference external" href="https://en.wikipedia.org/wiki/Zachary%27s_karate_club">参考</a>）．
+この空手クラブでは，インストラクター（Mr. Hi）（ノード0）とクラブ会長（ノード33）の仲が悪く，空手クラブの所属者はインストラクター派閥と会長派閥に別れている．</p>
+<p>グラフ<span class="math notranslate nohighlight">\(G_{karate}\)</span>においてエッジ媒介中心性が最大となるエッジを順次削除し，グラフの連結成分数が2になった時点でのグラフを表示しなさい．
+ただし，このクイズではNetworkXの<code class="docutils literal notranslate"><span class="pre">community.girvan_newman</span></code>関数は使わないこと．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/0df55ec8ab311e23408840652347225383381bd32e1fc324840322260dc2303f.png" src="../_images/0df55ec8ab311e23408840652347225383381bd32e1fc324840322260dc2303f.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフの定義</span>
+<span class="n">G_karate</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">()</span>
+
+<span class="c1"># Write your codes below</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># エッジ媒介中心性を計算</span>
+    <span class="n">centralities</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">edge_betweenness_centrality</span><span class="p">(</span><span class="n">G_karate</span><span class="p">)</span>
+
+    <span class="c1"># エッジ媒介中心性が最大となるエッジを取得</span>
+    <span class="n">edge</span><span class="p">,</span> <span class="n">best_centrality</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">centralities</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># 対象エッジを削除</span>
+    <span class="n">G_karate</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># 連結成分数が2ならエッジ削除を停止</span>
+    <span class="n">components</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">G_karate</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">components</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">break</span>
+
+<span class="c1"># 分割状態を可視化</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_karate</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="o">**</span><span class="n">SECRET_KARATE_DRAW_CONFIG</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0b9c74175f3aae4b991ccdab2e9e1c97421df58a2f071aff3fd9887dbb31d459.png" src="../_images/0b9c74175f3aae4b991ccdab2e9e1c97421df58a2f071aff3fd9887dbb31d459.png" />
+</div>
+</div>
+</section>
+<section id="q2-girvan-newman">
+<h3><span class="section-number">4.5.2. </span>Q2. Girvan-Newmanアルゴリズムとモジュラリティ<a class="headerlink" href="#q2-girvan-newman" title="Link to this heading">#</a></h3>
+<p>Q1で用いたグラフ<span class="math notranslate nohighlight">\(G_{karate}\)</span>にGirvan-Newmanアルゴリズムを適応し，分割できなくなるまでグラフをコミュニティに分割しなさい．
+また，コミュニティ分割をする度にグラフのモジュラリティを計算し，モジュラリティの変化値を観察しなさい．
+さらに，モジュラリティが最大となるコミュニティ分割の結果を示しなさい．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフの定義</span>
+<span class="n">G_karate</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">()</span>
+
+<span class="c1"># Write your codes below</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">communities</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">community</span><span class="o">.</span><span class="n">girvan_newman</span><span class="p">(</span><span class="n">G_karate</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">回目のコミュニティ分割</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">community</span><span class="o">.</span><span class="n">modularity</span><span class="p">(</span><span class="n">G_karate</span><span class="p">,</span> <span class="n">communities</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1回目のコミュニティ分割	 0.3476602762317048
+2回目のコミュニティ分割	 0.3423192968647514
+3回目のコミュニティ分割	 0.3580611307884035
+4回目のコミュニティ分割	 0.3849721706864564
+5回目のコミュニティ分割	 0.37578006409175235
+6回目のコミュニティ分割	 0.3594760218136841
+7回目のコミュニティ分割	 0.3470699574595678
+8回目のコミュニティ分割	 0.33324900208017094
+9回目のコミュニティ分割	 0.31344052772624204
+10回目のコミュニティ分割	 0.3122598901819681
+11回目のコミュニティ分割	 0.30368621277712193
+12回目のコミュニティ分割	 0.29429733325837226
+13回目のコミュニティ分割	 0.28271584115739956
+14回目のコミュニティ分割	 0.27116245947414774
+15回目のコミュニティ分割	 0.2544648713479881
+16回目のコミュニティ分割	 0.23975375274076566
+17回目のコミュニティ分割	 0.2268979217031164
+18回目のコミュニティ分割	 0.22299057363992417
+19回目のコミュニティ分割	 0.20056783043796028
+20回目のコミュニティ分割	 0.18696238826108952
+21回目のコミュニティ分割	 0.1609134011731414
+22回目のコミュニティ分割	 0.1428102921609415
+23回目のコミュニティ分割	 0.11768894885778003
+24回目のコミュニティ分割	 0.11088622776934465
+25回目のコミュニティ分割	 0.10076647738985402
+26回目のコミュニティ分割	 0.08837915331421826
+27回目のコミュニティ分割	 0.0562395757200952
+28回目のコミュニティ分割	 0.04398343359382321
+29回目のコミュニティ分割	 0.011515901126290735
+30回目のコミュニティ分割	 -0.0035044320758606464
+31回目のコミュニティ分割	 -0.03105264144225183
+32回目のコミュニティ分割	 -0.04655085174565694
+33回目のコミュニティ分割	 -0.05110473941642772
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">communities</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">community</span><span class="o">.</span><span class="n">girvan_newman</span><span class="p">(</span><span class="n">G_karate</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">optimal_communities</span> <span class="o">=</span> <span class="n">communities</span>
+        <span class="k">break</span>
+  
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;モジュラリティが最大となるコミュニティ分割&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">optimal_communities</span><span class="p">)</span>
+
+<span class="c1"># 所属コミュニティによってノードを色分けする</span>
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">G_karate</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">optimal_communities</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">node_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">optimal_communities</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">node_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">optimal_communities</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+        <span class="n">node_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">optimal_communities</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+        <span class="n">node_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">node_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+
+<span class="c1"># コミュニティ分割結果の可視化</span>
+<span class="n">KARATE_DRAW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;edgecolors&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;with_labels&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;node_size&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;font_color&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;font_family&#39;</span><span class="p">:</span> <span class="s1">&#39;Arial&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_karate</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="o">**</span><span class="n">KARATE_DRAW_CONFIG</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>モジュラリティが最大となるコミュニティ分割
+({0, 1, 3, 7, 11, 12, 13, 17, 19, 21}, {2, 24, 25, 27, 28, 31}, {4, 5, 6, 10, 16}, {32, 33, 8, 14, 15, 18, 20, 22, 23, 26, 29, 30}, {9})
+</pre></div>
+</div>
+<img alt="../_images/f67ee35aaebf8d4f779437c89cc8ef5829b36ac746097b4c5034acee98561798.png" src="../_images/f67ee35aaebf8d4f779437c89cc8ef5829b36ac746097b4c5034acee98561798.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">KARATE_DRAW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;edgecolors&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;with_labels&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;node_size&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;font_color&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;font_family&#39;</span><span class="p">:</span> <span class="s1">&#39;Arial&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">G_karate</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">()</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G_karate</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span> <span class="k">if</span> <span class="n">G_karate</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="s1">&#39;club&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Mr. Hi&#39;</span> <span class="k">else</span> <span class="s1">&#39;blue&#39;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G_karate</span><span class="o">.</span><span class="n">nodes</span><span class="p">()]</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_karate</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="o">**</span><span class="n">KARATE_DRAW_CONFIG</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7021d273e33f3e42ed128df1ac5371ebed13c0cf9abc0ad7ad45a45972c3e997.png" src="../_images/7021d273e33f3e42ed128df1ac5371ebed13c0cf9abc0ad7ad45a45972c3e997.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="centrality.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>ノードの中心性</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="web-and-graph.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>ウェブとグラフ</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.1. 連結成分</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2. クリーク</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.3. グラフ分割</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.3.1. コミュニティ発見のためのグラフ分割の基本アイデア（の1つ）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.3.2. エッジの媒介中心性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4.3.3. モジュラリティ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#girvan-newman">4.3.4. Girvan-Newmanアルゴリズム</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.4. リンクコミュニティ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4.5. クイズ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-2">4.5.1. Q1. 空手クラブを2派閥に分ける</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-girvan-newman">4.5.2. Q2. Girvan-Newmanアルゴリズムとモジュラリティ</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025- by Yusuke Yamamoto.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
