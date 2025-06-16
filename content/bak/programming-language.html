@@ -1,0 +1,828 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; グラフ分析入門の講義ノート</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-XWKTGSZ4LK"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-XWKTGSZ4LK');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-XWKTGSZ4LK');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/bak/programming-language';</script>
+    <link rel="canonical" href="https://graphnote.hontolab.org/content/bak/programming-language.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">グラフ分析入門の講義ノート</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graph-and-path.html">1. グラフデータと経路</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graph-structure-features.html">2. グラフ構造の諸指標</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../centrality.html">3. ノードの中心性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../finding-community.html">4. コミュニティ発見</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../web-and-graph.html">5. ウェブとグラフ</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/bak/programming-language.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/bak/programming-language.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># from https://madnight.github.io/githut/#/pull_requests/2024/1</span>
+<span class="n">POPULAR_LANGUAGES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># Top 10</span>
+    <span class="s1">&#39;Python&#39;</span><span class="p">,</span> <span class="s1">&#39;Java&#39;</span><span class="p">,</span> <span class="s1">&#39;Go&#39;</span><span class="p">,</span> <span class="s1">&#39;JavaScript&#39;</span><span class="p">,</span> <span class="s1">&#39;C++&#39;</span><span class="p">,</span>
+    <span class="c1">#&#39;TypeScript&#39;,</span>
+    <span class="s1">&#39;PHP&#39;</span><span class="p">,</span> <span class="s1">&#39;Ruby&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;C#&#39;</span><span class="p">,</span>
+    <span class="c1"># Top 20</span>
+    <span class="s1">&#39;Nix&#39;</span><span class="p">,</span> <span class="s1">&#39;Shell&#39;</span><span class="p">,</span> <span class="s1">&#39;Rust&#39;</span><span class="p">,</span> <span class="s1">&#39;Scala&#39;</span><span class="p">,</span> <span class="s1">&#39;Kotlin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Swift&#39;</span><span class="p">,</span> <span class="s1">&#39;Dart&#39;</span><span class="p">,</span> <span class="s1">&#39;Groovy&#39;</span><span class="p">,</span> <span class="s1">&#39;Perl&#39;</span><span class="p">,</span> <span class="s1">&#39;Lua&#39;</span><span class="p">,</span>
+    <span class="c1"># Top 30</span>
+    <span class="s1">&#39;DM&#39;</span><span class="p">,</span> <span class="s1">&#39;SystemVerilog&#39;</span><span class="p">,</span> <span class="s1">&#39;Objective-C&#39;</span><span class="p">,</span> <span class="s1">&#39;Elixir&#39;</span><span class="p">,</span> <span class="s1">&#39;CodeQL&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;OCaml&#39;</span><span class="p">,</span> <span class="s1">&#39;Haskell&#39;</span><span class="p">,</span> <span class="s1">&#39;PowerShell&#39;</span><span class="p">,</span> <span class="s1">&#39;Erlang&#39;</span><span class="p">,</span> <span class="s1">&#39;Emacs Lisp&#39;</span><span class="p">,</span>
+    <span class="c1"># Top 33</span>
+    <span class="s1">&#39;Julia&#39;</span><span class="p">,</span> <span class="s1">&#39;Clojure&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span>
+<span class="p">]</span>
+
+
+<span class="n">NOTABLE_LANGUAGES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># in 1950s</span>
+    <span class="s1">&#39;FORTRAN&#39;</span><span class="p">,</span> <span class="s1">&#39;LISP&#39;</span><span class="p">,</span> <span class="s1">&#39;ALGOL&#39;</span><span class="p">,</span> <span class="s1">&#39;COBOL&#39;</span><span class="p">,</span>
+    <span class="c1"># in 1960s</span>
+    <span class="s1">&#39;Simula&#39;</span><span class="p">,</span> <span class="s1">&#39;Speakeasy&#39;</span><span class="p">,</span> <span class="s1">&#39;BASIC&#39;</span><span class="p">,</span>
+    <span class="c1"># in 1970s</span>
+    <span class="s1">&#39;Pascal&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;Smalltalk&#39;</span><span class="p">,</span> <span class="s1">&#39;Prolog&#39;</span><span class="p">,</span> <span class="s1">&#39;ML&#39;</span><span class="p">,</span> <span class="s1">&#39;Scheme&#39;</span><span class="p">,</span> <span class="s1">&#39;SQL&#39;</span><span class="p">,</span>
+    <span class="c1"># in 1980s</span>
+    <span class="s1">&#39;C++&#39;</span><span class="p">,</span> <span class="s1">&#39;Ada&#39;</span><span class="p">,</span> <span class="s1">&#39;Perl&#39;</span><span class="p">,</span> 
+    <span class="c1"># in 1990s</span>
+    <span class="s1">&#39;Haskell&#39;</span><span class="p">,</span> <span class="s1">&#39;Python&#39;</span><span class="p">,</span> <span class="s1">&#39;Visual Basic&#39;</span><span class="p">,</span> <span class="s1">&#39;Lua&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;Ruby&#39;</span><span class="p">,</span> <span class="s1">&#39;Java&#39;</span><span class="p">,</span> <span class="s1">&#39;JavaScript&#39;</span><span class="p">,</span> <span class="s1">&#39;PHP&#39;</span><span class="p">,</span> <span class="s1">&#39;OCaml&#39;</span><span class="p">,</span>
+    <span class="c1"># in 2000s</span>
+    <span class="s1">&#39;C#&#39;</span><span class="p">,</span> <span class="s1">&#39;Go&#39;</span><span class="p">,</span>
+    <span class="c1"># in 2010s</span>
+    <span class="s1">&#39;Dart&#39;</span><span class="p">,</span> <span class="s1">&#39;Kotlin&#39;</span><span class="p">,</span> <span class="s1">&#39;Julia&#39;</span><span class="p">,</span> <span class="s1">&#39;TypeScript&#39;</span><span class="p">,</span> <span class="s1">&#39;Swift&#39;</span><span class="p">,</span> <span class="s1">&#39;Rust&#39;</span>
+<span class="p">]</span>
+
+<span class="n">CHOSEN_LANGUAGES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># in 1950s</span>
+    <span class="s1">&#39;FORTRAN&#39;</span><span class="p">,</span> <span class="s1">&#39;LISP&#39;</span><span class="p">,</span> <span class="s1">&#39;ALGOL&#39;</span><span class="p">,</span> <span class="s1">&#39;COBOL&#39;</span><span class="p">,</span>
+    <span class="c1"># in 1960s</span>
+    <span class="s1">&#39;BASIC&#39;</span><span class="p">,</span> <span class="s1">&#39;PL/I&#39;</span>
+    <span class="c1"># in 1970s</span>
+    <span class="s1">&#39;Pascal&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;Scheme&#39;</span><span class="p">,</span> <span class="s1">&#39;Smalltalk&#39;</span><span class="p">,</span> <span class="s1">&#39;Prolog&#39;</span><span class="p">,</span>
+    <span class="c1"># in 1980s</span>
+    <span class="s1">&#39;C++&#39;</span><span class="p">,</span> <span class="s1">&#39;Perl&#39;</span><span class="p">,</span> <span class="s1">&#39;Ada&#39;</span><span class="p">,</span> <span class="s1">&#39;Erlang&#39;</span><span class="p">,</span>
+    <span class="c1"># in 1990s</span>
+    <span class="s1">&#39;Haskell&#39;</span><span class="p">,</span> <span class="s1">&#39;Python&#39;</span><span class="p">,</span> <span class="s1">&#39;Visual Basic&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Java&#39;</span><span class="p">,</span> <span class="s1">&#39;JavaScript&#39;</span><span class="p">,</span> <span class="s1">&#39;Ruby&#39;</span><span class="p">,</span> 
+    <span class="c1"># in 2000s</span>
+    <span class="s1">&#39;C#&#39;</span><span class="p">,</span> <span class="c1">#&#39;Go&#39;,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://exploring-data.com/gexf/plin_forceatlas2.json&#39;</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;plin_forceatlas2.json&#39;</span><span class="p">):</span>
+        <span class="c1"># Exploring Dataのサイトで使用されているデータを取得</span>
+        <span class="c1"># URL: https://exploring-data.com/vis/programming-languages-influence-network/</span>
+        <span class="o">!</span>wget<span class="w"> </span>-P<span class="w"> </span>data<span class="w"> </span>https://exploring-data.com/gexf/plin_forceatlas2.json
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/plin_forceatlas2.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+
+<span class="n">id2name</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;nodes&#39;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="s1">&#39;paradigms&#39;</span> <span class="ow">in</span> <span class="n">node</span><span class="p">[</span><span class="s1">&#39;attributes&#39;</span><span class="p">]:</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="n">node_name</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+        <span class="n">id2name</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_name</span>
+        <span class="n">paradigms</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="s1">&#39;attributes&#39;</span><span class="p">][</span><span class="s1">&#39;paradigms&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node_name</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigms</span><span class="p">)</span>
+
+
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;edges&#39;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">edge</span><span class="p">[</span><span class="s1">&#39;sourceID&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">id2name</span> <span class="ow">and</span> <span class="n">edge</span><span class="p">[</span><span class="s1">&#39;targetID&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">id2name</span><span class="p">:</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">id2name</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="s1">&#39;sourceID&#39;</span><span class="p">]]</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">id2name</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="s1">&#39;targetID&#39;</span><span class="p">]]</span>
+        <span class="c1"># source が target に影響を与えた（i.e. targetはsourceに影響を受けた言語）</span>
+        <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">))</span>
+        
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G_sub</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">POPULAR_LANGUAGES</span><span class="p">[:</span><span class="mi">8</span><span class="p">])</span>
+<span class="n">G_sub</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">CHOSEN_LANGUAGES</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G_sub</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_sub</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/3f2460301cef0b8e062dcc0ea8085faf663be6db9dd44a1f684abe77c0e7f143.png" src="../../_images/3f2460301cef0b8e062dcc0ea8085faf663be6db9dd44a1f684abe77c0e7f143.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">hits</span><span class="p">(</span><span class="n">G_sub</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">30</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;C++&#39;, 0.1644787726763753),
+ (&#39;Smalltalk&#39;, 0.12309984399042047),
+ (&#39;C&#39;, 0.12170060112362677),
+ (&#39;Java&#39;, 0.09556338696596214),
+ (&#39;Perl&#39;, 0.08954569159865634),
+ (&#39;Python&#39;, 0.08626168437063046),
+ (&#39;Haskell&#39;, 0.08090665231588313),
+ (&#39;Ada&#39;, 0.07603741375196246),
+ (&#39;Scheme&#39;, 0.06619870952917233),
+ (&#39;C#&#39;, 0.03246883293620314),
+ (&#39;BASIC&#39;, 0.030144263410876747),
+ (&#39;ALGOL&#39;, 0.026535256636505546),
+ (&#39;Prolog&#39;, 0.007058890693725168),
+ (&#39;Ruby&#39;, -0.0),
+ (&#39;COBOL&#39;, -0.0),
+ (&#39;Erlang&#39;, -0.0),
+ (&#39;JavaScript&#39;, -0.0),
+ (&#39;Visual Basic&#39;, -0.0)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">30</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;Ruby&#39;, 0.1482376230526495),
+ (&#39;Java&#39;, 0.14654137291462901),
+ (&#39;Perl&#39;, 0.12867152201072046),
+ (&#39;C#&#39;, 0.1132423131511447),
+ (&#39;JavaScript&#39;, 0.11241515502583412),
+ (&#39;Python&#39;, 0.10537178261373922),
+ (&#39;Ada&#39;, 0.10027636323858818),
+ (&#39;C++&#39;, 0.04840016991108936),
+ (&#39;Haskell&#39;, 0.03812142790060111),
+ (&#39;Erlang&#39;, 0.03185884554413392),
+ (&#39;Visual Basic&#39;, 0.007378386355547365),
+ (&#39;Scheme&#39;, 0.006495012760441033),
+ (&#39;BASIC&#39;, 0.006495012760441033),
+ (&#39;C&#39;, 0.006495012760441033),
+ (&#39;ALGOL&#39;, -0.0),
+ (&#39;COBOL&#39;, -0.0),
+ (&#39;Smalltalk&#39;, -0.0),
+ (&#39;Prolog&#39;, -0.0)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reversed_G</span> <span class="o">=</span> <span class="n">G_sub</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="n">pr</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">pagerank</span><span class="p">(</span><span class="n">reversed_G</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">pr</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;ALGOL&#39;, 0.1824916985242153),
+ (&#39;C&#39;, 0.0815819440618317),
+ (&#39;C++&#39;, 0.07370004280500529),
+ (&#39;Smalltalk&#39;, 0.0692299550814309),
+ (&#39;Ada&#39;, 0.06532062673188216),
+ (&#39;Perl&#39;, 0.0610225490605169),
+ (&#39;Java&#39;, 0.057976201421171554),
+ (&#39;BASIC&#39;, 0.05649892940034689),
+ (&#39;Scheme&#39;, 0.05283857385804718),
+ (&#39;Haskell&#39;, 0.048917059981207725),
+ (&#39;Python&#39;, 0.043647951026363256),
+ (&#39;Prolog&#39;, 0.03720009187434329),
+ (&#39;C#&#39;, 0.034301463015014674),
+ (&#39;Ruby&#39;, 0.027054582631724628),
+ (&#39;COBOL&#39;, 0.027054582631724628),
+ (&#39;Erlang&#39;, 0.027054582631724628),
+ (&#39;JavaScript&#39;, 0.027054582631724628),
+ (&#39;Visual Basic&#39;, 0.027054582631724628)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gensim.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Word2Vec</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cosine_sim</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+<span class="c1"># nx.generate_random_paths(G, sample_size=10, path_length=5) と同じ</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_random_paths</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">sample_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">path_length</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">_G</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">to_undirected</span><span class="p">()</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_G</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sample_size</span><span class="p">):</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
+        
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">path_length</span><span class="p">):</span>
+            <span class="n">neighbors</span> <span class="o">=</span> <span class="n">_G</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="n">neighbor</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">neighbors</span><span class="p">))</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">neighbor</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">paths</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">remove_nodes_from</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">isolates</span><span class="p">(</span><span class="n">G</span><span class="p">)))</span>
+<span class="c1">#paths = generate_random_paths(G_sub)</span>
+<span class="n">paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">generate_random_paths</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">to_undirected</span><span class="p">(),</span> <span class="n">sample_size</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span> <span class="n">path_length</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 学習</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Word2Vec</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">vector_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_count</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cosine_sim</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="s1">&#39;Python&#39;</span><span class="p">],</span> <span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="s1">&#39;Ruby&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.31284717
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cosine_sim</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="s1">&#39;Smalltalk&#39;</span><span class="p">],</span> <span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="s1">&#39;Objective-C&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.15120898
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cosine_sim</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="s1">&#39;Java&#39;</span><span class="p">],</span> <span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="s1">&#39;C#&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.20247811
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cosine_sim</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="s1">&#39;Lisp&#39;</span><span class="p">],</span> <span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="s1">&#39;Scheme&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.13757682
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cosine_sim</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="s1">&#39;Python&#39;</span><span class="p">],</span> <span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.10854513
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="o">.</span><span class="n">most_similar</span><span class="p">(</span><span class="n">positive</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;JavaScript&quot;</span><span class="p">],</span> <span class="n">topn</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="c1">#ここで元の単語を指定する</span>
+<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">POPULAR_LANGUAGES</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;Groovy&#39;, 0.2062573879957199)
+(&#39;Perl&#39;, 0.1861027330160141)
+(&#39;C++&#39;, 0.17691650986671448)
+(&#39;Lua&#39;, 0.1360611915588379)
+(&#39;Ruby&#39;, 0.12705259025096893)
+(&#39;Objective-C&#39;, 0.11757013201713562)
+(&#39;Python&#39;, 0.09686344116926193)
+(&#39;PHP&#39;, 0.07677168399095535)
+(&#39;R&#39;, 0.07467618584632874)
+(&#39;Go&#39;, 0.0630873590707779)
+(&#39;C&#39;, 0.03195572271943092)
+(&#39;Haskell&#39;, 0.0289512537419796)
+(&#39;Emacs Lisp&#39;, 0.025776470080018044)
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/bak"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025- by Yusuke Yamamoto.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

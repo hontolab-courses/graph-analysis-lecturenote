@@ -1,0 +1,2947 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; グラフ分析入門の講義ノート</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-XWKTGSZ4LK"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-XWKTGSZ4LK');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-XWKTGSZ4LK');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'local/chem';</script>
+    <link rel="canonical" href="https://graphnote.hontolab.org/local/chem.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">グラフ分析入門の講義ノート</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../content/graph-and-path.html">1. グラフデータと経路</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/graph-structure-features.html">2. グラフ構造の諸指標</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/centrality.html">3. ノードの中心性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/finding-community.html">4. コミュニティ発見</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/web-and-graph.html">5. ウェブとグラフ</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/local/chem.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/local/chem.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>rdkit
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting rdkit
+  Obtaining dependency information for rdkit from https://files.pythonhosted.org/packages/fb/1e/75883c4f4f77696d14a612201526b9a9cb735fe73dd007b8f2ce5c953b01/rdkit-2025.3.2-cp311-cp311-macosx_11_0_arm64.whl.metadata
+  Downloading rdkit-2025.3.2-cp311-cp311-macosx_11_0_arm64.whl.metadata (4.0 kB)
+Requirement already satisfied: numpy in /Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages (from rdkit) (1.26.4)
+Requirement already satisfied: Pillow in /Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages (from rdkit) (11.1.0)
+Downloading rdkit-2025.3.2-cp311-cp311-macosx_11_0_arm64.whl (28.0 MB)
+   <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">28.0/28.0 MB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>m eta <span class=" -Color -Color-Cyan">0:00:01</span>[36m0:00:010m
+?25hInstalling collected packages: rdkit
+Successfully installed rdkit-2025.3.2
+
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">23.2.1</span> -&gt; <span class=" -Color -Color-Green">25.1.1</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">pip install --upgrade pip</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span>
+    <span class="s1">&#39;data/water_solublity.tsv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;SMILES&#39;</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;logS&#39;</span>
+    <span class="p">}</span>
+<span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">smiles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">SMILES</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rdkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rdkit.Chem</span><span class="w"> </span><span class="kn">import</span> <span class="n">Descriptors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rdkit.ML.Descriptors.MoleculeDescriptors</span><span class="w"> </span><span class="kn">import</span> <span class="n">MolecularDescriptorCalculator</span>
+
+<span class="c1"># 計算対象とする記述子</span>
+<span class="n">descriptors</span> <span class="o">=</span> <span class="p">[</span><span class="n">descriptor_information</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">descriptor_information</span> <span class="ow">in</span> <span class="n">Descriptors</span><span class="o">.</span><span class="n">descList</span><span class="p">]</span>
+<span class="n">descriptor_calculator</span> <span class="o">=</span> <span class="n">MolecularDescriptorCalculator</span><span class="p">(</span><span class="n">descriptors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">smile</span> <span class="ow">in</span> <span class="n">smiles</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">molecule</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">smile</span><span class="p">)</span>
+        <span class="n">feature</span> <span class="o">=</span> <span class="n">descriptor_calculator</span><span class="o">.</span><span class="n">CalcDescriptors</span><span class="p">(</span><span class="n">molecule</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">smile</span><span class="p">)</span>
+ 
+<span class="c1">#features = [descriptor_calculator.CalcDescriptors(Chem.MolFromSmiles(smile)) for smile in smiles]</span>
+
+<span class="c1">#feature_df = pd.DataFrame(features, index=dataset.index, columns=descriptor_names)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[16:02:25] WARNING: not removing hydrogen atom without neighbors
+[16:02:25] WARNING: not removing hydrogen atom without neighbors
+[16:02:25] WARNING: not removing hydrogen atom without neighbors
+[16:02:25] Explicit valence for atom # 6 O, 3, is greater than permitted
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 91, in MaxAbsEStateIndex
+    return max(abs(x) for x in EStateIndices(mol, force))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 77, in MaxEStateIndex
+    return max(EStateIndices(mol, force))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 98, in MinAbsEStateIndex
+    return min(abs(x) for x in EStateIndices(mol, force))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 84, in MinEStateIndex
+    return min(EStateIndices(mol, force))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/QED.py&quot;, line 203, in qed
+    qedProperties = properties(mol)
+                    ^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/QED.py&quot;, line 164, in properties
+    raise ValueError(&#39;You need to provide a mol argument.&#39;)
+ValueError: You need to provide a mol argument.
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/SpacialScore.py&quot;, line 72, in SPS
+    return _SpacialScore(mol, normalize=normalize).score
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/SpacialScore.py&quot;, line 80, in __init__
+    raise ValueError(&quot;No valid molecule object found.&quot;)
+ValueError: No valid molecule object found.
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 75, in &lt;lambda&gt;
+    MolWt = lambda *x, **y: _rdMolDescriptors._CalcMolWt(*x, **y)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors._CalcMolWt(NoneType)
+did not match C++ signature:
+    _CalcMolWt(RDKit::ROMol mol, bool onlyHeavy=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 88, in HeavyAtomMolWt
+    return MolWt(x, True)
+           ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 75, in &lt;lambda&gt;
+    MolWt = lambda *x, **y: _rdMolDescriptors._CalcMolWt(*x, **y)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors._CalcMolWt(NoneType, bool)
+did not match C++ signature:
+    _CalcMolWt(RDKit::ROMol mol, bool onlyHeavy=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 101, in &lt;lambda&gt;
+    ExactMolWt = lambda *x, **y: _rdMolDescriptors.CalcExactMolWt(*x, **y)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcExactMolWt(NoneType)
+did not match C++ signature:
+    CalcExactMolWt(RDKit::ROMol mol, bool onlyHeavy=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 129, in NumValenceElectrons
+    for atom in mol.GetAtoms())
+                ^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 151, in NumRadicalElectrons
+    return sum(atom.GetNumRadicalElectrons() for atom in mol.GetAtoms())
+                                                         ^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 173, in MaxPartialCharge
+    _, res = _ChargeDescriptors(mol, force)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 160, in _ChargeDescriptors
+    chgs = rdPartialCharges.ComputeGasteigerCharges(mol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdPartialCharges.ComputeGasteigerCharges(NoneType)
+did not match C++ signature:
+    ComputeGasteigerCharges(RDKit::ROMol mol, int nIter=12, bool throwOnParamFailure=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 181, in MinPartialCharge
+    res, _ = _ChargeDescriptors(mol, force)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 160, in _ChargeDescriptors
+    chgs = rdPartialCharges.ComputeGasteigerCharges(mol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdPartialCharges.ComputeGasteigerCharges(NoneType)
+did not match C++ signature:
+    ComputeGasteigerCharges(RDKit::ROMol mol, int nIter=12, bool throwOnParamFailure=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 189, in MaxAbsPartialCharge
+    v1, v2 = _ChargeDescriptors(mol, force)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 160, in _ChargeDescriptors
+    chgs = rdPartialCharges.ComputeGasteigerCharges(mol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdPartialCharges.ComputeGasteigerCharges(NoneType)
+did not match C++ signature:
+    ComputeGasteigerCharges(RDKit::ROMol mol, int nIter=12, bool throwOnParamFailure=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 197, in MinAbsPartialCharge
+    v1, v2 = _ChargeDescriptors(mol, force)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 160, in _ChargeDescriptors
+    chgs = rdPartialCharges.ComputeGasteigerCharges(mol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdPartialCharges.ComputeGasteigerCharges(NoneType)
+did not match C++ signature:
+    ComputeGasteigerCharges(RDKit::ROMol mol, int nIter=12, bool throwOnParamFailure=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 229, in FpDensityMorgan1
+    return _FingerprintDensity(x, _getMorganCountFingerprint, 1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 209, in _FingerprintDensity
+    fp = func(*((mol, ) + args), **kwargs)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 225, in _getMorganCountFingerprint
+    return fpg.GetSparseCountFingerprint(mol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    FingerprintGenerator64.GetSparseCountFingerprint(FingerprintGenerator64, NoneType)
+did not match C++ signature:
+    GetSparseCountFingerprint(RDKit::FingerprintGenerator&lt;unsigned long long&gt; const* self, RDKit::ROMol mol, boost::python::api::object fromAtoms=[], boost::python::api::object ignoreAtoms=[], int confId=-1, boost::python::api::object customAtomInvariants=[], boost::python::api::object customBondInvariants=[], boost::python::api::object additionalOutput=None)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 233, in FpDensityMorgan2
+    return _FingerprintDensity(x, _getMorganCountFingerprint, 2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 209, in _FingerprintDensity
+    fp = func(*((mol, ) + args), **kwargs)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 225, in _getMorganCountFingerprint
+    return fpg.GetSparseCountFingerprint(mol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    FingerprintGenerator64.GetSparseCountFingerprint(FingerprintGenerator64, NoneType)
+did not match C++ signature:
+    GetSparseCountFingerprint(RDKit::FingerprintGenerator&lt;unsigned long long&gt; const* self, RDKit::ROMol mol, boost::python::api::object fromAtoms=[], boost::python::api::object ignoreAtoms=[], int confId=-1, boost::python::api::object customAtomInvariants=[], boost::python::api::object customBondInvariants=[], boost::python::api::object additionalOutput=None)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 237, in FpDensityMorgan3
+    return _FingerprintDensity(x, _getMorganCountFingerprint, 3)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 209, in _FingerprintDensity
+    fp = func(*((mol, ) + args), **kwargs)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Descriptors.py&quot;, line 225, in _getMorganCountFingerprint
+    return fpg.GetSparseCountFingerprint(mol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    FingerprintGenerator64.GetSparseCountFingerprint(FingerprintGenerator64, NoneType)
+did not match C++ signature:
+    GetSparseCountFingerprint(RDKit::FingerprintGenerator&lt;unsigned long long&gt; const* self, RDKit::ROMol mol, boost::python::api::object fromAtoms=[], boost::python::api::object ignoreAtoms=[], int confId=-1, boost::python::api::object customAtomInvariants=[], boost::python::api::object customBondInvariants=[], boost::python::api::object additionalOutput=None)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 124, in Ipc
+    dMat = mol._adjMat
+           ^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;_adjMat&#39;
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 147, in AvgIpc
+    return Ipc(mol, avg=True, dMat=dMat, forceDMat=forceDMat)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 126, in Ipc
+    dMat = Chem.GetDistanceMatrix(mol, 0)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdmolops.GetDistanceMatrix(NoneType, int)
+did not match C++ signature:
+    GetDistanceMatrix(RDKit::ROMol {lvalue} mol, bool useBO=False, bool useAtomWts=False, bool force=False, char const* prefix=&#39;&#39;)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 488, in BalabanJ
+    dMat = mol._balabanMat
+           ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;_balabanMat&#39;
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 491, in BalabanJ
+    dMat = Chem.GetDistanceMatrix(mol, useBO=1, useAtomWts=0, force=0, prefix=&quot;Balaban&quot;)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdmolops.GetDistanceMatrix(NoneType)
+did not match C++ signature:
+    GetDistanceMatrix(RDKit::ROMol {lvalue} mol, bool useBO=False, bool useAtomWts=False, bool force=False, char const* prefix=&#39;&#39;)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 666, in BertzCT
+    numAtoms = mol.GetNumAtoms()
+               ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 229, in Chi0
+    deltas = [x.GetDegree() for x in mol.GetAtoms()]
+                                     ^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 441, in &lt;lambda&gt;
+    Chi0n = lambda x: rdMolDescriptors.CalcChi0n(x)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcChi0n(NoneType)
+did not match C++ signature:
+    CalcChi0n(RDKit::ROMol mol, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 428, in &lt;lambda&gt;
+    Chi0v = lambda x: rdMolDescriptors.CalcChi0v(x)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcChi0v(NoneType)
+did not match C++ signature:
+    CalcChi0v(RDKit::ROMol mol, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 244, in Chi1
+    c1s = [x.GetBeginAtom().GetDegree() * x.GetEndAtom().GetDegree() for x in mol.GetBonds()]
+                                                                              ^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetBonds&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 443, in &lt;lambda&gt;
+    Chi1n = lambda x: rdMolDescriptors.CalcChi1n(x)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcChi1n(NoneType)
+did not match C++ signature:
+    CalcChi1n(RDKit::ROMol mol, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 430, in &lt;lambda&gt;
+    Chi1v = lambda x: rdMolDescriptors.CalcChi1v(x)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcChi1v(NoneType)
+did not match C++ signature:
+    CalcChi1v(RDKit::ROMol mol, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 445, in &lt;lambda&gt;
+    Chi2n = lambda x: rdMolDescriptors.CalcChi2n(x)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcChi2n(NoneType)
+did not match C++ signature:
+    CalcChi2n(RDKit::ROMol mol, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 432, in &lt;lambda&gt;
+    Chi2v = lambda x: rdMolDescriptors.CalcChi2v(x)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcChi2v(NoneType)
+did not match C++ signature:
+    CalcChi2v(RDKit::ROMol mol, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 447, in &lt;lambda&gt;
+    Chi3n = lambda x: rdMolDescriptors.CalcChi3n(x)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcChi3n(NoneType)
+did not match C++ signature:
+    CalcChi3n(RDKit::ROMol mol, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 434, in &lt;lambda&gt;
+    Chi3v = lambda x: rdMolDescriptors.CalcChi3v(x)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcChi3v(NoneType)
+did not match C++ signature:
+    CalcChi3v(RDKit::ROMol mol, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 449, in &lt;lambda&gt;
+    Chi4n = lambda x: rdMolDescriptors.CalcChi4n(x)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcChi4n(NoneType)
+did not match C++ signature:
+    CalcChi4n(RDKit::ROMol mol, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 436, in &lt;lambda&gt;
+    Chi4v = lambda x: rdMolDescriptors.CalcChi4v(x)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcChi4v(NoneType)
+did not match C++ signature:
+    CalcChi4v(RDKit::ROMol mol, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 215, in &lt;lambda&gt;
+    HallKierAlpha = lambda x: rdMolDescriptors.CalcHallKierAlpha(x)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcHallKierAlpha(NoneType)
+did not match C++ signature:
+    CalcHallKierAlpha(RDKit::ROMol mol, boost::python::api::object atomContribs=None)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 124, in Ipc
+    dMat = mol._adjMat
+           ^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;_adjMat&#39;
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 126, in Ipc
+    dMat = Chem.GetDistanceMatrix(mol, 0)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdmolops.GetDistanceMatrix(NoneType, int)
+did not match C++ signature:
+    GetDistanceMatrix(RDKit::ROMol {lvalue} mol, bool useBO=False, bool useAtomWts=False, bool force=False, char const* prefix=&#39;&#39;)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 217, in &lt;lambda&gt;
+    Kappa1 = lambda x: rdMolDescriptors.CalcKappa1(x)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcKappa1(NoneType)
+did not match C++ signature:
+    CalcKappa1(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 219, in &lt;lambda&gt;
+    Kappa2 = lambda x: rdMolDescriptors.CalcKappa2(x)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcKappa2(NoneType)
+did not match C++ signature:
+    CalcKappa2(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/GraphDescriptors.py&quot;, line 221, in &lt;lambda&gt;
+    Kappa3 = lambda x: rdMolDescriptors.CalcKappa3(x)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcKappa3(NoneType)
+did not match C++ signature:
+    CalcKappa3(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 311, in &lt;lambda&gt;
+    LabuteASA = lambda *x, **y: rdMolDescriptors.CalcLabuteASA(*x, **y)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcLabuteASA(NoneType)
+did not match C++ signature:
+    CalcLabuteASA(RDKit::ROMol mol, bool includeHs=True, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 284, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 274, in &lt;lambda&gt;
+    fn = lambda x, y=i: PEOE_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.PEOE_VSA_(NoneType)
+did not match C++ signature:
+    PEOE_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 240, in &lt;lambda&gt;
+    fn = lambda x, y=i: SMR_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SMR_VSA_(NoneType)
+did not match C++ signature:
+    SMR_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 250, in &lt;lambda&gt;
+    fn = lambda x, y=i: SMR_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SMR_VSA_(NoneType)
+did not match C++ signature:
+    SMR_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 240, in &lt;lambda&gt;
+    fn = lambda x, y=i: SMR_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SMR_VSA_(NoneType)
+did not match C++ signature:
+    SMR_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 240, in &lt;lambda&gt;
+    fn = lambda x, y=i: SMR_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SMR_VSA_(NoneType)
+did not match C++ signature:
+    SMR_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 240, in &lt;lambda&gt;
+    fn = lambda x, y=i: SMR_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SMR_VSA_(NoneType)
+did not match C++ signature:
+    SMR_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 240, in &lt;lambda&gt;
+    fn = lambda x, y=i: SMR_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SMR_VSA_(NoneType)
+did not match C++ signature:
+    SMR_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 240, in &lt;lambda&gt;
+    fn = lambda x, y=i: SMR_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SMR_VSA_(NoneType)
+did not match C++ signature:
+    SMR_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 240, in &lt;lambda&gt;
+    fn = lambda x, y=i: SMR_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SMR_VSA_(NoneType)
+did not match C++ signature:
+    SMR_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 240, in &lt;lambda&gt;
+    fn = lambda x, y=i: SMR_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SMR_VSA_(NoneType)
+did not match C++ signature:
+    SMR_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 240, in &lt;lambda&gt;
+    fn = lambda x, y=i: SMR_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SMR_VSA_(NoneType)
+did not match C++ signature:
+    SMR_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 257, in &lt;lambda&gt;
+    fn = lambda x, y=i: SlogP_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SlogP_VSA_(NoneType)
+did not match C++ signature:
+    SlogP_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 257, in &lt;lambda&gt;
+    fn = lambda x, y=i: SlogP_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SlogP_VSA_(NoneType)
+did not match C++ signature:
+    SlogP_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 257, in &lt;lambda&gt;
+    fn = lambda x, y=i: SlogP_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SlogP_VSA_(NoneType)
+did not match C++ signature:
+    SlogP_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 267, in &lt;lambda&gt;
+    fn = lambda x, y=i: SlogP_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SlogP_VSA_(NoneType)
+did not match C++ signature:
+    SlogP_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 257, in &lt;lambda&gt;
+    fn = lambda x, y=i: SlogP_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SlogP_VSA_(NoneType)
+did not match C++ signature:
+    SlogP_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 257, in &lt;lambda&gt;
+    fn = lambda x, y=i: SlogP_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SlogP_VSA_(NoneType)
+did not match C++ signature:
+    SlogP_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 257, in &lt;lambda&gt;
+    fn = lambda x, y=i: SlogP_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SlogP_VSA_(NoneType)
+did not match C++ signature:
+    SlogP_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 257, in &lt;lambda&gt;
+    fn = lambda x, y=i: SlogP_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SlogP_VSA_(NoneType)
+did not match C++ signature:
+    SlogP_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 257, in &lt;lambda&gt;
+    fn = lambda x, y=i: SlogP_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SlogP_VSA_(NoneType)
+did not match C++ signature:
+    SlogP_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 257, in &lt;lambda&gt;
+    fn = lambda x, y=i: SlogP_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SlogP_VSA_(NoneType)
+did not match C++ signature:
+    SlogP_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 257, in &lt;lambda&gt;
+    fn = lambda x, y=i: SlogP_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SlogP_VSA_(NoneType)
+did not match C++ signature:
+    SlogP_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 257, in &lt;lambda&gt;
+    fn = lambda x, y=i: SlogP_VSA_(x, force=0)[y]
+                        ^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.SlogP_VSA_(NoneType)
+did not match C++ signature:
+    SlogP_VSA_(RDKit::ROMol mol, boost::python::api::object bins=[], bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/MolSurf.py&quot;, line 480, in &lt;lambda&gt;
+    TPSA = lambda *x, **y: rdMolDescriptors.CalcTPSA(*x, **y)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcTPSA(NoneType)
+did not match C++ signature:
+    CalcTPSA(RDKit::ROMol mol, bool force=False, bool includeSandP=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 111, in EState_VSA_bin
+    return EState_VSA_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 73, in EState_VSA_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 111, in EState_VSA_bin
+    return EState_VSA_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 73, in EState_VSA_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 111, in EState_VSA_bin
+    return EState_VSA_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 73, in EState_VSA_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 111, in EState_VSA_bin
+    return EState_VSA_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 73, in EState_VSA_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 111, in EState_VSA_bin
+    return EState_VSA_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 73, in EState_VSA_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 111, in EState_VSA_bin
+    return EState_VSA_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 73, in EState_VSA_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 111, in EState_VSA_bin
+    return EState_VSA_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 73, in EState_VSA_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 111, in EState_VSA_bin
+    return EState_VSA_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 73, in EState_VSA_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 111, in EState_VSA_bin
+    return EState_VSA_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 73, in EState_VSA_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 111, in EState_VSA_bin
+    return EState_VSA_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 73, in EState_VSA_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 111, in EState_VSA_bin
+    return EState_VSA_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 73, in EState_VSA_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 99, in VSA_EState_bin
+    return VSA_EState_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 42, in VSA_EState_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 99, in VSA_EState_bin
+    return VSA_EState_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 42, in VSA_EState_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 99, in VSA_EState_bin
+    return VSA_EState_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 42, in VSA_EState_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 99, in VSA_EState_bin
+    return VSA_EState_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 42, in VSA_EState_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 99, in VSA_EState_bin
+    return VSA_EState_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 42, in VSA_EState_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 99, in VSA_EState_bin
+    return VSA_EState_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 42, in VSA_EState_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 99, in VSA_EState_bin
+    return VSA_EState_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 42, in VSA_EState_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 99, in VSA_EState_bin
+    return VSA_EState_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 42, in VSA_EState_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 99, in VSA_EState_bin
+    return VSA_EState_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 42, in VSA_EState_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 99, in VSA_EState_bin
+    return VSA_EState_(mol, force=False)[nbin]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState_VSA.py&quot;, line 42, in VSA_EState_
+    propContribs = EStateIndices_(mol, force=force)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/EState/EState.py&quot;, line 47, in EStateIndices
+    nAtoms = mol.GetNumAtoms()
+             ^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcFractionCSP3(NoneType)
+did not match C++ signature:
+    CalcFractionCSP3(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 78, in HeavyAtomCount
+    return mol.GetNumHeavyAtoms()
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetNumHeavyAtoms&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 68, in &lt;lambda&gt;
+    NHOHCount = lambda x: rdMolDescriptors.CalcNumLipinskiHBD(x)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumLipinskiHBD(NoneType)
+did not match C++ signature:
+    CalcNumLipinskiHBD(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 65, in &lt;lambda&gt;
+    NOCount = lambda x: rdMolDescriptors.CalcNumLipinskiHBA(x)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumLipinskiHBA(NoneType)
+did not match C++ signature:
+    CalcNumLipinskiHBA(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumAliphaticCarbocycles(NoneType)
+did not match C++ signature:
+    CalcNumAliphaticCarbocycles(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumAliphaticHeterocycles(NoneType)
+did not match C++ signature:
+    CalcNumAliphaticHeterocycles(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumAliphaticRings(NoneType)
+did not match C++ signature:
+    CalcNumAliphaticRings(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumAmideBonds(NoneType)
+did not match C++ signature:
+    CalcNumAmideBonds(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumAromaticCarbocycles(NoneType)
+did not match C++ signature:
+    CalcNumAromaticCarbocycles(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumAromaticHeterocycles(NoneType)
+did not match C++ signature:
+    CalcNumAromaticHeterocycles(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumAromaticRings(NoneType)
+did not match C++ signature:
+    CalcNumAromaticRings(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumAtomStereoCenters(NoneType)
+did not match C++ signature:
+    CalcNumAtomStereoCenters(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumBridgeheadAtoms(NoneType)
+did not match C++ signature:
+    CalcNumBridgeheadAtoms(RDKit::ROMol mol, boost::python::api::object atoms=None)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 53, in &lt;lambda&gt;
+    NumHAcceptors = lambda x: rdMolDescriptors.CalcNumHBA(x)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumHBA(NoneType)
+did not match C++ signature:
+    CalcNumHBA(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 49, in &lt;lambda&gt;
+    NumHDonors = lambda x: rdMolDescriptors.CalcNumHBD(x)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumHBD(NoneType)
+did not match C++ signature:
+    CalcNumHBD(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 57, in &lt;lambda&gt;
+    NumHeteroatoms = lambda x: rdMolDescriptors.CalcNumHeteroatoms(x)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumHeteroatoms(NoneType)
+did not match C++ signature:
+    CalcNumHeteroatoms(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumHeterocycles(NoneType)
+did not match C++ signature:
+    CalcNumHeterocycles(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 61, in &lt;lambda&gt;
+    NumRotatableBonds = lambda x: rdMolDescriptors.CalcNumRotatableBonds(x)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumRotatableBonds(NoneType)
+did not match C++ signature:
+    CalcNumRotatableBonds(RDKit::ROMol mol, RDKit::Descriptors::NumRotatableBondsOptions strict=rdkit.Chem.rdMolDescriptors.NumRotatableBondsOptions.Default)
+    CalcNumRotatableBonds(RDKit::ROMol mol, bool strict)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumSaturatedCarbocycles(NoneType)
+did not match C++ signature:
+    CalcNumSaturatedCarbocycles(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumSaturatedHeterocycles(NoneType)
+did not match C++ signature:
+    CalcNumSaturatedHeterocycles(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumSaturatedRings(NoneType)
+did not match C++ signature:
+    CalcNumSaturatedRings(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumSpiroAtoms(NoneType)
+did not match C++ signature:
+    CalcNumSpiroAtoms(RDKit::ROMol mol, boost::python::api::object atoms=None)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumUnspecifiedAtomStereoCenters(NoneType)
+did not match C++ signature:
+    CalcNumUnspecifiedAtomStereoCenters(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 92, in &lt;lambda&gt;
+    _fn = lambda x, y=_cfn: y(x)
+                            ^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcPhi(NoneType)
+did not match C++ signature:
+    CalcPhi(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Lipinski.py&quot;, line 72, in &lt;lambda&gt;
+    RingCount = lambda x: rdMolDescriptors.CalcNumRings(x)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcNumRings(NoneType)
+did not match C++ signature:
+    CalcNumRings(RDKit::ROMol mol)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Crippen.py&quot;, line 171, in &lt;lambda&gt;
+    MolLogP = lambda *x, **y: rdMolDescriptors.CalcCrippenDescriptors(*x, **y)[0]
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcCrippenDescriptors(NoneType)
+did not match C++ signature:
+    CalcCrippenDescriptors(RDKit::ROMol mol, bool includeHs=True, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Crippen.py&quot;, line 187, in &lt;lambda&gt;
+    MolMR = lambda *x, **y: rdMolDescriptors.CalcCrippenDescriptors(*x, **y)[1]
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    rdkit.Chem.rdMolDescriptors.CalcCrippenDescriptors(NoneType)
+did not match C++ signature:
+    CalcCrippenDescriptors(RDKit::ROMol mol, bool includeHs=True, bool force=False)
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+Traceback (most recent call last):
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/ML/Descriptors/MoleculeDescriptors.py&quot;, line 88, in CalcDescriptors
+    res[i] = fn(mol)
+             ^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 46, in &lt;lambda&gt;
+    fn = lambda mol, countUnique=True, pattern=patt: _CountMatches(
+                                                     ^^^^^^^^^^^^^^
+  File &quot;/Users/yamamoto/.anyenv/envs/pyenv/versions/3.11.7/lib/python3.11/site-packages/rdkit/Chem/Fragments.py&quot;, line 24, in _CountMatches
+    return len(mol.GetSubstructMatches(patt, uniquify=unique))
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#39;NoneType&#39; object has no attribute &#39;GetSubstructMatches&#39;
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./local"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025- by Yusuke Yamamoto.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
