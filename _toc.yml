@@ -11,3 +11,4 @@ parts:
     - file: content/centrality.ipynb
     - file: content/finding-community.ipynb
     - file: content/web-and-graph.ipynb
+    - file: content/graph-embedding.ipynb

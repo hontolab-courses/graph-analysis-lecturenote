@@ -5,7 +5,7 @@ title: グラフ分析入門の講義ノート
 author: ''
 copyright: "2025- by Yusuke Yamamoto"
 exclude_patterns: [_build, material, pdf, README.md, .DS_Store, content/quiz/local/*]
-only_build_toc_files: true
+only_build_toc_files: false
 #logo: logo.png
 
 # Force re-execution of notebooks on each build.
