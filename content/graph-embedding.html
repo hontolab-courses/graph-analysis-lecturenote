@@ -397,9 +397,57 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1><span class="section-number">6. </span>グラフ埋め込み<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
-<div class="cell tag_hide-input tag_remove-input docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
 </div>
-<div class="cell tag_hide-input tag_remove-input docutils container">
+</div>
+</details>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DRAW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;node_color&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;edgecolors&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="c1"># line color of nodes</span>
+    <span class="s1">&#39;with_labels&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;node_size&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+    <span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="s1">&#39;font_family&#39;</span><span class="p">:</span> <span class="s1">&#39;Arial&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_remove-output tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">torch_geometric</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>torch_geometric
+</pre></div>
+</div>
+</div>
+</details>
 </div>
 <section id="id2">
 <h2><span class="section-number">6.1. </span>典型的なグラフ分析タスク<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
@@ -465,8 +513,8 @@ A =
 0番目のノードと6番目のノードのベクトルのコサイン類似度は<span class="math notranslate nohighlight">\(sim_{cos}(\boldsymbol{v}_0, \boldsymbol{v}_6) = 0\)</span> となり，グラフ上で互いに遠く離れたところにある0番目のノードと6番目のノードが計算上「似ていない」と評価されたことは，妥当であるように思われる．</p>
 <p>同様に，0番目のノードと1番目のノードのベクトルは
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ae16ffa3-8923-453b-9fda-573eb684f9e7">
-<span class="eqno">(6.1)<a class="headerlink" href="#equation-ae16ffa3-8923-453b-9fda-573eb684f9e7" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-38e7dc0a-4dea-46ce-987d-bc842053f828">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-38e7dc0a-4dea-46ce-987d-bc842053f828" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
 \boldsymbol{v}_0 = (0,1,1,0,1,0,0,0,0,0,0)^T \\
 \boldsymbol{v}_1 = (1,0,1,0,1,0,0,0,0,0,0)^T
 \end{eqnarray}\]</div>
@@ -479,8 +527,8 @@ $$</p>
 <p>しかし，4番目のノードと5番目のノードについてはどうだろうか．
 4番目のノードと5番目のノードのベクトルは
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-40541281-ca5b-42bb-9ced-89bf08691f06">
-<span class="eqno">(6.2)<a class="headerlink" href="#equation-40541281-ca5b-42bb-9ced-89bf08691f06" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-5c9671d6-d742-4992-85ee-09622178cb8c">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-5c9671d6-d742-4992-85ee-09622178cb8c" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
 \boldsymbol{v}_4 = (1,1,1,1,0,1,0,0,0,0,0)^T \\
 \boldsymbol{v}_5 = (0,0,0,0,1,0,0,1,0,0,1)^T
 \end{eqnarray}\]</div>
@@ -25596,7 +25644,7 @@ SF2tKAAAAABJRU5ErkJggg==\
 <li><p>ノード系列集合<span class="math notranslate nohighlight">\(L\)</span>に対してWord2Vec（with skip-gram model）を適用する</p></li>
 </ol>
 <p>上の説明で用いたグラフ<span class="math notranslate nohighlight">\(G\)</span>にDeepWalkを適用してみよう．
-まず最初に，ランダムウォークによって長さ<code class="docutils literal notranslate"><span class="pre">10</span></code>のノード系列を<code class="docutils literal notranslate"><span class="pre">1000</span></code>個生成する
+まず最初に，ランダムウォークによって長さ<code class="docutils literal notranslate"><span class="pre">10</span></code>のノード系列を十分な数だけ生成する
 （なお，長さや生成するノード系列の大きさは，対象とするタスクに応じて調整する必要がある）．
 ランダムウォークによるノード系列生成は，以下のようにNetworkXの<code class="docutils literal notranslate"><span class="pre">generate_random_paths</span></code>関数を用いて簡単に行うことができる．</p>
 <div class="cell docutils container">
