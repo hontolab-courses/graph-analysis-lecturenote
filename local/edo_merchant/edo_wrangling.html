@@ -1,0 +1,824 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; グラフ分析入門の講義ノート</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-XWKTGSZ4LK"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-XWKTGSZ4LK');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-XWKTGSZ4LK');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'local/edo_merchant/edo_wrangling';</script>
+    <link rel="canonical" href="https://graphnote.hontolab.org/local/edo_merchant/edo_wrangling.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">グラフ分析入門の講義ノート</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../content/graph-and-path.html">1. グラフデータと経路</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/graph-structure-features.html">2. グラフ構造の諸指標</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/centrality.html">3. ノードの中心性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/finding-community.html">4. コミュニティ発見</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/web-and-graph.html">5. ウェブとグラフ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/graph-embedding.html">6. グラフ埋め込み</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/local/edo_merchant/edo_wrangling.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/local/edo_merchant/edo_wrangling.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">&#39;edo_merchant.tsv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;江戸買物ID&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G_edo</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+
+<span class="n">place2people</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">edo_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;江戸買物ID&#39;</span><span class="p">])</span>
+    <span class="n">person</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;商人名&#39;</span><span class="p">]</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;居所（歴史地名体系）&#39;</span><span class="p">]</span>
+    <span class="n">profession</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;職種&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">place2people</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">place</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+        <span class="n">place2people</span><span class="p">[</span><span class="n">place</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">person</span><span class="p">)</span>
+    
+        <span class="k">if</span> <span class="n">person</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">G_edo</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="n">G_edo</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="n">places</span><span class="o">=</span><span class="nb">set</span><span class="p">(),</span> <span class="n">professions</span><span class="o">=</span><span class="nb">set</span><span class="p">())</span>
+            
+        <span class="n">G_edo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">person</span><span class="p">][</span><span class="s1">&#39;places&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">place</span><span class="p">)</span>
+        <span class="n">G_edo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">person</span><span class="p">][</span><span class="s1">&#39;professions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">profession</span><span class="p">)</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+
+<span class="k">for</span> <span class="n">place</span><span class="p">,</span> <span class="n">people</span> <span class="ow">in</span> <span class="n">place2people</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">person1</span><span class="p">,</span> <span class="n">person2</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+        <span class="n">G_edo</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">person1</span><span class="p">,</span> <span class="n">person2</span><span class="p">)</span>
+
+
+<span class="n">G_sub_edo</span> <span class="o">=</span> <span class="n">G_edo</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">G_edo</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1">#plt.figure(2, figsize=(8, 8))</span>
+
+
+<span class="n">DRAW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;node_size&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">&#39;font_size&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s1">&#39;with_labels&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
+    <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.8</span>
+<span class="p">}</span>
+
+<span class="n">EDO_DRAW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;node_size&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">&#39;with_labels&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>    
+    <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="s1">&#39;cornflowerblue&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
+    <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G_sub_edo</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_sub_edo</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="o">**</span><span class="n">EDO_DRAW_CONFIG</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/1e11ad16eaed33e582e401e87507a36d64f6e79533e7edf777679853f1d97b17.png" src="../../_images/1e11ad16eaed33e582e401e87507a36d64f6e79533e7edf777679853f1d97b17.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G_sub_edo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="s1">&#39;伊勢屋吉兵衛&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;places&#39;: {&#39;上野新黒門町&#39;, &#39;本町三丁目&#39;, &#39;神田鍋町&#39;, &#39;豊島町一丁目&#39;, &#39;通油町&#39;},
+ &#39;professions&#39;: {&#39;下リ傘問屋&#39;,
+  &#39;丸藤問屋&#39;,
+  &#39;乾物類卸&#39;,
+  &#39;唐和薬種問屋&#39;,
+  &#39;紙問屋&#39;,
+  &#39;絵具染草問屋&#39;,
+  &#39;線香問屋&#39;,
+  &#39;諸国銘茶所&#39;,
+  &#39;諸薬調合所薬種問屋&#39;}}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_G_edo</span> <span class="o">=</span> <span class="n">G_sub_edo</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">_G_edo</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+    <span class="k">del</span> <span class="n">_G_edo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;places&#39;</span><span class="p">]</span>
+    <span class="k">del</span> <span class="n">_G_edo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;professions&#39;</span><span class="p">]</span>
+
+<span class="n">_G_edo</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="s1">&#39;伊勢屋吉兵衛&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">write_graphml</span><span class="p">(</span><span class="n">_G_edo</span><span class="p">,</span> <span class="s2">&quot;edo_merchant.graphml&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">__G_edo</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_graphml</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;edo_merchant.graphml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">商人名</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">__G_edo</span><span class="o">.</span><span class="n">nodes</span><span class="p">)]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="s1">&#39;職種&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>職種
+絵具染草問屋       28
+水油仲買         27
+木綿問屋         24
+奥州筋船積問屋      23
+線香問屋         22
+釘鉄銅物問屋       22
+唐和薬種問屋       22
+（薬種）         21
+醤油酢問屋        18
+麻苧問屋         18
+下リ傘問屋        17
+紙問屋          15
+書物問屋         14
+小間物問屋        13
+鰹節・塩干肴問屋     11
+薬種問屋         10
+畳表問屋         10
+唐和薬種十組問屋     10
+丸藤問屋         10
+扇問屋           9
+足袋股引所         9
+糸物問屋          9
+塗物問屋          8
+繰綿問屋          8
+明樽問屋          8
+呉服問屋          8
+水油問屋          7
+鍋釜問屋          7
+下り蝋燭問屋        7
+諸国銘茶所         7
+御伽羅之油         7
+煙管問屋          7
+煙管おろし         6
+地本問屋          6
+蝋燭問屋          6
+下リ雪踏問屋        6
+呉服太物所         6
+鼈甲櫛笄所         6
+瀬戸物問屋         6
+藍玉問屋          5
+諸国茶問屋         5
+針問屋           5
+小間物諸色問屋       5
+鼈甲櫛笄問屋        5
+真綿問屋          5
+小間物卸          5
+蝋問屋           5
+干鰯魚〆粕魚油問屋     4
+（薬種）　弘所       4
+錫鉛問屋          4
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;himono_merchants.tsv&#39;</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">商人名</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">__G_edo</span><span class="o">.</span><span class="n">nodes</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">merchant</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">_df</span><span class="p">[</span><span class="n">_df</span><span class="o">.</span><span class="n">職種</span> <span class="o">==</span> <span class="s1">&#39;鰹節・塩干肴問屋&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">商人名</span><span class="p">):</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">merchant</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>江戸買物ID</th>
+      <th>商人名</th>
+      <th>居所（歴史地名体系）</th>
+      <th>江戸マップID</th>
+      <th>居所（原本表記）</th>
+      <th>職種</th>
+      <th>仲間</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>1370.0</td>
+      <td>大丸屋正右衛門</td>
+      <td>通旅籠町</td>
+      <td>3-168</td>
+      <td>大傳馬町三通旅籠町</td>
+      <td>呉服物</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>710.0</td>
+      <td>恵美壽屋太郎左衛門</td>
+      <td>尾張町一丁目元地</td>
+      <td>2-105</td>
+      <td>新橋尾張町</td>
+      <td>呉服太物所</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1902.0</td>
+      <td>布袋屋善右衛門</td>
+      <td>尾張町一丁目元地</td>
+      <td>2-105</td>
+      <td>新橋尾張町角</td>
+      <td>呉服太物所</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>171.0</td>
+      <td>伊勢屋八兵衛</td>
+      <td>麹町七丁目</td>
+      <td>7-015</td>
+      <td>麹町七丁目</td>
+      <td>呉服太物所</td>
+      <td>十組</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>1689.0</td>
+      <td>唐木屋七兵衛</td>
+      <td>本石町二丁目</td>
+      <td>3-145</td>
+      <td>本石町二丁目</td>
+      <td>呉服問屋</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2375</th>
+      <td>1367.0</td>
+      <td>袋屋伊兵衛</td>
+      <td>小伝馬町三丁目</td>
+      <td>3-154</td>
+      <td>小伝馬町三丁目角</td>
+      <td>足袋股引問屋</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2380</th>
+      <td>302.0</td>
+      <td>越前屋幸助</td>
+      <td>麹町三丁目</td>
+      <td>7-011</td>
+      <td>麹町三丁目大横丁</td>
+      <td>足袋股引所</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2384</th>
+      <td>1304.0</td>
+      <td>泉屋宗右衛門</td>
+      <td>浅草諏訪町</td>
+      <td>17-200</td>
+      <td>浅草諏訪町</td>
+      <td>足袋股引問屋</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2388</th>
+      <td>195.0</td>
+      <td>伊勢屋与八</td>
+      <td>大伝馬町一丁目</td>
+      <td>3-166</td>
+      <td>大伝馬町一丁目</td>
+      <td>足袋股引所</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2389</th>
+      <td>148.0</td>
+      <td>伊勢屋長十郎</td>
+      <td>本湊町</td>
+      <td>2-277</td>
+      <td>鉄砲洲本湊町</td>
+      <td>足袋股引所</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>804 rows × 7 columns</p>
+</div></div></div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./local/edo_merchant"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025- by Yusuke Yamamoto.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

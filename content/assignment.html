@@ -1,0 +1,734 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>レポート課題 &#8212; グラフ分析入門の講義ノート</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-XWKTGSZ4LK"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-XWKTGSZ4LK');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-XWKTGSZ4LK');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/assignment';</script>
+    <link rel="canonical" href="https://graphnote.hontolab.org/content/assignment.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">グラフ分析入門の講義ノート</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="graph-and-path.html">1. グラフデータと経路</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph-structure-features.html">2. グラフ構造の諸指標</a></li>
+<li class="toctree-l1"><a class="reference internal" href="centrality.html">3. ノードの中心性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="finding-community.html">4. コミュニティ発見</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-and-graph.html">5. ウェブとグラフ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph-embedding.html">6. グラフ埋め込み</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/assignment.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/assignment.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>レポート課題</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ノードの媒介中心性（20点）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank-40">PageRank（合計40点）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank-20">シンプルなPageRank（20点）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">PageRankの解釈（20点）</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">社会ネットワーク分析（合計40点）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">影響力のある商人（15点）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">商売区域をつなぐ重要な商人（15点）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">商売区域をつなぐ重要な商人（10点・やや難）</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>レポート課題<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="id2">
+<h2>ノードの媒介中心性（20点）<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>以下は，あるソーシャルネットワークグラフ<span class="math notranslate nohighlight">\(G_{social}\)</span>である．
+グラフ<span class="math notranslate nohighlight">\(G_{social}\)</span>中におけるノードA，B，およびCの媒介中心性を計算過程を示しながら求めなさい．
+なお，本課題のノード<span class="math notranslate nohighlight">\(n\)</span>の媒介中心性の計算において，ノードから別ノードへの最短経路が<span class="math notranslate nohighlight">\(n\)</span>を経由するもの以外にも存在する場合，<span class="math notranslate nohighlight">\(n\)</span>を経由する最短経路のみを計算対象としなさい．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G_social</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">G_social</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">])</span>
+<span class="n">G_social</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G_social</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_social</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="o">**</span><span class="n">DRAW_CONFIG</span><span class="p">)</span>
+
+<span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G_social</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/yamamoto/.anyenv/envs/pyenv/versions/3.10.13/lib/python3.10/site-packages/networkx/drawing/nx_pylab.py:315: UserWarning: 
+
+The arrowsize keyword argument is not applicable when drawing edges
+with LineCollection.
+
+To make this warning go away, either specify `arrows=True` to
+force FancyArrowPatches or use the default values.
+Note that using FancyArrowPatches may be slow for large graphs.
+
+  draw_networkx_edges(G, pos, arrows=arrows, **edge_kwds)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;B&#39;, 0.21428571428571427),
+ (&#39;C&#39;, 0.21428571428571427),
+ (&#39;D&#39;, 0.21428571428571427),
+ (&#39;E&#39;, 0.21428571428571427),
+ (&#39;G&#39;, 0.21428571428571427),
+ (&#39;H&#39;, 0.21428571428571427),
+ (&#39;A&#39;, 0.0),
+ (&#39;F&#39;, 0.0),
+ (&#39;I&#39;, 0.0)]
+</pre></div>
+</div>
+<img alt="../_images/36554187b39eb70f1820049451957456f4494f582ae56eb2b4af4a9b04da3f79.png" src="../_images/36554187b39eb70f1820049451957456f4494f582ae56eb2b4af4a9b04da3f79.png" />
+</div>
+</div>
+</section>
+<section id="pagerank-40">
+<h2>PageRank（合計40点）<a class="headerlink" href="#pagerank-40" title="Link to this heading">#</a></h2>
+<section id="pagerank-20">
+<h3>シンプルなPageRank（20点）<a class="headerlink" href="#pagerank-20" title="Link to this heading">#</a></h3>
+<p>以下のグラフ上の各ノードの重要度を以下の手順（単純なPageRankアルゴリズム）で計算したい．</p>
+<ol class="arabic simple">
+<li><p>各ノードの重要度を<span class="math notranslate nohighlight">\(\frac{1}{N}\)</span>で初期化</p></li>
+<li><p>ノード<span class="math notranslate nohighlight">\(x\)</span>の重要度<span class="math notranslate nohighlight">\(p(x)\)</span>を<span class="math notranslate nohighlight">\(p(x)=\sum_{y \in link\_to(x)} \frac{1}{deg_{out(y)}}p(y)\)</span></p></li>
+<li><p>ステップ2をスコアが収束するまで繰り返す</p></li>
+</ol>
+<p>ただし，<span class="math notranslate nohighlight">\(N\)</span>はノード数，<span class="math notranslate nohighlight">\(link\_to(x)\)</span>はノード<span class="math notranslate nohighlight">\(x\)</span>にエッジを張っているノード集合，<span class="math notranslate nohighlight">\(deg_{out(y)}\)</span>はノード<span class="math notranslate nohighlight">\(y\)</span>の出次数とする．</p>
+<p>ステップ2を3回繰り返したときの各ノードの重要度の値を計算しなさい．
+また，ステップ2を3回繰り返した際の値の変化傾向から，ステップ2を無限に繰り返した際に得られるノードの重要度の収束値を予想しなさい．
+なお，計算を手計算で行う場合はその過程を，プログラミングで行い場合はコードを解答とともに示しなさい．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/a95b0e74fbfeb62bcb1a107f2a596af0856b2202e577b229c963242a2403f190.png" src="../_images/a95b0e74fbfeb62bcb1a107f2a596af0856b2202e577b229c963242a2403f190.png" />
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>PageRankの解釈（20点）<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>グラフ<span class="math notranslate nohighlight">\(G\)</span>に含まれるノード数を<span class="math notranslate nohighlight">\(N\)</span>，ノード<span class="math notranslate nohighlight">\(x\)</span>にエッジを張っているノード集合を<span class="math notranslate nohighlight">\(link\_to(x)\)</span>，ノード<span class="math notranslate nohighlight">\(y\)</span>の出次数を<span class="math notranslate nohighlight">\(deg_{out(y)}\)</span>，<span class="math notranslate nohighlight">\(\alpha\)</span>を0以上1以下の実数とするとき，<span class="math notranslate nohighlight">\(G\)</span>に含まれるノード<span class="math notranslate nohighlight">\(x\)</span>のPageRank値<span class="math notranslate nohighlight">\(p(x)\)</span>は，以下の式によって再帰的に計算される．</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = \alpha (\sum_{y \in link\_to(x)} \frac{1}{deg_{out(y)}p(y)}) + (1 - \alpha)\frac{1}{N}
+\]</div>
+<p>グラフ<span class="math notranslate nohighlight">\(G\)</span>の各ノードのPageRank値を上の式に従って計算したとき，どのノードのPageRank値も少なくとも<span class="math notranslate nohighlight">\(\frac{1-\alpha}{N}\)</span>になることを示しなさい．
+また，<span class="math notranslate nohighlight">\(\alpha\)</span>が0に近づくにつれて，各ノードのPageRank値の違いにどのような意味合いを持つのか述べなさい．</p>
+</section>
+</section>
+<section id="id4">
+<h2>社会ネットワーク分析（合計40点）<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>以下のグラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>は，<a class="reference external" href="https://codh.rois.ac.jp/">人文学オープンデータ共同利用センター</a>が公開しているデータベース<a class="reference external" href="https://codh.rois.ac.jp/edo-shops/iiif-curation-finder/?lang=ja">江戸買物案内</a>をもとに，「<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%88%B8%E8%B2%B7%E7%89%A9%E7%8B%AC%E6%A1%88%E5%86%85">江戸買物独案内</a>」で登場する商人の交流関係の一部をグラフ化したものである（データベースからの対象データ抽出は山本が実施）．
+グラフ中のノードは江戸買物案内に2回以上登場する商人，エッジは同じ区域（居所（歴史地名大系））で商売を営んでいたことを意味する．</p>
+<p>グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>のデータは，<a class="reference internal" href="#"><span class="xref myst">コチラ</span></a>からダウンロードが可能である．
+また，ダウンロードしたデータは，以下のコードでNetworkX形式のグラフとして読み込める（データは<code class="docutils literal notranslate"><span class="pre">data/edo_merchant</span></code>デぃれく取りに<code class="docutils literal notranslate"><span class="pre">edo_merchant.graphml</span></code>という名前で保存したとする）．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G_edo</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_graphml</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;data/edo_merchant/edo_merchant.graphml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/1e11ad16eaed33e582e401e87507a36d64f6e79533e7edf777679853f1d97b17.png" src="../_images/1e11ad16eaed33e582e401e87507a36d64f6e79533e7edf777679853f1d97b17.png" />
+</div>
+</div>
+<section id="id5">
+<h3>影響力のある商人（15点）<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>をもとに，データ中に含まれる商人のうち，最も影響力のあった商人の上位10名を求めなさい．
+解答においては，上位10名を求める過程や検討の際に用いたプログラミングコードも合わせて提示すること．
+なお，「影響力」の定義は解答者が定めればよいが，その定義を必ず解答の中で宣言すること．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pageranks</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">pagerank</span><span class="p">(</span><span class="n">G_edo</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">pageranks</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;伊勢屋八兵衛&#39;, 0.005480580339120927),
+ (&#39;伊勢屋吉兵衛&#39;, 0.005022272930837839),
+ (&#39;伊勢屋善右衛門&#39;, 0.004476178947123504),
+ (&#39;伊勢屋長兵衛&#39;, 0.0039986858643147535),
+ (&#39;大坂屋佐右衛門&#39;, 0.003924343267697341),
+ (&#39;伊勢屋六右衛門&#39;, 0.003924081547692208),
+ (&#39;伊勢屋源兵衛&#39;, 0.0038590334716219203),
+ (&#39;伊勢屋伊兵衛&#39;, 0.0037305943104172443),
+ (&#39;伊勢屋利兵衛&#39;, 0.0036040587007899975),
+ (&#39;伊勢屋徳兵衛&#39;, 0.003423258688759229)]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>商売区域をつなぐ重要な商人（15点）<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>可視化されたグラフが示しているように，グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>においてノード（商人）は商売区域ごとにコミュニティを形成しているように見える．
+現代においてもそうであるように，ある地域から新たな地域，しかも大きな区域に出店をする際には，商売区域をつなぐような人物は重宝されたと考えられる．</p>
+<p>グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>をもとに，データ中に含まれる商人のうち，コミュニティの橋渡し役として重要であったと考えられる商人の上位10名を求めなさい．
+解答においては，上位10名を求める過程や検討の際に用いたプログラミングコードも合わせて提示すること．
+なお，「橋渡し役としての重要度」の定義は解答者が定めればよいが，その定義を必ず解答の中で宣言すること．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G_edo</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;伊勢屋長兵衛&#39;, 0.39016866907386033),
+ (&#39;伊勢屋吉兵衛&#39;, 0.3312580674356213),
+ (&#39;炭屋八兵衛&#39;, 0.20557669161604772),
+ (&#39;伊勢屋源兵衛&#39;, 0.2040642492090533),
+ (&#39;伊勢屋利兵衛&#39;, 0.16799352011430024),
+ (&#39;伊勢屋八兵衛&#39;, 0.16324944028069555),
+ (&#39;大坂屋佐右衛門&#39;, 0.15854782571745343),
+ (&#39;住吉屋喜兵衛&#39;, 0.14733627692985202),
+ (&#39;伊勢屋平八&#39;, 0.12250295104656597),
+ (&#39;伊勢屋宇兵衛&#39;, 0.12110842633475861)]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3>商売区域をつなぐ重要な商人（10点・やや難）<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p><a class="reference internal" href="#"><span class="xref myst">コチラ</span></a>からダウンロードできるデータには，グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>に含まれる商人のうち，「鰹節・塩干肴問屋」を営んでいた商人の名前が収められている．
+グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>をもとに，「鰹節・塩干肴問屋」を営む商人の界隈で影響力のあった商人の上位5名を求めなさい．
+解答においては，上位5名を求める過程や検討の際に用いたプログラミングコードも合わせて提示すること．
+なお，「影響力」の定義は解答者が定めればよいが，その定義を必ず解答の中で宣言すること．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">himono_merchants</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/edo_merchant/himono_merchants.tsv&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">himono_merchant</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">himono_merchants</span><span class="p">[</span><span class="n">himono_merchant</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">biased_pageranks</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">pagerank</span><span class="p">(</span><span class="n">G_edo</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">personalization</span><span class="o">=</span><span class="n">himono_merchants</span><span class="p">)</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">biased_pageranks</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;村田屋伊兵衛&#39;, 0.03870201969890905),
+ (&#39;大坂屋武兵衛&#39;, 0.03803562105248761),
+ (&#39;住吉屋伊兵衛&#39;, 0.03623618707884742),
+ (&#39;尼屋伝次郎&#39;, 0.03229391681156509),
+ (&#39;榎坂屋卯兵衛&#39;, 0.03229391681156509),
+ (&#39;油屋勘兵衛&#39;, 0.03229391681156509),
+ (&#39;虎屋弥三郎&#39;, 0.03229391681156509),
+ (&#39;遠州屋新兵衛&#39;, 0.03229391681156509),
+ (&#39;遠州屋伝兵衛&#39;, 0.0301304216724584),
+ (&#39;絹川屋茂兵衛&#39;, 0.02246378334025466)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">himono_merchant_scores</span> <span class="o">=</span> <span class="p">{</span><span class="n">merchant</span><span class="p">:</span> <span class="n">biased_pageranks</span><span class="p">[</span><span class="n">merchant</span><span class="p">]</span> <span class="k">for</span> <span class="n">merchant</span> <span class="ow">in</span> <span class="n">himono_merchants</span><span class="p">}</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">himono_merchant_scores</span> <span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;村田屋伊兵衛&#39;, 0.03870201969890905),
+ (&#39;大坂屋武兵衛&#39;, 0.03803562105248761),
+ (&#39;住吉屋伊兵衛&#39;, 0.03623618707884742),
+ (&#39;尼屋伝次郎&#39;, 0.03229391681156509),
+ (&#39;遠州屋新兵衛&#39;, 0.03229391681156509),
+ (&#39;虎屋弥三郎&#39;, 0.03229391681156509),
+ (&#39;榎坂屋卯兵衛&#39;, 0.03229391681156509),
+ (&#39;油屋勘兵衛&#39;, 0.03229391681156509),
+ (&#39;遠州屋伝兵衛&#39;, 0.0301304216724584),
+ (&#39;伊勢屋伊兵衛&#39;, 0.01834680601965339),
+ (&#39;伊勢屋善兵衛&#39;, 0.016992456529549144)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">himono_merchant_scores</span> <span class="o">=</span> <span class="p">{</span><span class="n">merchant</span><span class="p">:</span> <span class="n">pageranks</span><span class="p">[</span><span class="n">merchant</span><span class="p">]</span> <span class="k">for</span> <span class="n">merchant</span> <span class="ow">in</span> <span class="n">himono_merchants</span><span class="p">}</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">himono_merchant_scores</span> <span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;伊勢屋伊兵衛&#39;, 0.0037305943104172443),
+ (&#39;伊勢屋善兵衛&#39;, 0.003170962246699641),
+ (&#39;村田屋伊兵衛&#39;, 0.0027551024909239696),
+ (&#39;大坂屋武兵衛&#39;, 0.0026890323324735713),
+ (&#39;住吉屋伊兵衛&#39;, 0.002329241414273892),
+ (&#39;遠州屋伝兵衛&#39;, 0.0016639471854845585),
+ (&#39;尼屋伝次郎&#39;, 0.0014462506096466475),
+ (&#39;遠州屋新兵衛&#39;, 0.0014462506096466475),
+ (&#39;虎屋弥三郎&#39;, 0.0014462506096466475),
+ (&#39;榎坂屋卯兵衛&#39;, 0.0014462506096466475),
+ (&#39;油屋勘兵衛&#39;, 0.0014462506096466475)]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ノードの媒介中心性（20点）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank-40">PageRank（合計40点）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank-20">シンプルなPageRank（20点）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">PageRankの解釈（20点）</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">社会ネットワーク分析（合計40点）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">影響力のある商人（15点）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">商売区域をつなぐ重要な商人（15点）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">商売区域をつなぐ重要な商人（10点・やや難）</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025- by Yusuke Yamamoto.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
