@@ -12,3 +12,8 @@ parts:
     - file: content/finding-community.ipynb
     - file: content/web-and-graph.ipynb
     - file: content/graph-embedding.ipynb
+- caption: レポート課題
+  numbered: False
+  chapters:
+    - file: content/assignment.ipynb
+
