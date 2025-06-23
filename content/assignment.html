@@ -429,7 +429,7 @@ p(x) = \alpha (\sum_{y \in link\_to(x)} \frac{1}{deg_{out(y)}p(y)}) + (1 - \alph
 <h2>社会ネットワーク分析（合計40点）<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
 <p>以下のグラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>は，<a class="reference external" href="https://codh.rois.ac.jp/">人文学オープンデータ共同利用センター</a>が公開しているデータベース<a class="reference external" href="https://codh.rois.ac.jp/edo-shops/iiif-curation-finder/?lang=ja">江戸買物案内</a>をもとに，「<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%88%B8%E8%B2%B7%E7%89%A9%E7%8B%AC%E6%A1%88%E5%86%85">江戸買物独案内</a>」で登場する商人の交流関係の一部をグラフ化したものである（データベースからの対象データ抽出は山本が実施）．
 グラフ中のノードは江戸買物案内に2回以上登場する商人，エッジは同じ区域（居所（歴史地名大系））で商売を営んでいたことを意味する．</p>
-<p>グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>のデータは，<a class="reference external" href="https://www.dropbox.com/scl/fi/cd6dwk02cvlet0b5vqb09/edo_merchant.graphml?rlkey=64337j18i6pct3ks6x8oet8x3&amp;amp;st=7unpynho&amp;amp;dl=1">コチラ</a>からダウンロードが可能である（パスワードは講義中に伝えます）．
+<p>グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>のデータは，<a class="reference external" href="https://b.hontolab.org/edo_merchant">コチラ</a>からダウンロードが可能である（パスワードは講義中に伝えます）．
 また，ダウンロードしたデータは，以下のコードでNetworkX形式のグラフとして読み込める（データは<code class="docutils literal notranslate"><span class="pre">data/edo_merchant</span></code>ディレクトリに<code class="docutils literal notranslate"><span class="pre">edo_merchant.graphml</span></code>という名前で保存したとする）．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
