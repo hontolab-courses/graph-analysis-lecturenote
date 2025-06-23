@@ -388,49 +388,8 @@
 <p>以下は，あるソーシャルネットワークグラフ<span class="math notranslate nohighlight">\(G_{social}\)</span>である．
 グラフ<span class="math notranslate nohighlight">\(G_{social}\)</span>中におけるノードA，B，およびCの媒介中心性を計算過程を示しながら求めなさい．
 なお，本課題のノード<span class="math notranslate nohighlight">\(n\)</span>の媒介中心性の計算において，ノードから別ノードへの最短経路が<span class="math notranslate nohighlight">\(n\)</span>を経由するもの以外にも存在する場合，<span class="math notranslate nohighlight">\(n\)</span>を経由する最短経路のみを計算対象としなさい．</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G_social</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
-<span class="n">G_social</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">])</span>
-<span class="n">G_social</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([</span>
-    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">)</span>
-<span class="p">])</span>
-
-<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G_social</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_social</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="o">**</span><span class="n">DRAW_CONFIG</span><span class="p">)</span>
-
-<span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G_social</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">20</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/yamamoto/.anyenv/envs/pyenv/versions/3.10.13/lib/python3.10/site-packages/networkx/drawing/nx_pylab.py:315: UserWarning: 
-
-The arrowsize keyword argument is not applicable when drawing edges
-with LineCollection.
-
-To make this warning go away, either specify `arrows=True` to
-force FancyArrowPatches or use the default values.
-Note that using FancyArrowPatches may be slow for large graphs.
-
-  draw_networkx_edges(G, pos, arrows=arrows, **edge_kwds)
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;B&#39;, 0.21428571428571427),
- (&#39;C&#39;, 0.21428571428571427),
- (&#39;D&#39;, 0.21428571428571427),
- (&#39;E&#39;, 0.21428571428571427),
- (&#39;G&#39;, 0.21428571428571427),
- (&#39;H&#39;, 0.21428571428571427),
- (&#39;A&#39;, 0.0),
- (&#39;F&#39;, 0.0),
- (&#39;I&#39;, 0.0)]
-</pre></div>
-</div>
 <img alt="../_images/36554187b39eb70f1820049451957456f4494f582ae56eb2b4af4a9b04da3f79.png" src="../_images/36554187b39eb70f1820049451957456f4494f582ae56eb2b4af4a9b04da3f79.png" />
 </div>
 </div>
@@ -500,7 +459,7 @@ p(x) = \alpha (\sum_{y \in link\_to(x)} \frac{1}{deg_{out(y)}p(y)}) + (1 - \alph
 </section>
 <section id="id7">
 <h3>商売区域をつなぐ重要な商人（10点・やや難）<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p><a class="reference internal" href="#"><span class="xref myst">コチラ</span></a>からダウンロードできるデータには，グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>に含まれる商人のうち，「鰹節・塩干肴問屋」を営んでいた商人の名前が収められている．
+<p><a class="reference download internal" download="" href="../_downloads/2aae7ad57964221227a80a4814ffd3bd/himono_merchants.tsv"><span class="xref download myst">コチラ</span></a>からダウンロードできるデータには，グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>に含まれる商人のうち，「鰹節・塩干肴問屋」を営んでいた商人の名前が収められている．
 グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>をもとに，「鰹節・塩干肴問屋」を営む商人の界隈で影響力のあった商人の上位5名を求めなさい．
 解答においては，上位5名を求める過程や検討の際に用いたプログラミングコードも合わせて提示すること．
 なお，「影響力」の定義は解答者が定めればよいが，その定義を必ず解答の中で宣言すること．</p>
