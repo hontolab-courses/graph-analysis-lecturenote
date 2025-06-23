@@ -489,28 +489,6 @@ p(x) = \alpha (\sum_{y \in link\_to(x)} \frac{1}{deg_{out(y)}p(y)}) + (1 - \alph
 <p>グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>をもとに，データ中に含まれる商人のうち，最も影響力のあった商人の上位10名を求めなさい．
 解答においては，上位10名を求める過程や検討の際に用いたプログラミングコードも合わせて提示すること．
 なお，「影響力」の定義は解答者が定めればよいが，その定義を必ず解答の中で宣言すること．</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pageranks</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">pagerank</span><span class="p">(</span><span class="n">G_edo</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
-<span class="nb">sorted</span><span class="p">(</span><span class="n">pageranks</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;伊勢屋八兵衛&#39;, 0.005480580339120927),
- (&#39;伊勢屋吉兵衛&#39;, 0.005022272930837839),
- (&#39;伊勢屋善右衛門&#39;, 0.004476178947123504),
- (&#39;伊勢屋長兵衛&#39;, 0.0039986858643147535),
- (&#39;大坂屋佐右衛門&#39;, 0.003924343267697341),
- (&#39;伊勢屋六右衛門&#39;, 0.003924081547692208),
- (&#39;伊勢屋源兵衛&#39;, 0.0038590334716219203),
- (&#39;伊勢屋伊兵衛&#39;, 0.0037305943104172443),
- (&#39;伊勢屋利兵衛&#39;, 0.0036040587007899975),
- (&#39;伊勢屋徳兵衛&#39;, 0.003423258688759229)]
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section id="id6">
 <h3>商売区域をつなぐ重要な商人（15点）<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
@@ -519,27 +497,6 @@ p(x) = \alpha (\sum_{y \in link\_to(x)} \frac{1}{deg_{out(y)}p(y)}) + (1 - \alph
 <p>グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>をもとに，データ中に含まれる商人のうち，コミュニティの橋渡し役として重要であったと考えられる商人の上位10名を求めなさい．
 解答においては，上位10名を求める過程や検討の際に用いたプログラミングコードも合わせて提示すること．
 なお，「橋渡し役としての重要度」の定義は解答者が定めればよいが，その定義を必ず解答の中で宣言すること．</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G_edo</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;伊勢屋長兵衛&#39;, 0.39016866907386033),
- (&#39;伊勢屋吉兵衛&#39;, 0.3312580674356213),
- (&#39;炭屋八兵衛&#39;, 0.20557669161604772),
- (&#39;伊勢屋源兵衛&#39;, 0.2040642492090533),
- (&#39;伊勢屋利兵衛&#39;, 0.16799352011430024),
- (&#39;伊勢屋八兵衛&#39;, 0.16324944028069555),
- (&#39;大坂屋佐右衛門&#39;, 0.15854782571745343),
- (&#39;住吉屋喜兵衛&#39;, 0.14733627692985202),
- (&#39;伊勢屋平八&#39;, 0.12250295104656597),
- (&#39;伊勢屋宇兵衛&#39;, 0.12110842633475861)]
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section id="id7">
 <h3>商売区域をつなぐ重要な商人（10点・やや難）<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
@@ -547,80 +504,6 @@ p(x) = \alpha (\sum_{y \in link\_to(x)} \frac{1}{deg_{out(y)}p(y)}) + (1 - \alph
 グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>をもとに，「鰹節・塩干肴問屋」を営む商人の界隈で影響力のあった商人の上位5名を求めなさい．
 解答においては，上位5名を求める過程や検討の際に用いたプログラミングコードも合わせて提示すること．
 なお，「影響力」の定義は解答者が定めればよいが，その定義を必ず解答の中で宣言すること．</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">himono_merchants</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/edo_merchant/himono_merchants.tsv&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">himono_merchant</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="n">himono_merchants</span><span class="p">[</span><span class="n">himono_merchant</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-
-<span class="n">biased_pageranks</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">pagerank</span><span class="p">(</span><span class="n">G_edo</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">personalization</span><span class="o">=</span><span class="n">himono_merchants</span><span class="p">)</span>
-<span class="nb">sorted</span><span class="p">(</span><span class="n">biased_pageranks</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;村田屋伊兵衛&#39;, 0.03870201969890905),
- (&#39;大坂屋武兵衛&#39;, 0.03803562105248761),
- (&#39;住吉屋伊兵衛&#39;, 0.03623618707884742),
- (&#39;尼屋伝次郎&#39;, 0.03229391681156509),
- (&#39;榎坂屋卯兵衛&#39;, 0.03229391681156509),
- (&#39;油屋勘兵衛&#39;, 0.03229391681156509),
- (&#39;虎屋弥三郎&#39;, 0.03229391681156509),
- (&#39;遠州屋新兵衛&#39;, 0.03229391681156509),
- (&#39;遠州屋伝兵衛&#39;, 0.0301304216724584),
- (&#39;絹川屋茂兵衛&#39;, 0.02246378334025466)]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">himono_merchant_scores</span> <span class="o">=</span> <span class="p">{</span><span class="n">merchant</span><span class="p">:</span> <span class="n">biased_pageranks</span><span class="p">[</span><span class="n">merchant</span><span class="p">]</span> <span class="k">for</span> <span class="n">merchant</span> <span class="ow">in</span> <span class="n">himono_merchants</span><span class="p">}</span>
-<span class="nb">sorted</span><span class="p">(</span><span class="n">himono_merchant_scores</span> <span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;村田屋伊兵衛&#39;, 0.03870201969890905),
- (&#39;大坂屋武兵衛&#39;, 0.03803562105248761),
- (&#39;住吉屋伊兵衛&#39;, 0.03623618707884742),
- (&#39;尼屋伝次郎&#39;, 0.03229391681156509),
- (&#39;遠州屋新兵衛&#39;, 0.03229391681156509),
- (&#39;虎屋弥三郎&#39;, 0.03229391681156509),
- (&#39;榎坂屋卯兵衛&#39;, 0.03229391681156509),
- (&#39;油屋勘兵衛&#39;, 0.03229391681156509),
- (&#39;遠州屋伝兵衛&#39;, 0.0301304216724584),
- (&#39;伊勢屋伊兵衛&#39;, 0.01834680601965339),
- (&#39;伊勢屋善兵衛&#39;, 0.016992456529549144)]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">himono_merchant_scores</span> <span class="o">=</span> <span class="p">{</span><span class="n">merchant</span><span class="p">:</span> <span class="n">pageranks</span><span class="p">[</span><span class="n">merchant</span><span class="p">]</span> <span class="k">for</span> <span class="n">merchant</span> <span class="ow">in</span> <span class="n">himono_merchants</span><span class="p">}</span>
-<span class="nb">sorted</span><span class="p">(</span><span class="n">himono_merchant_scores</span> <span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;伊勢屋伊兵衛&#39;, 0.0037305943104172443),
- (&#39;伊勢屋善兵衛&#39;, 0.003170962246699641),
- (&#39;村田屋伊兵衛&#39;, 0.0027551024909239696),
- (&#39;大坂屋武兵衛&#39;, 0.0026890323324735713),
- (&#39;住吉屋伊兵衛&#39;, 0.002329241414273892),
- (&#39;遠州屋伝兵衛&#39;, 0.0016639471854845585),
- (&#39;尼屋伝次郎&#39;, 0.0014462506096466475),
- (&#39;遠州屋新兵衛&#39;, 0.0014462506096466475),
- (&#39;虎屋弥三郎&#39;, 0.0014462506096466475),
- (&#39;榎坂屋卯兵衛&#39;, 0.0014462506096466475),
- (&#39;油屋勘兵衛&#39;, 0.0014462506096466475)]
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 </section>
 </section>
