@@ -35,11 +35,11 @@ Googleアカウントを持っていない学生は，授業までに取得し�
 | 4 (第12回) | 07/04 | コミュニティ発見 | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-04-finding-community) | [Here](content/finding-community.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/finding-community.ipynb) | - |
 | 5 (第13回) | 07/11 | ウェブグラフ | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-05-web-and-graph) | [Here](content/web-and-graph.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/web-and-graph.ipynb) | - |
 | 6 (第14回) | 07/20 | 機械学習とグラフ - グラフ埋め込み | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-06-graph-embedding) | [Here](content/graph-embedding.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/graph-embedding.ipynb) | - |
-| 7 (第15回) | 07/27 | 総合演習 - 社会ネットワークなどの分析 | Speaker Deck | - | - | - |
+| 7 (第15回) | 07/27 | 総合演習（レポート課題） - 社会ネットワークなどの分析 | - | [Here](content/assignment/assignment.ipynb) | - | - |
 
 
 ## レポート課題
-- 課題内容: [レポート課題ページ]に掲載
+- 課題内容: [レポート課題ページ](content/assignment/assignment.ipynb)に掲載
 - 締め切り: 2025年7月31日（木）23:59
 - 提出先: 学務情報システム
 - 提出形式

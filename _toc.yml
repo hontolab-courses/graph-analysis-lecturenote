@@ -15,5 +15,5 @@ parts:
 - caption: レポート課題
   numbered: False
   chapters:
-    - file: content/assignment.ipynb
+    - file: content/assignment/assignment.ipynb
 
