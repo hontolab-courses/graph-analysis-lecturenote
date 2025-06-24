@@ -79,7 +79,6 @@
     <link rel="canonical" href="https://graphnote.hontolab.org/content/graph-embedding.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="レポート課題" href="assignment.html" />
     <link rel="prev" title="5. ウェブとグラフ" href="web-and-graph.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -178,10 +177,6 @@
 <li class="toctree-l1"><a class="reference internal" href="finding-community.html">4. コミュニティ発見</a></li>
 <li class="toctree-l1"><a class="reference internal" href="web-and-graph.html">5. ウェブとグラフ</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">6. グラフ埋め込み</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">レポート課題</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="assignment.html">レポート課題</a></li>
 </ul>
 
     </div>
@@ -516,28 +511,28 @@ A =
 <p>である．
 ベクトルの類似性を評価する一般的な方法のひとつは，コサイン類似度を見ることである．
 0番目のノードと6番目のノードのベクトルのコサイン類似度は<span class="math notranslate nohighlight">\(sim_{cos}(\boldsymbol{v}_0, \boldsymbol{v}_6) = 0\)</span> となり，グラフ上で互いに遠く離れたところにある0番目のノードと6番目のノードが計算上「似ていない」と評価されたことは，妥当であるように思われる．</p>
-<p>同様に，0番目のノードと1番目のノードのベクトルは
-$$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1a8d3c8e-4f78-4c72-96d6-f1d1f4833d73">
-<span class="eqno">(6.1)<a class="headerlink" href="#equation-1a8d3c8e-4f78-4c72-96d6-f1d1f4833d73" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<p>同様に，0番目のノードと1番目のノードのベクトルは</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
 \boldsymbol{v}_0 = (0,1,1,0,1,0,0,0,0,0,0)^T \\
 \boldsymbol{v}_1 = (1,0,1,0,1,0,0,0,0,0,0)^T
-\end{eqnarray}\]</div>
-<p>$$</p>
+\end{eqnarray}
+\end{split}\]</div>
 <p>となり，その内積は<span class="math notranslate nohighlight">\(sim_{cos}(\boldsymbol{v}_0, \boldsymbol{v}_1)  = 0.667\)</span> である．
 0番目のノードと1番目のノードは隣接しているので，コサイン類似度が高くなることは妥当と思われる．</p>
 </section>
 <section id="id5">
 <h3><span class="section-number">6.2.2. </span>隣接行列の行をノードのベクトル表現として用いる問題点<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>しかし，4番目のノードと5番目のノードについてはどうだろうか．
-4番目のノードと5番目のノードのベクトルは
-$$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ea9851bd-757b-47d4-9aee-f3250c8d7bd9">
-<span class="eqno">(6.2)<a class="headerlink" href="#equation-ea9851bd-757b-47d4-9aee-f3250c8d7bd9" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+4番目のノードと5番目のノードのベクトルは</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
 \boldsymbol{v}_4 = (1,1,1,1,0,1,0,0,0,0,0)^T \\
 \boldsymbol{v}_5 = (0,0,0,0,1,0,0,1,0,0,1)^T
-\end{eqnarray}\]</div>
-<p>$$</p>
+\end{eqnarray}
+\end{split}\]</div>
 <p>となり，その内積は<span class="math notranslate nohighlight">\(sim_{cos}(\boldsymbol{v}_4, \boldsymbol{v}_5) = 0\)</span> で，隣り合っているので多少は似ていると思われるが類似度はゼロになってしまう．
 何が問題だったのだろうか．</p>
 <p>隣接行列の行をノードの特徴ベクトルとして用いる方法は，そのノードがどんなノードと隣接しているかによってノードを特徴づける．
@@ -26144,15 +26139,6 @@ Pythonのscikit-learnライブラリを用いれば，以下のように簡単�
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title"><span class="section-number">5. </span>ウェブとグラフ</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="assignment.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">レポート課題</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

@@ -179,10 +179,6 @@
 <li class="toctree-l1"><a class="reference internal" href="web-and-graph.html">5. ウェブとグラフ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="graph-embedding.html">6. グラフ埋め込み</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">レポート課題</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="assignment.html">レポート課題</a></li>
-</ul>
 
     </div>
 </nav></div>
@@ -423,7 +419,6 @@
 ノード中心性評価はグラフ分析における典型的タスクである．</p>
 <p>中心性指標は様々なものが提案されている．
 以下は代表的な中心性であるが，分析に適した中心性はグラフの何に注目したいかによって変わる．</p>
-<p>以下，代表的な中心性について述べる．</p>
 <section id="id2">
 <h2><span class="section-number">3.1. </span>近接中心性<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <p><strong>近接中心性（closeness centrality）</strong> は，注目ノードとグラフ中の他のノードとの距離が平均的にどの程度近いかを示す指標である．
@@ -487,7 +482,7 @@ c_{closeness}(v_i) &amp;= \frac{1}{v_iからの平均距離} \\
 c_{degree}(v) = deg(v)
 \]</div>
 <p>である．
-式から明らかなとおり，次数中心性は次数である．
+式から明らかなように，次数中心性は次数である．
 上の定義の場合，グラフのサイズが大きくなると次数中心性も大きくなり，中心性の相対的な差が分かりづらくなる．
 そのため，以下のように，次数をノード数で正規化したものを次数中心性とする場合もある．</p>
 <div class="math notranslate nohighlight">
@@ -560,17 +555,17 @@ c_{degree}(v) = \frac{deg(v)}{|V|-1}
 </section>
 <section id="id4">
 <h2><span class="section-number">3.3. </span>固有ベクトル中心性<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
-<p>次数中心性は極めてシンプルであるため，グラフ分析ではまず最初に用いられる中心性指標である．
+<p>次数中心性は計算も解釈も極めてシンプルであるため，グラフ分析で頻繁に用いられる．
 しかし，次数中心性がノードの重要度指標としてふさわしくない（or 迷う）時もある．
 以下の2つのグラフを見てみよう．</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/0223f2163a8ffb33538e82142c1f87347025bc7c58e7e60e2ca1879d94aa767f.png" src="../_images/0223f2163a8ffb33538e82142c1f87347025bc7c58e7e60e2ca1879d94aa767f.png" />
+<img alt="../_images/bfb4a23b771a2c8c5c70e6de826ebe8e475c23fda3a9d679e92c517231434368.png" src="../_images/bfb4a23b771a2c8c5c70e6de826ebe8e475c23fda3a9d679e92c517231434368.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/65fd844b28393a0611d19a2a007eccd3ef764d5ae420a23128991e0227c1da86.png" src="../_images/65fd844b28393a0611d19a2a007eccd3ef764d5ae420a23128991e0227c1da86.png" />
+<img alt="../_images/c395c047ca546559e542fcac5409a9c3118f9db0f9c035122564c6a80ccc4f5a.png" src="../_images/c395c047ca546559e542fcac5409a9c3118f9db0f9c035122564c6a80ccc4f5a.png" />
 </div>
 </div>
 <p>1つ目のグラフ<span class="math notranslate nohighlight">\(G\)</span>において，ノード0の次数中心性は3である．
@@ -586,7 +581,7 @@ c_{degree}(v) = \frac{deg(v)}{|V|-1}
 再度以下のグラフ<span class="math notranslate nohighlight">\(G\)</span>に戻って，固有ベクトル中心性を計算してみよう．</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/4b725236a08e8dfcbc42d79ffa2bfd13a58dc5742d7ccf2b80096b6220651271.png" src="../_images/4b725236a08e8dfcbc42d79ffa2bfd13a58dc5742d7ccf2b80096b6220651271.png" />
+<img alt="../_images/2f9654749e2cca3119399ad4e06ccd26cc69346a342197843a02bbcc697c4a17.png" src="../_images/2f9654749e2cca3119399ad4e06ccd26cc69346a342197843a02bbcc697c4a17.png" />
 </div>
 </div>
 <p>とりあえず，各ノードの中心性スコアを1としてスタートしよう．
@@ -617,6 +612,7 @@ c_e(v_0) &amp;= c_e(v_1) + c_e(v_2) + c_e(v_3) \\
 <p>と書くことができる．
 中心性スコアが更新されたので，同じ操作を繰り返してみよう．
 ただし，このまま操作をすると，中心性のスコアがどんどん大きくなっていってしまう．
+一方，中心性スコアはグラフにおけるノードの順位付けに使うため，スコアは相対的な指標であればよい．
 そこで，各ノードの中心性の二乗和が1になるよう制約（スコアの変換）を加えながら，同じ操作を繰り返すことにする．
 先の<span class="math notranslate nohighlight">\(c^2_e\)</span>を変換すると，変換後のベクトルは</p>
 <div class="math notranslate nohighlight">
@@ -785,9 +781,9 @@ c_e = Ac_e
 <p>得られた数値を見てみると，ノード0とノード1の値がほぼゼロになっている．
 ノード1はどのノードからもエッジを張られていない（入次数がゼロ）なので，固有ベクトル中心性の値がゼロになるのは納得ができる．
 一方，ノード0はノード1からエッジが張られているため，直感的にはスコアを多少持ってもよいはずで，ゼロなのは納得できない．</p>
-<p>このように，強連結でない有向グラフの場合，入次数がゼロのノードからしかエッジが張られているノードは重要度がゼロになってしまい，固有ベクトル中心性を意図通りに計算できない．
-そのため．「重要なノードからエッジを多く張られているノードは重要」というコンセプトで中心性を計算するには，別の工夫が必要となる．</p>
-<p>なお，以下のグラフ<span class="math notranslate nohighlight">\(G_{stronglyconnected}\)</span>のように，強廉潔な有向グラフは問題なく固有ベクトル中心性を計算できる．</p>
+<p>このように，強連結でない有向グラフの場合，入次数がゼロのノードからしかエッジが張られていないノードは重要度がゼロになってしまい，固有ベクトル中心性を意図通りに計算できない．
+そのため．「重要なノードからエッジを多く張られているノードは重要」というコンセプトで中心性を計算するには，別の工夫が必要となる（この工夫については，<a class="reference internal" href="#content/web-and-graph.ipynb"><span class="xref myst">後の講</span></a>で説明する）．</p>
+<p>なお，以下のグラフ<span class="math notranslate nohighlight">\(G_{stronglyconnected}\)</span>のように，強連結な有向グラフは問題なく固有ベクトル中心性を計算できる．</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="../_images/95b5904407ecd4b166e447a4e5d09be227397a86145db4eb0897c4d2a836879c.png" src="../_images/95b5904407ecd4b166e447a4e5d09be227397a86145db4eb0897c4d2a836879c.png" />
@@ -841,7 +837,7 @@ c_e = Ac_e
 一方，ノード5はそれを経由しなくても他のノードに到達することは可能であるため，「経路上の要所」という観点からは重要度が低いと考えられる．</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/9953a4c91e970992f55fcbe98cd7d75711c9068f965c0dce4688b938b626d749.png" src="../_images/9953a4c91e970992f55fcbe98cd7d75711c9068f965c0dce4688b938b626d749.png" />
+<img alt="../_images/4de0d08b2feddb80f6797dd65d9ab76aa7cc6368c908277a38034776bbd67251.png" src="../_images/4de0d08b2feddb80f6797dd65d9ab76aa7cc6368c908277a38034776bbd67251.png" />
 </div>
 </div>
 <p>ノード3とノード5の媒介中心性を計算してみよう．
@@ -937,7 +933,7 @@ c_e = Ac_e
         <iframe
             width="750"
             height="650"
-            src="/airport.html"
+            src="../airport.html"
             frameborder="0"
             allowfullscreen
             

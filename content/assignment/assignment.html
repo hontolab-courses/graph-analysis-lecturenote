@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>コミュニティ発見 &#8212; グラフ分析入門の講義ノート</title>
+    <title>山本担当分 レポート課題 &#8212; グラフ分析入門の講義ノート</title>
   
   
   
@@ -75,8 +75,8 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/quiz/finding-community';</script>
-    <link rel="canonical" href="https://graphnote.hontolab.org/content/quiz/finding-community.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/assignment/assignment';</script>
+    <link rel="canonical" href="https://graphnote.hontolab.org/content/assignment/assignment.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -237,7 +237,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/finding-community.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/assignment/assignment.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -268,7 +268,7 @@
       
       
       
-      <li><a href="../../_sources/content/quiz/finding-community.ipynb" target="_blank"
+      <li><a href="../../_sources/content/assignment/assignment.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -344,7 +344,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>コミュニティ発見</h1>
+    <h1>山本担当分 レポート課題</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -354,9 +354,16 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">クイズ</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-2">Q1. 空手クラブを2派閥に分ける</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-girvan-newman">Q2. Girvan-Newmanアルゴリズムとモジュラリティ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">問1: ノードの媒介中心性（20点）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank-40">問2: PageRank（合計40点）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank-20">問2-(1): シンプルなPageRank（20点）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">問2-(2): PageRankの解釈（20点）</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">問3: 社会ネットワーク分析（合計40点）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">問3-(1): 影響力のある商人（15点）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">問3-(2): 商売区域をつなぐ重要な商人（15点）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">問3-(3): 鰹節・塩干肴問屋業界で影響力のある商人（10点）</a></li>
 </ul>
 </li>
 </ul>
@@ -371,63 +378,106 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>コミュニティ発見<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
-
-<span class="o">%</span><span class="k">matplotlib</span> inline
-</pre></div>
-</div>
-</div>
-</details>
-</div>
+<h1>山本担当分 レポート課題<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>締め切り: 2025年7月31日（木）23:59</p></li>
+<li><p>提出先: 学務情報システム</p></li>
+<li><p>提出形式</p>
+<ul>
+<li><p><a class="reference external" href="https://b.hontolab.org/graphanalysis-report-template">指定したテンプレートファイル</a>（Wordファイル）を用いて解答を作成すること</p></li>
+<li><p>提出時にはWordファイルをPDFファイルに変換すること</p></li>
+</ul>
+</li>
+<li><p>留意事項: 問3で用いるデータをダウンロードするためのパスワードは，別途学務情報システム経由でお知らせします</p></li>
+</ul>
 <hr class="docutils" />
 <section id="id2">
-<h2>クイズ<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<section id="q1-2">
-<h3>Q1. 空手クラブを2派閥に分ける<a class="headerlink" href="#q1-2" title="Link to this heading">#</a></h3>
-<p>以下のグラフ<span class="math notranslate nohighlight">\(G_{karate}\)</span>は，ある大学の空手クラブに所属する人物をノード，人物間の交友関係をエッジとして表現したものである（<a class="reference external" href="https://en.wikipedia.org/wiki/Zachary%27s_karate_club">参考</a>）．
-この空手クラブでは，インストラクター（Mr. Hi）（ノード0）とクラブ会長（ノード33）の仲が悪く，空手クラブの所属者はインストラクター派閥と会長派閥に別れている．</p>
-<p>グラフ<span class="math notranslate nohighlight">\(G_{karate}\)</span>においてエッジ媒介中心性が最大となるエッジを順次削除し，グラフの連結成分数が2になった時点でのグラフを表示しなさい．
-ただし，このクイズではNetworkXの<code class="docutils literal notranslate"><span class="pre">community.girvan_newman</span></code>関数は使わないこと．</p>
+<h2>問1: ノードの媒介中心性（20点）<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>以下は，あるソーシャルネットワークグラフ<span class="math notranslate nohighlight">\(G_{social}\)</span>である．
+グラフ<span class="math notranslate nohighlight">\(G_{social}\)</span>中におけるノードA，B，およびCの媒介中心性を計算過程を示しながら求めなさい．
+なお，本課題のノード<span class="math notranslate nohighlight">\(n\)</span>の媒介中心性の計算において，ノードから別ノードへの最短経路が<span class="math notranslate nohighlight">\(n\)</span>を経由するもの以外にも存在する場合，<span class="math notranslate nohighlight">\(n\)</span>を経由する最短経路のみを計算対象としなさい．</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../../_images/0df55ec8ab311e23408840652347225383381bd32e1fc324840322260dc2303f.png" src="../../_images/0df55ec8ab311e23408840652347225383381bd32e1fc324840322260dc2303f.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフの定義</span>
-<span class="n">G_karate</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">()</span>
-
-<span class="c1"># Write your codes below</span>
-</pre></div>
-</div>
+<img alt="../../_images/36554187b39eb70f1820049451957456f4494f582ae56eb2b4af4a9b04da3f79.png" src="../../_images/36554187b39eb70f1820049451957456f4494f582ae56eb2b4af4a9b04da3f79.png" />
 </div>
 </div>
 </section>
-<section id="q2-girvan-newman">
-<h3>Q2. Girvan-Newmanアルゴリズムとモジュラリティ<a class="headerlink" href="#q2-girvan-newman" title="Link to this heading">#</a></h3>
-<p>Q1で用いたグラフ<span class="math notranslate nohighlight">\(G_{karate}\)</span>にGirvan-Newmanアルゴリズムを適応し，分割できなくなるまでグラフをコミュニティに分割しなさい．
-また，コミュニティ分割をする度にグラフのモジュラリティを計算し，モジュラリティの変化値を観察しなさい．
-さらに，モジュラリティが最大となるコミュニティ分割の結果を示しなさい．</p>
+<section id="pagerank-40">
+<h2>問2: PageRank（合計40点）<a class="headerlink" href="#pagerank-40" title="Link to this heading">#</a></h2>
+<section id="pagerank-20">
+<h3>問2-(1): シンプルなPageRank（20点）<a class="headerlink" href="#pagerank-20" title="Link to this heading">#</a></h3>
+<p>以下のグラフ上の各ノードの重要度を以下の手順（単純なPageRankアルゴリズム）で計算したい．</p>
+<ol class="arabic simple">
+<li><p>各ノードの重要度を<span class="math notranslate nohighlight">\(\frac{1}{N}\)</span>で初期化</p></li>
+<li><p>ノード<span class="math notranslate nohighlight">\(x\)</span>の重要度<span class="math notranslate nohighlight">\(p(x)\)</span>を<span class="math notranslate nohighlight">\(p(x)=\sum_{y \in link\_to(x)} \frac{1}{deg_{out(y)}}p(y)\)</span></p></li>
+<li><p>ステップ2をスコアが収束するまで繰り返す</p></li>
+</ol>
+<p>ただし，<span class="math notranslate nohighlight">\(N\)</span>はノード数，<span class="math notranslate nohighlight">\(link\_to(x)\)</span>はノード<span class="math notranslate nohighlight">\(x\)</span>にエッジを張っているノード集合，<span class="math notranslate nohighlight">\(deg_{out(y)}\)</span>はノード<span class="math notranslate nohighlight">\(y\)</span>の出次数とする．</p>
+<p>ステップ2を3回繰り返したときの各ノードの重要度の値を計算しなさい．
+また，ステップ2を3回繰り返した際の値の変化傾向から，ステップ2を無限に繰り返した際に得られるノードの重要度の収束値を予想しなさい．
+なお，計算を手計算で行う場合はその過程を，プログラミングで行う場合はコードを解答とともに示しなさい．</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/a95b0e74fbfeb62bcb1a107f2a596af0856b2202e577b229c963242a2403f190.png" src="../../_images/a95b0e74fbfeb62bcb1a107f2a596af0856b2202e577b229c963242a2403f190.png" />
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>問2-(2): PageRankの解釈（20点）<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>グラフ<span class="math notranslate nohighlight">\(G\)</span>に含まれるノード数を<span class="math notranslate nohighlight">\(N\)</span>，ノード<span class="math notranslate nohighlight">\(x\)</span>にエッジを張っているノード集合を<span class="math notranslate nohighlight">\(link\_to(x)\)</span>，ノード<span class="math notranslate nohighlight">\(y\)</span>の出次数を<span class="math notranslate nohighlight">\(deg_{out(y)}\)</span>，<span class="math notranslate nohighlight">\(\alpha\)</span>を0以上1以下の実数とするとき，<span class="math notranslate nohighlight">\(G\)</span>に含まれるノード<span class="math notranslate nohighlight">\(x\)</span>のPageRank値<span class="math notranslate nohighlight">\(p(x)\)</span>は，以下の式によって再帰的に計算される．</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = \alpha (\sum_{y \in link\_to(x)} \frac{1}{deg_{out(y)}p(y)}) + (1 - \alpha)\frac{1}{N}
+\]</div>
+<p>グラフ<span class="math notranslate nohighlight">\(G\)</span>の各ノードのPageRank値を上の式に従って計算したとき，どのノードのPageRank値も少なくとも<span class="math notranslate nohighlight">\(\frac{1-\alpha}{N}\)</span>になることを示しなさい．
+また，<span class="math notranslate nohighlight">\(\alpha\)</span>が0に近づくにつれて，各ノードのPageRank値の違いにどのような意味合いを持つのか述べなさい．</p>
+</section>
+</section>
+<section id="id4">
+<h2>問3: 社会ネットワーク分析（合計40点）<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>以下のグラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>は，<a class="reference external" href="https://codh.rois.ac.jp/">人文学オープンデータ共同利用センター</a>が公開しているデータベース<a class="reference external" href="https://codh.rois.ac.jp/edo-shops/iiif-curation-finder/?lang=ja">江戸買物案内</a>をもとに，「<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%88%B8%E8%B2%B7%E7%89%A9%E7%8B%AC%E6%A1%88%E5%86%85">江戸買物独案内</a>」で登場する商人の交流関係の一部をグラフ化したものである（データベースからの課題用データ抽出は山本が実施）．
+グラフ中のノードは江戸買物案内に2回以上登場する商人，エッジは同じ区域（居所（歴史地名大系））で商売を営んでいたことを意味する．</p>
+<p>グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>のデータは，レポート課題用に<a class="reference external" href="https://b.hontolab.org/edo_merchant">コチラ</a>からダウンロードが可能である（パスワードは講義中に伝えます）．
+また，ダウンロードしたデータは，以下のコードでNetworkX形式のグラフとして読み込める（データは<code class="docutils literal notranslate"><span class="pre">data/edo_merchant</span></code>ディレクトリに<code class="docutils literal notranslate"><span class="pre">edo_merchant.graphml</span></code>という名前で保存したとする）．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># グラフの定義</span>
-<span class="n">G_karate</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G_edo</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_graphml</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;data/edo_merchant/edo_merchant.graphml&quot;</span><span class="p">)</span>
 
-<span class="c1"># Write your codes below</span>
+<span class="c1"># # グラフG_edoのノードから10件を表示</span>
+<span class="c1"># list(G_edo.nodes)[:10]</span>
+
+<span class="c1"># # 玉屋市郎兵衛の隣接ノード（同じ商売区域で商売を営んでいた人）を表示</span>
+<span class="c1"># for neighbor in G_edo.neighbors(&#39;玉屋市郎兵衛&#39;):</span>
+<span class="c1">#     print(neighbor)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/1e11ad16eaed33e582e401e87507a36d64f6e79533e7edf777679853f1d97b17.png" src="../../_images/1e11ad16eaed33e582e401e87507a36d64f6e79533e7edf777679853f1d97b17.png" />
+</div>
+</div>
+<section id="id5">
+<h3>問3-(1): 影響力のある商人（15点）<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>をもとに，データ中に含まれる商人のうち，最も影響力のあった商人の上位10名を求めなさい．
+解答においては，上位10名を求める過程や検討の際に用いたプログラミングコードも合わせて提示すること．
+なお，「影響力」の定義は解答者が定めればよいが，その定義を必ず解答の中で宣言すること．</p>
+</section>
+<section id="id6">
+<h3>問3-(2): 商売区域をつなぐ重要な商人（15点）<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>可視化されたグラフが示しているように，グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>においてノード（商人）は商売区域ごとにコミュニティを形成しているように見える．
+現代においてもそうであるように，ある地域から新たな地域，しかも大きな区域に出店をする際には，商売区域をつなぐような人物は重宝されたと考えられる．</p>
+<p>グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>をもとに，データ中に含まれる商人のうち，コミュニティの橋渡し役として重要であったと考えられる商人の上位10名を求めなさい．
+解答においては，上位10名を求める過程や検討の際に用いたプログラミングコードも合わせて提示すること．
+なお，「橋渡し役としての重要度」の定義は解答者が定めればよいが，その定義を必ず解答の中で宣言すること．</p>
+</section>
+<section id="id7">
+<h3>問3-(3): 鰹節・塩干肴問屋業界で影響力のある商人（10点）<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p><a class="reference download internal" download="" href="../../_downloads/95dcba0fb454de2a88a79984a0183d70/himono_merchants.tsv"><span class="xref download myst">コチラ</span></a>からダウンロードできるデータには，グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>に含まれる商人のうち，「鰹節・塩干肴問屋」を営んでいた商人の名前が収められている．
+グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>をもとに，「鰹節・塩干肴問屋」を営む商人の界隈で影響力のあった商人の上位5名を求めなさい．
+解答においては，上位5名を求める過程や検討の際に用いたプログラミングコードも合わせて提示すること．
+なお，「影響力」の定義は解答者が定めればよいが，その定義を必ず解答の中で宣言すること．</p>
 </section>
 </section>
 </section>
@@ -445,7 +495,7 @@
         },
         kernelOptions: {
             name: "python3",
-            path: "./content/quiz"
+            path: "./content/assignment"
         },
         predefinedOutput: true
     }
@@ -479,9 +529,16 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">クイズ</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-2">Q1. 空手クラブを2派閥に分ける</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-girvan-newman">Q2. Girvan-Newmanアルゴリズムとモジュラリティ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">問1: ノードの媒介中心性（20点）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank-40">問2: PageRank（合計40点）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pagerank-20">問2-(1): シンプルなPageRank（20点）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">問2-(2): PageRankの解釈（20点）</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">問3: 社会ネットワーク分析（合計40点）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">問3-(1): 影響力のある商人（15点）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">問3-(2): 商売区域をつなぐ重要な商人（15点）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">問3-(3): 鰹節・塩干肴問屋業界で影響力のある商人（10点）</a></li>
 </ul>
 </li>
 </ul>
