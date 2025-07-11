@@ -488,7 +488,7 @@ p_{n+1}(w) = \sum_{w_{to} \in W_{to}(w)}\frac{1}{deg_{out}(w_{to})}p_n(w_{to})
 <p>上記手順について，下記グラフ<span class="math notranslate nohighlight">\(G\)</span>を用いて具体的に考えてみよう．</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/c209673ff7d19bb821e591e0b32c32c5e8ca57a605f9e8ef8b668018dbc7ea6c.png" src="../_images/c209673ff7d19bb821e591e0b32c32c5e8ca57a605f9e8ef8b668018dbc7ea6c.png" />
+<img alt="../_images/5c656c8e564f5b579d5b06af6541474238387b21ba6421f8b599b6e043f28cc7.png" src="../_images/5c656c8e564f5b579d5b06af6541474238387b21ba6421f8b599b6e043f28cc7.png" />
 </div>
 </div>
 <p>まず，PageRank値を初期化する．
@@ -710,7 +710,7 @@ hub_{n+1}(w) &amp;= \sum_{x \in W_{from}(w)}auth_n(x)
 </ol>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/80f6e4df22b37625c4a824c01598d1b03116161e180aed183ba77f08eb3add09.png" src="../_images/80f6e4df22b37625c4a824c01598d1b03116161e180aed183ba77f08eb3add09.png" />
+<img alt="../_images/78574e6fa18dc402580a35e281672bc8d45cf4baedc375798134538c24ceab10.png" src="../_images/78574e6fa18dc402580a35e281672bc8d45cf4baedc375798134538c24ceab10.png" />
 </div>
 </div>
 <p>上記グラフ<span class="math notranslate nohighlight">\(G_{bipartite}\)</span>に対して，HITSアルゴリズムを具体的に実行してみよう．
@@ -794,26 +794,26 @@ HITSを用いてハブ値，オーソリティ値を計算したい場合，以�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>({0: 0.23240812075600176,
-  1: 0.23240812075600176,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>({0: 0.2324081207560018,
+  1: 0.2324081207560018,
   2: 0.3027756377319947,
   3: 0.2324081207560018,
-  4: 1.0138806537416996e-17,
-  5: 0.0,
-  6: 0.0,
-  7: 0.0,
-  8: 0.0,
-  9: 0.0},
- {0: 0.0,
-  1: 0.0,
-  2: 0.0,
-  3: 0.0,
-  4: 0.0,
-  5: 0.39444872453601065,
-  6: 0.3027756377319946,
-  7: 0.21110255092797867,
-  8: 0.09167308680401609,
-  9: 3.0416419612250984e-17})
+  4: -0.0,
+  5: -0.0,
+  6: -0.0,
+  7: -0.0,
+  8: -0.0,
+  9: -0.0},
+ {0: -0.0,
+  1: -0.0,
+  2: -0.0,
+  3: -0.0,
+  4: -0.0,
+  5: 0.3944487245360107,
+  6: 0.30277563773199473,
+  7: 0.21110255092797858,
+  8: 0.09167308680401606,
+  9: -0.0})
 </pre></div>
 </div>
 </div>
@@ -867,11 +867,7 @@ Pythonコードを書いて確かめなさい．</p>
 <p><a class="reference external" href="https://raw.githubusercontent.com/hontolab-courses/graph-analysis-lecturenote/refs/heads/main/content/data/edo.gml">コチラ</a>からダウンロードできるファイル（<code class="docutils literal notranslate"><span class="pre">edo.gml</span></code>）は，Wikipediaの<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%88%B8%E6%99%82%E4%BB%A3%E3%81%AE%E4%BA%BA%E7%89%A9%E4%B8%80%E8%A6%A7">江戸時代の人物一覧</a>に掲載された歴史上の人物をノード，人物記事から人物記事へのリンクをエッジとするグラフデータを格納したものである．
 例えば，<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%88%B8%E6%99%82%E4%BB%A3%E3%81%AE%E4%BA%BA%E7%89%A9%E4%B8%80%E8%A6%A7">江戸時代の人物一覧</a>に掲載されている<a class="reference external" href="https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B7%9D%E5%AE%B6%E5%BA%B7">徳川家康</a>の記事には，同じく江戸時代の人物一覧に掲載された<a class="reference external" href="https://ja.wikipedia.org/wiki/%E4%BC%8A%E9%81%94%E6%94%BF%E5%AE%97">伊達政宗</a>への記事へのリンクが存在するため，グラフ中では徳川家康ノードから伊達政宗ノードへエッジが存在する．</p>
 <p>※ 江戸時代に活躍した人物でも<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%88%B8%E6%99%82%E4%BB%A3%E3%81%AE%E4%BA%BA%E7%89%A9%E4%B8%80%E8%A6%A7">江戸時代の人物一覧</a>に掲載されていない人物も存在する．例えば，坂本龍馬は<a class="reference external" href="https://ja.wikipedia.org/wiki/%E5%B9%95%E6%9C%AB%E3%81%AE%E4%BA%BA%E7%89%A9%E4%B8%80%E8%A6%A7">幕末の人物一覧</a>には掲載されているが，江戸時代の人物一覧には掲載されていない．</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="../_images/62ea20901b9a54500fb8525b0fe700be3004bcc905a1d1b89915b303701e4aba.png" src="../_images/62ea20901b9a54500fb8525b0fe700be3004bcc905a1d1b89915b303701e4aba.png" />
-</div>
-</div>
+<p><img alt="" src="../_images/edo.png" /></p>
 <p>上のグラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>は，ダウンロードしたファイル<code class="docutils literal notranslate"><span class="pre">edo.gml</span></code>をNetworkXで読み込み，可視化したものである．
 グラフ<span class="math notranslate nohighlight">\(G_{edo}\)</span>にPageRankアルゴリズムを適用し，江戸時代の人物のPageRankスコア上位30名を求めなさい．</p>
 <p>なお，<a class="reference external" href="https://raw.githubusercontent.com/hontolab-courses/graph-analysis-lecturenote/refs/heads/main/content/data/edo.gml">コチラ</a>からダウンロードしたファイル<code class="docutils literal notranslate"><span class="pre">edo.gml</span></code>をNetworkXで読み込むには，以下のコードを実行するとよい．</p>
