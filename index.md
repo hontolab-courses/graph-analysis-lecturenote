@@ -29,18 +29,18 @@ Googleアカウントを持っていない学生は，授業までに取得し�
 ## 授業計画とコンテンツ
 | |  日時  | トピック | スライド資料 | Hands-on | クイズ | クイズ解答 |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| 1 (第09回) | 06/13 | グラフデータ & 経路 | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-01-graph-and-path) | [Here](content/graph-and-path.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/graph-and-path.ipynb) | [Here](content/quiz/answer/graph-and-path.ipynb) |
-| 2 (第10回) | 06/20 | グラフ構造の諸指標 | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-02-graph-structure-features) | [Here](content/graph-structure-features.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/graph-structure-features.ipynb) | [Here](content/quiz/answer/graph-structure-features.ipynb) |
-| 3 (第11回) | 06/27 | ノードの中心性 | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-03-centrality) | [Here](content/centrality.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/centrality.ipynb) | [Here](content/quiz/answer/centrality.ipynb) |
-| 4 (第12回) | 07/04 | コミュニティ発見 | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-04-finding-community) | [Here](content/finding-community.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/finding-community.ipynb) | [Here](content/quiz/answer/finding-community.ipynb) |
-| 5 (第13回) | 07/11 | ウェブグラフ | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-05-web-and-graph) | [Here](content/web-and-graph.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/web-and-graph.ipynb) | [Here](content/quiz/answer/web-and-graph.ipynb) |
-| 6 (第14回) | 07/20 | 機械学習とグラフ - グラフ埋め込み | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-06-graph-embedding) | [Here](content/graph-embedding.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/graph-embedding.ipynb) | - |
-| 7 (第15回) | 07/27 | 総合演習（レポート課題） - 社会ネットワークなどの分析 | - | [Here](content/assignment/assignment.ipynb) | - | - |
+| 1 (第09回) | 06/12 | グラフデータ & 経路 | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-01-graph-and-path) | [Here](content/graph-and-path.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/graph-and-path.ipynb) | [Here](content/quiz/answer/graph-and-path.ipynb) |
+| 2 (第10回) | 06/19 | グラフ構造の諸指標 | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-02-graph-structure-features) | [Here](content/graph-structure-features.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/graph-structure-features.ipynb) | [Here](content/quiz/answer/graph-structure-features.ipynb) |
+| 3 (第11回) | 06/26 | ノードの中心性 | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-03-centrality) | [Here](content/centrality.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/centrality.ipynb) | [Here](content/quiz/answer/centrality.ipynb) |
+| 4 (第12回) | 07/03 | コミュニティ発見 | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-04-finding-community) | [Here](content/finding-community.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/finding-community.ipynb) | [Here](content/quiz/answer/finding-community.ipynb) |
+| 5 (第13回) | 07/10 | ウェブグラフ | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-05-web-and-graph) | [Here](content/web-and-graph.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/web-and-graph.ipynb) | [Here](content/quiz/answer/web-and-graph.ipynb) |
+| 6 (第14回) | 07/17 | 機械学習とグラフ - グラフ埋め込み | [Speaker Deck](https://speakerdeck.com/trycycle/graph-lecture-06-graph-embedding) | [Here](content/graph-embedding.ipynb) | [Google Colab](https://colab.research.google.com/github/hontolab-courses/graph-analysis-lecturenote/blob/main/content/quiz/graph-embedding.ipynb) | [Here](content/quiz/answer/graph-embedding.ipynb) |
+| 7 (第15回) | 07/24 | 総合演習（レポート課題） - 社会ネットワークなどの分析 | - | [Here](content/assignment/assignment.ipynb) | - | - |
 
 
 ## レポート課題
 - 課題内容: [レポート課題ページ](content/assignment/assignment.ipynb)に掲載
-- 締め切り: 2025年7月31日（木）23:59
+- 締め切り: 2026年7月30日（木）23:59
 - 提出先: 学務情報システム
 - 提出形式
     - [指定したテンプレートファイル](https://b.hontolab.org/graphanalysis-report-template)（Wordファイル）を用いて解答を作成すること
